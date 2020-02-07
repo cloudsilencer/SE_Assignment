@@ -8,5 +8,13 @@ namespace SE_Assignment
 {
     class OrderItem
     {
+        private string orderNumber;
+        private int quantity;
+
+        public OrderItem(string orderNumber, int quantity)
+        {
+            this.orderNumber = orderNumber;
+            this.quantity = quantity;
+        }
     }
 }

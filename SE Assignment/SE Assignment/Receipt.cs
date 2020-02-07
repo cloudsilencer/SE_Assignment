@@ -8,5 +8,8 @@ namespace SE_Assignment
 {
     class Receipt
     {
+        private int receiptNumber;
+        private DateTime date;
+        # private string branch
     }
 }

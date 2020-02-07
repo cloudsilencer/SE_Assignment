@@ -6,7 +6,35 @@ using System.Threading.Tasks;
 
 namespace SE_Assignment
 {
-    class Clock
+    class Clock: Subject
     {
+        private List<Observer> observers;
+        private DateTime currentDateTime;
+
+        public Clock()
+        {
+            observers = new List<Observer>();
+        }
+
+        public void registerObserver(Observer o)
+        {
+            observers.Add(o);
+        }
+
+        public void removeObserver(Observer o)
+        {
+// observers.Remove(item);
+        }
+
+        public void notifyObservers()
+        {
+            foreach (Observer o in observers)
+            {
+                o.resetComission();
+            }
+        }
+
+
+            
     }
 }

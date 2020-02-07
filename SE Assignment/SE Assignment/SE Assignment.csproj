@@ -42,8 +42,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
+    <Compile Include="Branch.cs" />
+    <Compile Include="CartProduct.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="Chef.cs" />
+    <Compile Include="Clock.cs" />
+    <Compile Include="CompleteOrder.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Dispatcher.cs" />
+    <Compile Include="Employee.cs" />
+    <Compile Include="HandleOrderBehaviour.cs" />
+    <Compile Include="ItemMenu.cs" />
+    <Compile Include="Manager.cs" />
+    <Compile Include="MonitorOrder.cs" />
+    <Compile Include="Observer.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderItem.cs" />
+    <Compile Include="Payment.cs" />
+    <Compile Include="PrepareOrder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Receipt.cs" />
+    <Compile Include="SetMenu.cs" />
+    <Compile Include="ShoppingCart.cs" />
+    <Compile Include="StoreAssistant.cs" />
+    <Compile Include="Subject.cs" />
+    <Compile Include="ViewOrder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

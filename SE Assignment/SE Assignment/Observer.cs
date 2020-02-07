@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SE_Assignment
 {
-    class Observer
+    interface Observer
     {
+        void resetComission();
     }
 }

@@ -8,5 +8,13 @@ namespace SE_Assignment
 {
     class Category
     {
+        private int categoryID;
+        private string categoryName;
+
+        public Category(int categoryID, string categoryName)
+        {
+            this.categoryID = categoryID;
+            this.categoryName = categoryName;
+        }
     }
 }

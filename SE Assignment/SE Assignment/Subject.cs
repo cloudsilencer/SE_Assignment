@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SE_Assignment
 {
-    class Subject
+    interface Subject
     {
+        void registerObserver(Observer o);
+        void removeObserver(Observer o);
+        void notifyObservers();
     }
 }
