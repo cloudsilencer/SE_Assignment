@@ -10,6 +10,6 @@ namespace SE_Assignment
     {
         private int receiptNumber;
         private DateTime date;
-        # private string branch
+        //private string branch
     }
 }

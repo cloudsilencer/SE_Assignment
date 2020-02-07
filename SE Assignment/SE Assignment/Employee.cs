@@ -13,7 +13,7 @@ namespace SE_Assignment
         protected string employeeGender;
         protected string employeeStatus;
         protected DateTime employeeDateJoin;
-        private Branch branch;
+        protected Branch branch;
 
         public Employee(int employeeNo, string employeeNRIC, string employeeGender, string employeeStatus, DateTime employeeDateJoin, Branch branch)
         {

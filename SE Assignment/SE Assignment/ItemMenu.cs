@@ -29,6 +29,11 @@ namespace SE_Assignment
             this.setmenu = setmenu;
         }
 
+        public string getName()
+        {
+            return name;
+        }
+
         public void addItem()
         {
 
