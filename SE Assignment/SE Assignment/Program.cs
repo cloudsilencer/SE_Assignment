@@ -10,9 +10,6 @@ namespace SE_Assignment
     {
         static void Main(string[] args)
         {
-
-            manageFoodItems();
-
             // The code provided will print ‘Hello World’ to the console.
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
             Console.WriteLine("Login as Customer");
@@ -46,21 +43,70 @@ namespace SE_Assignment
 
 
             // Manager Functions
-            void manageFoodItems()
+            void ManageItemMenu()
             {
-                string functionTitle = "Manage Food Items";
-                List<String> options = new List<string> { "Add Food Item", "Delete Food Item", "Update Food Item", "Exit"};
-                Console.WriteLine($"{functionTitle}\n{String.Concat(Enumerable.Repeat("-", functionTitle.Length))}");
-                for (int i = 0; i < options.Count; i++)
+                string functionTitle = "Manage Item Menu";
+                List<String> options = new List<string> { "Add Item Menu", "Delete Item Menu", "Update Item Menu", "Exit"};
+                String selectedOption = "";
+                do
                 {
-                    if(((i + 1) % 4) == 0)
-                        Console.WriteLine($"\n[{(i + 1) % 4}] {options[i]}");
-                    else
-                        Console.WriteLine($"[{(i + 1) % 4}] {options[i]}");
+                    Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length}");
+                    for (int i = 0; i < options.Count; i++)
+                    {
+                        if (((i + 1) % 4) == 0)
+                            Console.WriteLine($"\n[{(i + 1) % 4}] {options[i]}");
+                        else
+                            Console.WriteLine($"[{(i + 1) % 4}] {options[i]}");
+                    }
+                    Console.Write("\nSelect an option: ");
+                    selectedOption = Console.ReadLine();
+                    Console.WriteLine("");
+
+
+                    switch (selectedOption)
+                    {
+                        case "0":
+                            Console.WriteLine("Exiting From Manage Item Menu...\n");
+                            break;
+                        case "1":
+                            AddItemMenu();
+                            break;
+                        case "2":
+                            DeleteItemMenu();
+                            break;
+                        case "3":
+                            UpdateItemMenu();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option selected");
+                            break;
+                    }
                 }
-                Console.Write("\nSelect an option: ");
-                String selectedOption = Console.ReadLine();
-                Console.WriteLine("You have selected " + selectedOption + ".");
+                while (selectedOption != "0");
+            }
+
+            void AddItemMenu()
+            {
+                string functionTitle = "Add Item Menu";
+                Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
+            }
+
+            void DeleteItemMenu()
+            {
+                string functionTitle = "Delete Item Menu";
+                Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
+            }
+
+            void UpdateItemMenu()
+            {
+                string functionTitle = "Update Item Menu";
+                Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
+            }
+
+            // Other functions
+            string MultiplyString(string s, int value)
+            {
+                return String.Concat(Enumerable.Repeat(s, value));
             }
         }
     }
