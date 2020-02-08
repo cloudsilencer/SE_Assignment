@@ -46,11 +46,11 @@ namespace SE_Assignment
             void ManageItemMenu()
             {
                 string functionTitle = "Manage Item Menu";
-                List<String> options = new List<string> { "Add Item Menu", "Delete Item Menu", "Update Item Menu", "Exit"};
+                List<String> options = new List<string> { "Add Food Item", "Delete Food Item", "Update Food Item", "Exit"};
                 String selectedOption = "";
                 do
                 {
-                    Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length}");
+                    Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
                     for (int i = 0; i < options.Count; i++)
                     {
                         if (((i + 1) % 4) == 0)
@@ -69,13 +69,13 @@ namespace SE_Assignment
                             Console.WriteLine("Exiting From Manage Item Menu...\n");
                             break;
                         case "1":
-                            AddItemMenu();
+                            AddFoodItem();
                             break;
                         case "2":
-                            DeleteItemMenu();
+                            DeleteFoodItem();
                             break;
                         case "3":
-                            UpdateItemMenu();
+                            UpdateFoodItem();
                             break;
                         default:
                             Console.WriteLine("Invalid option selected");
@@ -85,21 +85,21 @@ namespace SE_Assignment
                 while (selectedOption != "0");
             }
 
-            void AddItemMenu()
+            void AddFoodItem()
             {
-                string functionTitle = "Add Item Menu";
+                string functionTitle = "Add Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
             }
 
-            void DeleteItemMenu()
+            void DeleteFoodItem()
             {
-                string functionTitle = "Delete Item Menu";
+                string functionTitle = "Delete Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
             }
 
-            void UpdateItemMenu()
+            void UpdateFoodItem()
             {
-                string functionTitle = "Update Item Menu";
+                string functionTitle = "Update Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
             }
 
