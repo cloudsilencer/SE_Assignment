@@ -22,11 +22,15 @@ namespace SE_Assignment
         private string gst;
         private Payment payment;
 
-        public Order(string orderNumber, DateTime dateTimeOfOrder, List<OrderItem> orderItems)
+        public Order(string orderNumber, DateTime dateTimeOfOrder)
         {
             this.orderNumber = orderNumber;
             this.dateTimeOfOrder = dateTimeOfOrder;
-            this.orderItems = orderItems;
+        }
+
+        public void addItem(ItemMenu item)
+        {
+            orderItems.Add(item);
         }
 
         public void cancelOrder()

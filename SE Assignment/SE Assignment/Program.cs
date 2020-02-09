@@ -17,7 +17,7 @@ namespace SE_Assignment
             string email = Console.ReadLine();
             Console.Write("Password: ");
             string pass = Console.ReadLine();
-            Console.WriteLine("Press 1 to create a new Order");
+            Console.WriteLine("1. Create a new Order");
             string choice = Console.ReadLine();
 
             var numbers = new List<int>();
@@ -29,6 +29,7 @@ namespace SE_Assignment
             foodList.Add(new ItemMenu("Food 1", "", 1, 2, "", 2, new Category(1, ""), new SetMenu(1, "")));
             foodList.Add(new ItemMenu("Food 2", "", 1, 2, "", 2, new Category(2, ""), new SetMenu(2, "")));
 
+            Console.WriteLine("Available Item");
             //Display food items
             foreach (ItemMenu food in foodList)
             {
@@ -36,6 +37,10 @@ namespace SE_Assignment
             }
                
             string foodchoice = Console.ReadLine();
+            int orderNo = 1;
+            Order newOrder = new Order(orderNo.ToString(), DateTime.Now);
+            newOrder
+
 
             Console.ReadKey();
 
