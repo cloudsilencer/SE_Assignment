@@ -13,19 +13,17 @@ namespace SE_Assignment
         private string email;
         private string contactNumber;
         private string creditCardInfo;
-        private int accountNo;
         private Account account;
         private ShoppingCart shoppingCart;
         private List<Order> orders;
 
-        public Customer(string customerName, string address, string email, string contactNumber, string creditCardInfo, int accountNo, Account account, ShoppingCart shoppingCart, List<Order> orders)
+        public Customer(string customerName, string address, string email, string contactNumber, string creditCardInfo, Account account, ShoppingCart shoppingCart, List<Order> orders)
         {
             this.customerName = customerName;
             this.address = address;
             this.email = email;
             this.contactNumber = contactNumber;
             this.creditCardInfo = creditCardInfo;
-            this.accountNo = accountNo;
             this.account = account;
             this.shoppingCart = shoppingCart;
             this.orders = orders;

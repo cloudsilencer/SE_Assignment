@@ -13,6 +13,8 @@ namespace SE_Assignment
             List<Category> categories = new List<Category>();
             List<SetMenu> setMenus = new List<SetMenu>();
             List<ItemMenu> itemMenus = new List<ItemMenu>();
+            List<Customer> customers = new List<Customer>();
+            List<Branch> branches = new List<Branch>();
             InitializeData();
             // ManageItemMenu();
 
@@ -31,9 +33,7 @@ namespace SE_Assignment
             numbers.Add(3);
             numbers.Add(5);
             numbers.Add(7);
-            List<ItemMenu> foodList = new List<ItemMenu>();
-            foodList.Add(new ItemMenu("Food 1", "", 1, 2, "", 2, new Category(1, ""), new SetMenu(1, "")));
-            foodList.Add(new ItemMenu("Food 2", "", 1, 2, "", 2, new Category(2, ""), new SetMenu(2, "")));
+
 
             Console.WriteLine("Available Item");
             //Display food items
@@ -95,6 +95,27 @@ namespace SE_Assignment
                 itemMenus.Add(itemMenu10);
                 itemMenus.Add(itemMenu11);
                 itemMenus.Add(itemMenu12);
+
+                Account acc1 = new Account(1, "password", "Logged Out");
+                Account acc2 = new Account(2, "password", "Logged Out");
+                Account acc3 = new Account(3, "password", "Logged Out");
+                Account acc4 = new Account(4, "password", "Logged Out");
+                Account acc5 = new Account(5, "password", "Logged Out");
+
+                Customer cust1 = new Customer("Dominic", "Sengkang", "dominic8281@gmail.com", "97828840", "123123", acc1);
+                Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123124", acc2);
+                Customer cust3 = new Customer("Li Yun", "Punggol", "liyun8281@gmail.com", "97828842", "123125", acc3);
+                customers.Add(cust1);
+                customers.Add(cust2);
+                customers.Add(cust3);
+
+                Branch branch1 = new Branch(1, "Sengkang");
+                Branch branch2 = new Branch(1, "Hougang");
+                Branch branch3 = new Branch(1, "Punggol");
+                branches.Add(branch1);
+                branches.Add(branch2);
+                branches.Add(branch3);
+
             }
 
             // Manager Functions
