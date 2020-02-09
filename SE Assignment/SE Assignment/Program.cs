@@ -15,6 +15,7 @@ namespace SE_Assignment
             List<ItemMenu> itemMenus = new List<ItemMenu>();
             List<Customer> customers = new List<Customer>();
             List<Branch> branches = new List<Branch>();
+            List<Order> orders = new List<Order>();
             InitializeData();
             bool login = false;
             // ManageItemMenu();
@@ -29,38 +30,60 @@ namespace SE_Assignment
             foreach (Customer c in customers)
             {
                 if (email == c.getEmail() && pass == c.getAccount().getPassword())
-                {
                     login = true;
-                }
             }
             if (login == true)
             {
                 Console.WriteLine("1. Create a new Order");
                 string choice = Console.ReadLine();
-
-                var numbers = new List<int>();
-                numbers.Add(2);
-                numbers.Add(3);
-                numbers.Add(5);
-                numbers.Add(7);
-
-
-                Console.WriteLine("Available Item");
-                //Display food items
-                foreach (ItemMenu food in foodList)
-                {
-                    Console.WriteLine(food.getName());
-                }
-
-                string foodchoice = Console.ReadLine();
-                int orderNo = 1;
-                Order newOrder = new Order(orderNo.ToString(), DateTime.Now);
-                newOrder
-
-
+                if (choice == "1")
+                    placeOrder();
                 Console.ReadKey();
             }
-            // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
+            else
+            {
+                Console.WriteLine("Wrong acc");
+                Console.ReadKey();
+            }
+
+
+            // Use Case 1
+
+            void placeOrder()
+            {
+                Order newOrder = new Order(orders.Count.ToString(), DateTime.Now);
+                while (true)
+                {
+                    Console.WriteLine("Please select an item from below");
+                    int index = 0;
+                    foreach (ItemMenu food in itemMenus)
+                    {
+                        Console.WriteLine((index + 1) + ". " + food.getName());
+                        index++;
+                    }
+
+                    string foodchoice = Console.ReadLine();
+                    Console.Write("How many would you like? ");
+                    string quantity = Console.ReadLine();
+
+                    OrderItem selected = new OrderItem(newOrder, Convert.ToInt32(quantity));
+                    newOrder.addItem(selected);
+                    Console.WriteLine("Would you like to add more items? (Y/N)");
+                    string option = Console.ReadLine();
+                    if (option == "N")
+                        checkOut();
+                }
+            }
+
+            // Use Case 1
+
+            void checkOut()
+            {
+
+            }
+
+
+
 
             // Initialize Data Function
             void InitializeData()
@@ -125,6 +148,14 @@ namespace SE_Assignment
                 branches.Add(branch1);
                 branches.Add(branch2);
                 branches.Add(branch3);
+
+                Order order1 = new Order("1", DateTime.Now);
+                Order order2 = new Order("2", DateTime.Now);
+                Order order3= new Order("3", DateTime.Now);
+                orders.Add(order1);
+                orders.Add(order2);
+                orders.Add(order3);
+
 
             }
 
@@ -201,3 +232,5 @@ namespace SE_Assignment
         }
     }
 }
+
+// Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 

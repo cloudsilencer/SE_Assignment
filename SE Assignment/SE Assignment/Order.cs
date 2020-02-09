@@ -26,9 +26,10 @@ namespace SE_Assignment
         {
             this.orderNumber = orderNumber;
             this.dateTimeOfOrder = dateTimeOfOrder;
+            orderItems = new List<OrderItem>();
         }
 
-        public void addItem(ItemMenu item)
+        public void addItem(OrderItem item)
         {
             orderItems.Add(item);
         }
