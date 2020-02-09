@@ -79,6 +79,37 @@ namespace SE_Assignment
 
             void checkOut()
             {
+                Console.WriteLine("Express Delivery? (Y/N)");
+                string delivery = Console.ReadLine();
+                if (delivery == "Y")
+                {
+                    //Order Status Change
+                    //Order Price increase
+                }
+
+                // Order to string
+
+                Console.WriteLine("How would you like to make your payment?");
+                Console.WriteLine("1. Credit Card");
+                Console.WriteLine("2. Online Means");
+                string paymentChoice = Console.ReadLine();
+                if (paymentChoice == "1")
+                {
+                    //Prompts for credit card details
+                    //Keys in credit card details
+                    // Validates
+                    // Success
+                }
+
+                else if (paymentChoice == "2")
+                {
+
+                }
+
+                else
+                {
+
+                }
 
             }
 
