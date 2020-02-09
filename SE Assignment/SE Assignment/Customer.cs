@@ -17,7 +17,7 @@ namespace SE_Assignment
         private ShoppingCart shoppingCart;
         private List<Order> orders;
 
-        public Customer(string customerName, string address, string email, string contactNumber, string creditCardInfo, Account account, ShoppingCart shoppingCart, List<Order> orders)
+        public Customer(string customerName, string address, string email, string contactNumber, string creditCardInfo, Account account)
         {
             this.customerName = customerName;
             this.address = address;
@@ -25,8 +25,16 @@ namespace SE_Assignment
             this.contactNumber = contactNumber;
             this.creditCardInfo = creditCardInfo;
             this.account = account;
-            this.shoppingCart = shoppingCart;
-            this.orders = orders;
+        }
+
+        public string getEmail()
+        {
+            return email;
+        }
+
+        public Account getAccount()
+        {
+            return account;
         }
 
         public void register()

@@ -19,6 +19,11 @@ namespace SE_Assignment
             this.loginStatus = loginStatus;
         }
 
+        public string getPassword()
+        {
+            return password;
+        }
+
         public bool verifyLogin()
         {
             return true;

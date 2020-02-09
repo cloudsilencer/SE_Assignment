@@ -16,6 +16,7 @@ namespace SE_Assignment
             List<Customer> customers = new List<Customer>();
             List<Branch> branches = new List<Branch>();
             InitializeData();
+            bool login = false;
             // ManageItemMenu();
 
             // The code provided will print ‘Hello World’ to the console.
@@ -25,31 +26,40 @@ namespace SE_Assignment
             string email = Console.ReadLine();
             Console.Write("Password: ");
             string pass = Console.ReadLine();
-            Console.WriteLine("1. Create a new Order");
-            string choice = Console.ReadLine();
-
-            var numbers = new List<int>();
-            numbers.Add(2);
-            numbers.Add(3);
-            numbers.Add(5);
-            numbers.Add(7);
-
-
-            Console.WriteLine("Available Item");
-            //Display food items
-            foreach (ItemMenu food in foodList)
+            foreach (Customer c in customers)
             {
-                Console.WriteLine(food.getName());
+                if (email == c.getEmail() && pass == c.getAccount().getPassword())
+                {
+                    login = true;
+                }
             }
-               
-            string foodchoice = Console.ReadLine();
-            int orderNo = 1;
-            Order newOrder = new Order(orderNo.ToString(), DateTime.Now);
-            newOrder
+            if (login == true)
+            {
+                Console.WriteLine("1. Create a new Order");
+                string choice = Console.ReadLine();
+
+                var numbers = new List<int>();
+                numbers.Add(2);
+                numbers.Add(3);
+                numbers.Add(5);
+                numbers.Add(7);
 
 
-            Console.ReadKey();
+                Console.WriteLine("Available Item");
+                //Display food items
+                foreach (ItemMenu food in foodList)
+                {
+                    Console.WriteLine(food.getName());
+                }
 
+                string foodchoice = Console.ReadLine();
+                int orderNo = 1;
+                Order newOrder = new Order(orderNo.ToString(), DateTime.Now);
+                newOrder
+
+
+                Console.ReadKey();
+            }
             // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
 
             // Initialize Data Function

@@ -9,11 +9,13 @@ namespace SE_Assignment
     class Branch
     {
         private int branchID;
+        private string branchName;
         private int rating;
 
-        public Branch(int branchID)
+        public Branch(int branchID, string branchName)
         {
             this.branchID = branchID;
+            this.branchName = branchName;
         }
  
     }
