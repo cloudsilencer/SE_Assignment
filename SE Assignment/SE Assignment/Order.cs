@@ -58,6 +58,21 @@ namespace SE_Assignment
             this.state = placedState;
         }
 
+        public Customer getCust()
+        {
+            return customer;
+        }
+
+        public string getOrderNum()
+        {
+            return orderNumber;
+        }
+
+        public DateTime getOrderDate()
+        {
+            return dateTimeOfOrder;
+        }
+
         public void makePayment(List<Payment> payments)
         {
             state.payment(customer, payments);
