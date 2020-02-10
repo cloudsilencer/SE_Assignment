@@ -136,11 +136,13 @@ namespace SE_Assignment
             // View all Orders (Li Yun)
              void viewOrders(Customer cust)
              {
+                Console.WriteLine("Your Orders:");
+
                 foreach(Order o in orders)
                 {
                     if (cust == o.getCust())
                     {
-                        Console.WriteLine($"Order Number: {o.getOrderNum()} at {o.getOrderDate()}");
+                        Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()}");
 
                         foreach (OrderItem item in o.getOrderItems())
                         {
@@ -149,30 +151,58 @@ namespace SE_Assignment
 
                         // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
 
-                        Console.WriteLine($"Select Current or Past order(s):");
-                        Console.WriteLine($" 1. Current order(s)");
-                        Console.WriteLine($" 2. Past order(s)");
-                        string choice = Console.ReadLine();
-                        if (choice == "1")
-                            currentOrders(currentCust);
-                        if (choice == "2")
-                            pastOrders(currentCust);
-                        Console.ReadKey();
-
                     }
+
+                   
                 }
 
+                Console.WriteLine("\n");
+                Console.WriteLine("Select Current or Past order(s):");
+                Console.WriteLine(" 1. Current order(s)");
+                Console.WriteLine(" 2. Past order(s)");
+
+                string choice = Console.ReadLine();
+
+
+                if (choice == "1")
+                {
+                    foreach (Order o in orders)
+                    {
+                        if (cust == o.getCust() && o.getOrderDate() == DateTime.Now)
+                        {
+                            Console.WriteLine("\n" + $"Order Number: {o.getOrderNum()} at {o.getOrderDate()}");
+
+                            foreach (OrderItem item in o.getOrderItems())
+                            {
+                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().getName()}");
+                            }
+
+                        }
+                    }      
+                }
+
+                if (choice == "2")
+                {
+                    foreach (Order o in orders)
+                    {
+                        if (cust == o.getCust())
+                        {
+                            Console.WriteLine($"Order Number: {o.getOrderNum()} at {o.getOrderDate()}");
+
+                            foreach (OrderItem item in o.getOrderItems())
+                            {
+                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().getName()}");
+                            }
+
+                        }
+
+                    }
+                        
+                }
+
+                Console.ReadKey();
+
              }
-
-            void currentOrders(Customer cust)
-            {
-                // implementation
-            }
-
-            void pastOrders(Customer cust)
-            {
-                // implementation
-            }
 
             // Initialize Data Function
             void InitializeData()
@@ -245,7 +275,7 @@ namespace SE_Assignment
                 Order order3= new Order("3", cust3, DateTime.Now);
                 order3.addItem(new OrderItem(itemMenu1, 1, order3));
 
-                Order order4 = new Order("4", cust3, DateTime.Now);
+                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1));
                 order4.addItem(new OrderItem(itemMenu2, 5, order4));
 
 
