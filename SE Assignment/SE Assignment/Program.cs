@@ -17,8 +17,11 @@ namespace SE_Assignment
             List<Branch> branches = new List<Branch>();
             List<Order> orders = new List<Order>();
             InitializeData();
+            Console.WriteLine($"Number of food items: {itemMenus.Count}");
+            ManageItemMenu();
+            Console.WriteLine($"Number of food items: {itemMenus.Count}");
+
             bool login = false;
-            // ManageItemMenu();
 
             // The code provided will print ‘Hello World’ to the console.
             // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
@@ -135,18 +138,18 @@ namespace SE_Assignment
                 setMenus.Add(lunchSetMenu);
                 setMenus.Add(dinnerSetMenu);
 
-                ItemMenu itemMenu1 = new ItemMenu("French Toast", "Sliced bread soaked in eggs and milk, then fried.", 3.00, 1, "Available", 1, category4, breakfastSetMenu);
-                ItemMenu itemMenu2 = new ItemMenu("Grilled Chicken Sandwich", "Juicy grilled chicken wrapped within 2 slices of bread.", 5.60, 1, "Available", 1, category1, breakfastSetMenu);
-                ItemMenu itemMenu3 = new ItemMenu("Fish Congee", "Congee with red grouper slices", 5.80, 1, "Available", 1, category1, breakfastSetMenu);
-                ItemMenu itemMenu4 = new ItemMenu("Chicken Wrap", "Tortilla wrap with bits of chicken", 12.00, 1, "Available", 1, category1, breakfastSetMenu);
-                ItemMenu itemMenu5 = new ItemMenu("Signature Southern Style Fried Chicken", "The taste of Texas", 12.90, 1, "Available", 1, category1, lunchSetMenu);
-                ItemMenu itemMenu6 = new ItemMenu("Steak with baked potatoes", "Sirloin steak served with baked potatoes", 17.90, 1, "Available", 1, category3, lunchSetMenu);
-                ItemMenu itemMenu7 = new ItemMenu("Poke Bowl", "Diced raw salmon served with salad", 12.60, 1, "Available", 1, category2, lunchSetMenu);
-                ItemMenu itemMenu8 = new ItemMenu("Seafood Spaghetti", "Tomato based spaghetti with shrimp and clams", 10.70, 1, "Available", 1, category4, lunchSetMenu);
-                ItemMenu itemMenu9 = new ItemMenu("Roasted Chicken with Herbs", "Quarter Roasted Chicken with 2 sides", 14.90, 1, "Available", 1, category1, dinnerSetMenu);
-                ItemMenu itemMenu10 = new ItemMenu("Fried Wild Mushrooms", "Wild Mushrooms fresh from Australia", 8.20, 1, "Available", 1, category4, dinnerSetMenu);
-                ItemMenu itemMenu11 = new ItemMenu("Beef Stew", "Beef stew with bread", 14.20, 1, "Available", 1, category3, dinnerSetMenu);
-                ItemMenu itemMenu12 = new ItemMenu("Fish and Chips", "Fried cod in batter served with chips", 11.90, 1, "Available", 1, category3, dinnerSetMenu);
+                ItemMenu itemMenu1 = new ItemMenu("French Toast", "Sliced bread soaked in eggs and milk, then fried.", 3.00, 100, "Available", category4, breakfastSetMenu);
+                ItemMenu itemMenu2 = new ItemMenu("Grilled Chicken Sandwich", "Juicy grilled chicken wrapped within 2 slices of bread.", 5.60, 100, "Available", category1, breakfastSetMenu);
+                ItemMenu itemMenu3 = new ItemMenu("Fish Congee", "Congee with red grouper slices", 5.80, 100, "Available", category1, breakfastSetMenu);
+                ItemMenu itemMenu4 = new ItemMenu("Chicken Wrap", "Tortilla wrap with bits of chicken", 12.00, 100, "Available", category1, breakfastSetMenu);
+                ItemMenu itemMenu5 = new ItemMenu("Signature Southern Style Fried Chicken", "The taste of Texas", 12.90, 100, "Available", category1, lunchSetMenu);
+                ItemMenu itemMenu6 = new ItemMenu("Steak with baked potatoes", "Sirloin steak served with baked potatoes", 17.90, 100, "Available", category3, lunchSetMenu);
+                ItemMenu itemMenu7 = new ItemMenu("Poke Bowl", "Diced raw salmon served with salad", 12.60, 100, "Available", category2, lunchSetMenu);
+                ItemMenu itemMenu8 = new ItemMenu("Seafood Spaghetti", "Tomato based spaghetti with shrimp and clams", 10.70, 100, "Available", category4, lunchSetMenu);
+                ItemMenu itemMenu9 = new ItemMenu("Roasted Chicken with Herbs", "Quarter Roasted Chicken with 2 sides", 14.90, 100, "Available", category1, dinnerSetMenu);
+                ItemMenu itemMenu10 = new ItemMenu("Fried Wild Mushrooms", "Wild Mushrooms fresh from Australia", 8.20, 100, "Available", category4, dinnerSetMenu);
+                ItemMenu itemMenu11 = new ItemMenu("Beef Stew", "Beef stew with bread", 14.20, 100, "Available", category3, dinnerSetMenu);
+                ItemMenu itemMenu12 = new ItemMenu("Fish and Chips", "Fried cod in batter served with chips", 11.90, 100, "Available", category3, dinnerSetMenu);
                 itemMenus.Add(itemMenu1);
                 itemMenus.Add(itemMenu2);
                 itemMenus.Add(itemMenu3);
@@ -186,7 +189,6 @@ namespace SE_Assignment
                 orders.Add(order1);
                 orders.Add(order2);
                 orders.Add(order3);
-
 
             }
 
@@ -233,32 +235,250 @@ namespace SE_Assignment
                 while (selectedOption != "0");
             }
 
+            // Use Case 1 
             void AddFoodItem()
             {
+                // Title For Option
                 string functionTitle = "Add Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
-                Console.Write("Name of Food Item: ");
-                string foodName = Console.ReadLine();
-                Console.Write("\nDescription of Food Item: ");
-                string description = Console.ReadLine();
+                // Form Variables
+                string foodName = "";
+                string description = "";
+                string price = "";
+                string unit = "";
+                string status = "";
+                string category = "";
+                string setMenu = "";
+
+                // Boolean Variables
+                bool isFoodNameValid = false;
+                bool isDescriptionValid = false;
+                bool isPriceValid = false;
+                bool isUnitValid = false;
+                bool isStatusValid = false;
+                bool isCategoryValid = false;
+                bool isSetMenuValid = false;
+
+
+                while(!isFoodNameValid)
+                {
+                    Console.Write("Name of Food Item: ");
+                    foodName = Console.ReadLine();
+                    if (foodName == "")
+                        Console.WriteLine("Name of Food Item cannot be empty");
+                    else if (CheckFoodNameExists(GetAllFoodItemName(itemMenus), foodName))
+                        Console.WriteLine($"The food name {foodName} already exists.");
+                    else
+                        isFoodNameValid = true;
+                }
+
+                while (!isDescriptionValid)
+                {
+                    Console.Write("Description: ");
+                    description = Console.ReadLine();
+                    if (description == "")
+                        Console.WriteLine($"Description for Food Item: {foodName} cannot be empty.");
+                    else
+                        isDescriptionValid = true;
+                }
+
+                while(!isPriceValid)
+                {
+                    Console.Write("Price ($): ");
+                    price = Console.ReadLine();
+                    if (price == "")
+                        Console.WriteLine($"Price for Food Item: {foodName} cannot be empty");
+                    else
+                    {
+                        try
+                        {
+                            double convertedPrice = double.Parse(price);
+                            if (convertedPrice <= 0.00)
+                                Console.WriteLine("Price cannot be $0.00 or less.");
+                            else
+                                isPriceValid = true;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid format, price should be in the format of X.XX\t Example: 4.90");
+                        }
+                    }
+                }
+
+                while(!isUnitValid)
+                {
+                    Console.Write("Unit (Stock Level): ");
+                    unit = Console.ReadLine();
+                    if (unit == "")
+                        Console.WriteLine($"Unit for Food Item: {foodName} cannot be empty");
+                    else
+                    {
+                        try
+                        {
+                            int convertedUnit = int.Parse(unit);
+                            if (convertedUnit < 0)
+                                Console.WriteLine("Unit cannot be less than 0.");
+                            else
+                                isUnitValid = true;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid format, unit should be a number\t Example: 100");
+                        }
+                    }
+                }
+
+                while(!isStatusValid)
+                {
+                    Console.Write("Status ('Available' or 'Unavailable'): ");
+                    status = Console.ReadLine();
+                    if(status=="")
+                        Console.WriteLine($"Status for Food Item: {foodName} cannot be empty");
+                    else
+                    {
+                        if (isAValidStatus(status))
+                            isStatusValid = true;
+                        else
+                            Console.WriteLine($"Status can be either 'Available' or 'Unavailable'");
+                    }
+                }
+
+                DisplayAllCategories(categories);
+                while (!isCategoryValid)
+                {
+                    Console.Write("Select a category (Enter the name): ");
+                    category = Console.ReadLine();
+                    if (category == "")
+                        Console.WriteLine($"Category for Food Item: {foodName} cannot be empty");
+                    else
+                    {
+                        if (GetCategoryByName(categories, category) == null)
+                            Console.WriteLine($"The category {category} does not exist");
+                        else
+                            isCategoryValid = true;
+                    }
+                }
+
+                DisplayAllSetMenus(setMenus);
+                while (!isSetMenuValid)
+                {
+                    Console.Write("Select a Set Menu (Enter the name): ");
+                    setMenu = Console.ReadLine();
+                    if (setMenu == "")
+                        Console.WriteLine($"Set Menu for Food Item: {foodName} cannot be empty");
+                    else
+                    {
+                        if (GetSetMenuByName(setMenus, setMenu) == null)
+                            Console.WriteLine($"The Set Menu {setMenu} does not exist");
+                        else
+                            isSetMenuValid = true;
+                    }
+                }
+
+                ItemMenu newItem = new ItemMenu(foodName, description, double.Parse(price), int.Parse(unit), status, GetCategoryByName(categories, category), GetSetMenuByName(setMenus, setMenu));
+                itemMenus.Add(newItem);
+
             }
 
+            // Use Case 2
             void DeleteFoodItem()
             {
                 string functionTitle = "Delete Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
             }
 
+            // Use Case 3
             void UpdateFoodItem()
             {
                 string functionTitle = "Update Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
             }
 
-            // Other functions
+            // Other useful functions
             string MultiplyString(string s, int value)
             {
                 return String.Concat(Enumerable.Repeat(s, value));
+            }
+
+            List<string> GetAllFoodItemName(List<ItemMenu> itemList)
+            {
+                List<string> FoodNameList = new List<string>();
+                foreach(ItemMenu itemMenu in itemList)
+                {
+                    FoodNameList.Add(itemMenu.getName());
+                }
+                return FoodNameList;
+            }
+
+            bool CheckFoodNameExists(List<String> nameList, string nameToCheck)
+            {
+                bool exists = false;
+                foreach(String name in nameList)
+                {
+                    if(name==nameToCheck)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+                return exists;
+            }
+
+            bool isAValidStatus(string status)
+            {
+                if (status == "Available" || status == "Unavailable")
+                    return true;
+                else
+                    return false;
+            }
+
+            void DisplayAllCategories(List<Category> categoryList)
+            {
+                Console.WriteLine("Categories:");
+                for(int i = 0; i < categoryList.Count; i++)
+                {
+                    Console.WriteLine($"[{i + 1}]\t{categoryList[i].GetCategoryName()}");
+                }
+                Console.WriteLine();
+            }
+
+            Category GetCategoryByName(List<Category> categoryList, string categoryName)
+            {
+                Category foundCategory = null;
+                foreach (Category category in categoryList)
+                {
+                    if (category.GetCategoryName() == categoryName)
+                    {
+                        foundCategory = category;
+                        break;
+                    }
+                }
+                return foundCategory;
+            }
+
+            void DisplayAllSetMenus(List<SetMenu> setMenusList)
+            {
+                Console.WriteLine("Set Menus:");
+                for (int i = 0; i < setMenusList.Count; i++)
+                {
+                    Console.WriteLine($"[{i + 1}]\t{setMenusList[i].getSetMenuItem()}");
+                }
+                Console.WriteLine();
+            }
+
+
+            SetMenu GetSetMenuByName(List<SetMenu> setMenuList, string setMenuName)
+            {
+                SetMenu foundSetMenu = null;
+                foreach (SetMenu setMenu in setMenuList)
+                {
+                    if (setMenu.getSetMenuItem() == setMenuName)
+                    {
+                        foundSetMenu = setMenu;
+                        break;
+                    }
+                }
+                return foundSetMenu;
             }
         }
     }

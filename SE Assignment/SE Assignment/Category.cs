@@ -16,5 +16,11 @@ namespace SE_Assignment
             this.categoryID = categoryID;
             this.categoryName = categoryName;
         }
+
+        public string GetCategoryName()
+        {
+            return categoryName;
+        }
+
     }
 }

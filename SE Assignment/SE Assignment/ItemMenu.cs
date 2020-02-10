@@ -11,20 +11,18 @@ namespace SE_Assignment
         private string name;
         private string description;
         private double price;
-        private int unit;
+        private int unit; // How much stock left
         private string status;
-        private int size;
         private Category category;
         private SetMenu setmenu;
 
-        public ItemMenu(string name, string description, double price, int unit, string status, int size, Category category, SetMenu setmenu)
+        public ItemMenu(string name, string description, double price, int unit, string status, Category category, SetMenu setmenu)
         {
             this.name = name;
             this.description = description;
             this.price = price;
             this.unit = unit;
             this.status = status;
-            this.size = size;
             this.category = category;
             this.setmenu = setmenu;
         }
