@@ -130,7 +130,7 @@ namespace SE_Assignment
 
         public void makeMayment()
         {
-            state.payment();
+            //state.payment();
         }
 
         public double getSubTotal()
