@@ -23,6 +23,18 @@ namespace SE_Assignment
         private Payment payment;
         private Branch branch;
 
+        // States for the Order Object
+        private OrderState placedState;
+        private OrderState orderNewState;
+        private OrderState preparingState;
+        private OrderState readyState;
+        private OrderState dispatchedState;
+        private OrderState deliveredState;
+        private OrderState archivedState;
+        private OrderState cancelledState;
+
+        private OrderState state;
+
         public Order(string orderNumber, DateTime dateTimeOfOrder)
         {
             this.orderNumber = orderNumber;
@@ -33,6 +45,15 @@ namespace SE_Assignment
             gst = 7;
             subTotal = 0;
             totalAmt = 0;
+
+            // States
+            this.placedState = new OrderPlacedState(this);
+            this.orderNewState = new OrderNewState(this);
+            this.preparingState = new OrderPreparingState(this);
+            this.readyState = new OrderReadyState(this);
+            this.dispatchedState = new OrderDispatchedState(this);
+
+            this.state = placedState;
         }
 
         public int getGST()
@@ -70,6 +91,11 @@ namespace SE_Assignment
             deliveryType = type;
         }
 
+        public void setState(OrderState orderState)
+        {
+            state = orderState;
+        }
+
         public void addItem(OrderItem item)
         {
             orderItems.Add(item);
@@ -77,12 +103,12 @@ namespace SE_Assignment
 
         public void cancelOrder()
         {
-
+            state.cancelOrder();
         }
 
         public void archiveOrder()
         {
-
+            state.archiveOrder();
         }
 
         public void setTotalAmt(double totalAmt)

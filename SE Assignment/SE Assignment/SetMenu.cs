@@ -28,12 +28,12 @@ namespace SE_Assignment
 
         public void addItem(ItemMenu menu)
         {
-
+            itemMenuList.Add(menu);
         }
 
         public void removeItem(ItemMenu menu)
         {
-
+            itemMenuList.Remove(menu);
         }
         public void updateItem(ItemMenu menu)
         {

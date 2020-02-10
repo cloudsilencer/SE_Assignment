@@ -8,10 +8,12 @@ namespace SE_Assignment
 {
     interface OrderState
     {
-        void offer(Buyer b);
-        void signContract(Buyer b);
-        void buyerPullout();
-        void vendorPullOut();
-        void payPrice();
+        void payment();
+        void prepare();
+        void cookFinish();
+        void dispatch();
+        void delivered();
+        void archiveOrder();
+        void cancelOrder();
     }
 }
