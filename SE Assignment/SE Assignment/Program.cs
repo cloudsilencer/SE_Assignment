@@ -16,6 +16,7 @@ namespace SE_Assignment
             List<Customer> customers = new List<Customer>();
             List<Branch> branches = new List<Branch>();
             List<Order> orders = new List<Order>();
+            List<Payment> payments = new List<Payment>();
             InitializeData();
             bool login = false;
             Customer currentCust = new Customer();
@@ -104,9 +105,11 @@ namespace SE_Assignment
                     Console.WriteLine("Please enter a valid option");
 
                 Console.WriteLine("\nHow would you like to make your payment?\n1. Credit Card\n2. Online Means");
+                string paymentType = "";
                 string paymentChoice = Console.ReadLine();
                 if (paymentChoice == "1")
                 {
+                    paymentType = "Credit Card";
                     Console.WriteLine("Please enter credit card number");
                     string creditCardNo = Console.ReadLine();
                     if (creditCardNo == cust.getCreditCardInfo())
@@ -116,9 +119,13 @@ namespace SE_Assignment
                 }
 
                 else if (paymentChoice == "2")
+                {
+                    paymentType = "Online Means";
                     System.Diagnostics.Process.Start("https://www.paypal.com/us/home");
+                }
                 else
                     Console.WriteLine("Please select a valid option");
+                Payment newPayment = new Payment(payments.Count.ToString(), coOrder, coOrder.getTotalAmt(), DateTime.Now, paymentType);
             }
 
             void processOrder(Order pOrder)
@@ -203,6 +210,14 @@ namespace SE_Assignment
                 orders.Add(order2);
                 orders.Add(order3);
 
+                Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
+                Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
+                Payment payment3 = new Payment("3", order3, 10.00, DateTime.Now, "Online");
+
+                payments.Add(payment1);
+                payments.Add(payment2);
+                payments.Add(payment3);
+
 
             }
 
@@ -279,5 +294,4 @@ namespace SE_Assignment
         }
     }
 }
-
 // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
