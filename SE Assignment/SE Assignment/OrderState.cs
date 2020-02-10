@@ -8,7 +8,7 @@ namespace SE_Assignment
 {
     interface OrderState
     {
-        void payment();
+        void payment(Customer customer, List<Payment> payments);
         void prepare();
         void cookFinish();
         void dispatch();

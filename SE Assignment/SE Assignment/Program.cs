@@ -18,75 +18,83 @@ namespace SE_Assignment
             List<Order> orders = new List<Order>();
             List<Payment> payments = new List<Payment>();
             InitializeData();
-            Console.WriteLine($"Number of food items: {itemMenus.Count}");
-            ManageItemMenu();
-            Console.WriteLine($"Number of food items: {itemMenus.Count}");
+            //Console.WriteLine($"Number of food items: {itemMenus.Count}");
+            //ManageItemMenu();
+            //Console.WriteLine($"Number of food items: {itemMenus.Count}");
 
             bool login = false;
             Customer currentCust = new Customer();
 
             // ManageItemMenu();
-
-            Console.WriteLine("Login as Customer");
-            Console.Write("Email: ");
-            string email = Console.ReadLine();
-            Console.Write("Password: ");
-            string pass = Console.ReadLine();
-            foreach (Customer c in customers)
+            Console.WriteLine("Who are you?\n1. Customer\n2. Employee");
+            string user = Console.ReadLine();
+            if (user == "1")
             {
-                if (email == c.getEmail() && pass == c.getAccount().getPassword())
+                Console.WriteLine("Login as Customer");
+                Console.Write("Email: ");
+                string email = Console.ReadLine();
+                Console.Write("Password: ");
+                string pass = Console.ReadLine();
+                foreach (Customer c in customers)
                 {
-                    login = true;
-                    currentCust = c;
+                    if (email == c.getEmail() && pass == c.getAccount().getPassword())
+                    {
+                        login = true;
+                        currentCust = c;
+                    }
+                }
+
+                if (login == true)
+                {
+                    Console.WriteLine("\nLogin Successful");
+                    Console.WriteLine("What would you like to do today?");
+                    Console.WriteLine("1. Create a new Order");
+                    string choice = Console.ReadLine();
+                    if (choice == "1")
+                        placeOrder(currentCust);
+                    Console.ReadKey();
+                }
+                else
+                {
+                    Console.WriteLine("Wrong acc");
+                    Console.ReadKey();
+                }
+
+                // Place Order (Dominic)
+
+                void placeOrder(Customer cust)
+                {
+                    Order newOrder = new Order(orders.Count.ToString(), currentCust, DateTime.Now);
+                    currentCust.addOrder(newOrder);
+                    Console.WriteLine("Please select an outlet from below");
+                    for (int i = 0; i < branches.Count; i++)
+                        Console.WriteLine((i + 1) + ". " + branches[i].getBranchName());
+                    newOrder.setBranch(branches[Convert.ToInt32(Console.ReadLine()) - 1]);
+
+                    while (true)
+                    {
+                        Console.WriteLine("Please select an item from below");
+                        for (int i = 0; i < itemMenus.Count; i++)
+                            Console.WriteLine((i + 1) + ". " + itemMenus[i].getName());
+
+                        int foodchoice = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("How many would you like? ");
+                        string quantity = Console.ReadLine();
+                        OrderItem selected = new OrderItem(itemMenus[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
+                        newOrder.addItem(selected);
+                        Console.WriteLine("Would you like to add more items? (Y/N)");
+                        string option = Console.ReadLine();
+                        if (option == "N")
+                            checkOut(newOrder, cust);
+                    }
                 }
             }
-
-            if (login == true)
+            else if (user == "2")
             {
-                Console.WriteLine("\nLogin Successful");
-                Console.WriteLine("What would you like to do today?");
-                Console.WriteLine("1. Create a new Order");
-                string choice = Console.ReadLine();
-                if (choice == "1")
-                    placeOrder(currentCust);
-                Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("Wrong acc");
-                Console.ReadKey();
+                //Implementation
             }
 
-
-            // Use Case 1
-
-            void placeOrder(Customer cust)
-            {
-                Order newOrder = new Order(orders.Count.ToString(), DateTime.Now);
-                Console.WriteLine("Please select an outlet from below");
-                for (int i = 0; i < branches.Count; i++)
-                    Console.WriteLine((i + 1) + ". " + branches[i].getBranchName());
-                newOrder.setBranch(branches[Convert.ToInt32(Console.ReadLine()) - 1]);
-
-                while (true)
-                {
-                    Console.WriteLine("Please select an item from below");
-                    for (int i = 0; i < itemMenus.Count; i++)
-                        Console.WriteLine((i + 1) + ". " + itemMenus[i].getName());
-
-                    int foodchoice = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("How many would you like? ");
-                    string quantity = Console.ReadLine();
-                    OrderItem selected = new OrderItem(itemMenus[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
-                    newOrder.addItem(selected);
-                    Console.WriteLine("Would you like to add more items? (Y/N)");
-                    string option = Console.ReadLine();
-                    if (option == "N")
-                        checkOut(newOrder, cust);
-                }
-            }
-
-            // Use Case 1
+            // Place Order (Dominic)
 
             void checkOut(Order coOrder, Customer cust)
             {
@@ -96,41 +104,17 @@ namespace SE_Assignment
                 Console.WriteLine("\n Would you like express delivery? (Y/N)");
                 string delivery = Console.ReadLine();
                 Console.WriteLine("\n Order Summary");
-                coOrder.ToString();
                 if (delivery == "Y") //if "N", already set to Default and 0
-                {
-                    coOrder.setDeliveryType("Express");
-                    coOrder.setDeliveryCharge(2);
-                    Console.WriteLine("Express Delivery :D");
-                }
+                    coOrder.expressDelivery();
                 else if (delivery == "N")
-                    Console.WriteLine("Default Delivery");
+                    coOrder.normalDelivery();
                 else
                     Console.WriteLine("Please enter a valid option");
-
-                Console.WriteLine("\nHow would you like to make your payment?\n1. Credit Card\n2. Online Means");
-                string paymentType = "";
-                string paymentChoice = Console.ReadLine();
-                if (paymentChoice == "1")
-                {
-                    paymentType = "Credit Card";
-                    Console.WriteLine("Please enter credit card number");
-                    string creditCardNo = Console.ReadLine();
-                    if (creditCardNo == cust.getCreditCardInfo())
-                        Console.WriteLine("SUCCESS");
-                    else
-                        Console.WriteLine("FAILURE");
-                }
-
-                else if (paymentChoice == "2")
-                {
-                    paymentType = "Online Means";
-                    System.Diagnostics.Process.Start("https://www.paypal.com/us/home");
-                }
-                else
-                    Console.WriteLine("Please select a valid option");
-                // Payment newPayment = new Payment(payments.Count.ToString(), coOrder, coOrder.getTotalAmt(), DateTime.Now, paymentType);
+                coOrder.displayReceipt();
+                coOrder.makePayment(payments);
             }
+
+            // Place Order (Dominic)
 
             void processOrder(Order pOrder)
             {
@@ -207,9 +191,9 @@ namespace SE_Assignment
                 branches.Add(branch2);
                 branches.Add(branch3);
 
-                Order order1 = new Order("1", DateTime.Now);
-                Order order2 = new Order("2", DateTime.Now);
-                Order order3= new Order("3", DateTime.Now);
+                Order order1 = new Order("1", cust1, DateTime.Now);
+                Order order2 = new Order("2", cust2, DateTime.Now);
+                Order order3= new Order("3", cust3, DateTime.Now);
                 orders.Add(order1);
                 orders.Add(order2);
                 orders.Add(order3);

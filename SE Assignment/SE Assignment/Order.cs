@@ -22,6 +22,7 @@ namespace SE_Assignment
         private int gst;
         private Payment payment;
         private Branch branch;
+        private Customer customer;
 
         // States for the Order Object
         private OrderState placedState;
@@ -35,10 +36,11 @@ namespace SE_Assignment
 
         private OrderState state;
 
-        public Order(string orderNumber, DateTime dateTimeOfOrder)
+        public Order(string orderNumber, Customer customer, DateTime dateTimeOfOrder)
         {
             this.orderNumber = orderNumber;
             this.dateTimeOfOrder = dateTimeOfOrder;
+            this.customer = customer;
             orderItems = new List<OrderItem>();
             deliveryType = "Default";
             deliveryCharge = 0;
@@ -54,6 +56,16 @@ namespace SE_Assignment
             this.dispatchedState = new OrderDispatchedState(this);
 
             this.state = placedState;
+        }
+
+        public void makePayment(List<Payment> payments)
+        {
+            state.payment(customer, payments);
+        }
+ 
+        public double getTotalAmt()
+        {
+            return totalAmt;
         }
 
         public int getGST()
@@ -136,6 +148,22 @@ namespace SE_Assignment
             return orderItems;
         }
 
+        public void expressDelivery()
+        {
+            deliveryType = "Express";
+            deliveryCharge = 2;
+            dateTimeReady = DateTime.Now.Add(new System.TimeSpan(0, 0, 15, 0));
+            dateTimeDelivery = DateTime.Now.Add(new System.TimeSpan(0, 0, 30, 0));
+            Console.WriteLine("Express Delivery :D");
+        }
+
+        public void normalDelivery()
+        {
+            dateTimeReady = DateTime.Now.Add(new System.TimeSpan(0, 0, 30, 0));
+            dateTimeDelivery = DateTime.Now.Add(new System.TimeSpan(0, 0, 45, 0));
+            Console.WriteLine("Default Delivery");
+        }
+
         public void ToString()
         {
             foreach (OrderItem item in orderItems)
@@ -147,7 +175,19 @@ namespace SE_Assignment
             Console.WriteLine("Total: $" + totalAmt);
             //Console.WriteLine("\nEstimated Ready Time: " + dateTimeReady);
             //Console.WriteLine("Estimated Delivery Time: " + dateTimeDelivery);
+        }
 
+        public void displayReceipt()
+        {
+            foreach (OrderItem item in orderItems)
+            {
+                Console.WriteLine(item.getItem().getName() + ", " + item.getItem().getPrice() + ", x" + item.getQuantity());
+            }
+            Console.WriteLine("Subtotal: $" + subTotal);
+            Console.WriteLine("GST: " + gst + "%");
+            Console.WriteLine("Total: $" + totalAmt);
+            Console.WriteLine("\nEstimated Ready Time: " + dateTimeReady);
+            Console.WriteLine("Estimated Delivery Time: " + dateTimeDelivery);
         }
     }
 }
