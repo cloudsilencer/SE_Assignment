@@ -17,6 +17,11 @@ namespace SE_Assignment
             this.branchID = branchID;
             this.branchName = branchName;
         }
+
+        public string getBranchName()
+        {
+            return branchName;
+        }
  
     }
 }
