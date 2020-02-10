@@ -56,6 +56,11 @@ namespace SE_Assignment
             this.state = placedState;
         }
 
+        public double getTotalAmt()
+        {
+            return totalAmt;
+        }
+
         public int getGST()
         {
             return gst;
