@@ -21,6 +21,11 @@ namespace SE_Assignment
             this.size = this.itemMenuList.Count();
         }
 
+        public int getSetMenuID()
+        {
+            return setMenuID;
+        }
+
         public string getSetMenuItem()
         {
             return setMenuItem;

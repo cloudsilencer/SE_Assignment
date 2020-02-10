@@ -14,7 +14,6 @@ namespace SE_Assignment
         private string contactNumber;
         private string creditCardInfo;
         private Account account;
-        private ShoppingCart shoppingCart;
         private List<Order> orders;
 
         public Customer(string customerName, string address, string email, string contactNumber, string creditCardInfo, Account account)
@@ -25,11 +24,17 @@ namespace SE_Assignment
             this.contactNumber = contactNumber;
             this.creditCardInfo = creditCardInfo;
             this.account = account;
+            orders = new List<Order>();
         }
 
         public Customer()
         {
+            
+        }
 
+        public void addOrder(Order order)
+        {
+            orders.Add(order);
         }
 
         public string getCreditCardInfo()
