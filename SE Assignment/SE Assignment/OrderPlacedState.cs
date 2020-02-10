@@ -40,9 +40,30 @@ namespace SE_Assignment
             throw new NotImplementedException();
         }
 
-        public void payment()
+        public void payment(Customer customer, List<Payment> payments)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("\nHow would you like to make your payment?\n1. Credit Card\n2. Online Means");
+            string paymentType = "";
+            string paymentChoice = Console.ReadLine();
+            if (paymentChoice == "1")
+            {
+                paymentType = "Credit Card";
+                Console.WriteLine("Please enter credit card number");
+                string creditCardNo = Console.ReadLine();
+                if (creditCardNo == customer.getCreditCardInfo())
+                    Console.WriteLine("Payment Successful! Thank you for ordering with HungryEatNow...");
+                else
+                    Console.WriteLine("Payment Failed! Please try again");
+            }
+
+            else if (paymentChoice == "2")
+            {
+                paymentType = "Online Means";
+                System.Diagnostics.Process.Start("https://www.paypal.com/us/home");
+            }
+            else
+                Console.WriteLine("Please select a valid option");
+            Payment newPayment = new Payment(payments.Count.ToString(), order, order.getTotalAmt(), DateTime.Now, paymentType);
         }
 
         public void prepare()

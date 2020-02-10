@@ -40,7 +40,7 @@ namespace SE_Assignment
             throw new NotImplementedException();
         }
 
-        public void payment()
+        public void payment(Customer customer, List<Payment> payments)
         {
             throw new NotImplementedException();
         }
