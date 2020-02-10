@@ -131,6 +131,7 @@ namespace SE_Assignment
         public void makeMayment(Customer customer, List<Payment> payments)
         {
             state.payment(customer, payments);
+            //state.payment();
         }
 
         public double getSubTotal()

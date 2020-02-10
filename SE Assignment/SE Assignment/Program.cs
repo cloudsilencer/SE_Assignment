@@ -24,7 +24,8 @@ namespace SE_Assignment
 
             bool login = false;
             Customer currentCust = new Customer();
-
+            // ViewOrder viewOrder = new ViewOrder();
+            
             // ManageItemMenu();
             Console.WriteLine("Who are you?\n1. Customer\n2. Employee");
             Console.Write("Select an option: ");
@@ -45,57 +46,63 @@ namespace SE_Assignment
                     }
                 }
 
-                if (login == true)
-                {
-                    Console.WriteLine("\nLogin Successful");
-                    Console.WriteLine("What would you like to do today?");
-                    Console.WriteLine("1. Create a new Order");
-                    string choice = Console.ReadLine();
-                    if (choice == "1")
-                        placeOrder(currentCust);
-                    Console.ReadKey();
-                }
-                else
-                {
-                    Console.WriteLine("Wrong acc");
-                    Console.ReadKey();
-                }
-
-                // Place Order (Dominic)
-
-                void placeOrder(Customer cust)
-                {
-                    Order newOrder = new Order(orders.Count.ToString(), currentCust, DateTime.Now);
-                    currentCust.addOrder(newOrder);
-                    Console.WriteLine("Please select an outlet from below");
-                    for (int i = 0; i < branches.Count; i++)
-                        Console.WriteLine((i + 1) + ". " + branches[i].getBranchName());
-                    newOrder.setBranch(branches[Convert.ToInt32(Console.ReadLine()) - 1]);
-
-                    while (true)
-                    {
-                        Console.WriteLine("Please select an item from below");
-                        for (int i = 0; i < itemMenus.Count; i++)
-                            Console.WriteLine((i + 1) + ". " + itemMenus[i].getName());
-
-                        int foodchoice = Convert.ToInt32(Console.ReadLine());
-                        Console.Write("How many would you like? ");
-                        string quantity = Console.ReadLine();
-                        OrderItem selected = new OrderItem(itemMenus[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
-                        newOrder.addItem(selected);
-                        Console.WriteLine("Would you like to add more items? (Y/N)");
-                        string option = Console.ReadLine();
-                        if (option == "N")
-                            checkOut(newOrder, cust);
-                    }
-                }
             }
+
             else if (user == "2")
             {
                 //Implementation
                 Console.WriteLine();
                 DisplayEmployeeMenu();
             }
+
+            if (login == true)
+            {
+                Console.WriteLine("\nLogin Successful");
+                Console.WriteLine("What would you like to do today?");
+                Console.WriteLine("1. Create a new Order");
+                Console.WriteLine("2. View all Orders");
+                string choice = Console.ReadLine();
+                if (choice == "1")
+                    placeOrder(currentCust);
+                if (choice == "2")
+                    viewOrders(currentCust);
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Wrong acc");
+                Console.ReadKey();
+            }
+
+            // Place Order (Dominic)
+
+            void placeOrder(Customer cust)
+            {
+                Order newOrder = new Order(orders.Count.ToString(), currentCust, DateTime.Now);
+                currentCust.addOrder(newOrder);
+                Console.WriteLine("Please select an outlet from below");
+                for (int i = 0; i < branches.Count; i++)
+                    Console.WriteLine((i + 1) + ". " + branches[i].getBranchName());
+                newOrder.setBranch(branches[Convert.ToInt32(Console.ReadLine()) - 1]);
+
+                while (true)
+                {
+                    Console.WriteLine("Please select an item from below");
+                    for (int i = 0; i < itemMenus.Count; i++)
+                        Console.WriteLine((i + 1) + ". " + itemMenus[i].getName());
+
+                    int foodchoice = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("How many would you like? ");
+                    string quantity = Console.ReadLine();
+                    OrderItem selected = new OrderItem(itemMenus[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
+                    newOrder.addItem(selected);
+                    Console.WriteLine("Would you like to add more items? (Y/N)");
+                    string option = Console.ReadLine();
+                    if (option == "N")
+                        checkOut(newOrder, cust);
+                }
+            }
+        
 
             // Place Order (Dominic)
 
@@ -129,6 +136,18 @@ namespace SE_Assignment
                 pOrder.setSubTotal(subTotal);
                 pOrder.setTotalAmt((subTotal * pOrder.getGST() / 100) + subTotal);
             }
+
+            // Use Case 14(Li Yun's implementation)
+             void viewOrders(Customer cust)
+             {
+                for (int i = 0; i < orders.Count; i++)
+                {
+                    Console.WriteLine($"[{i + 1}]\t{orders[i].getOrderItems()}");
+                }
+
+                Console.WriteLine();
+
+             }
 
             // Initialize Data Function
             void InitializeData()
@@ -200,6 +219,8 @@ namespace SE_Assignment
                 orders.Add(order1);
                 orders.Add(order2);
                 orders.Add(order3);
+
+                
 
                 Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
                 Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
