@@ -128,9 +128,9 @@ namespace SE_Assignment
             this.totalAmt = totalAmt;
         }
 
-        public void makeMayment()
+        public void makeMayment(Customer customer, List<Payment> payments)
         {
-            state.payment();
+            state.payment(customer, payments);
         }
 
         public double getSubTotal()

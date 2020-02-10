@@ -27,6 +27,7 @@ namespace SE_Assignment
 
             // ManageItemMenu();
             Console.WriteLine("Who are you?\n1. Customer\n2. Employee");
+            Console.Write("Select an option: ");
             string user = Console.ReadLine();
             if (user == "1")
             {
@@ -92,6 +93,8 @@ namespace SE_Assignment
             else if (user == "2")
             {
                 //Implementation
+                Console.WriteLine();
+                DisplayEmployeeMenu();
             }
 
             // Place Order (Dominic)
@@ -146,18 +149,18 @@ namespace SE_Assignment
                 setMenus.Add(lunchSetMenu);
                 setMenus.Add(dinnerSetMenu);
 
-                ItemMenu itemMenu1 = new ItemMenu("French Toast", "Sliced bread soaked in eggs and milk, then fried.", 3.00, 100, "Available", category4, breakfastSetMenu);
-                ItemMenu itemMenu2 = new ItemMenu("Grilled Chicken Sandwich", "Juicy grilled chicken wrapped within 2 slices of bread.", 5.60, 100, "Available", category1, breakfastSetMenu);
-                ItemMenu itemMenu3 = new ItemMenu("Fish Congee", "Congee with red grouper slices", 5.80, 100, "Available", category1, breakfastSetMenu);
-                ItemMenu itemMenu4 = new ItemMenu("Chicken Wrap", "Tortilla wrap with bits of chicken", 12.00, 100, "Available", category1, breakfastSetMenu);
-                ItemMenu itemMenu5 = new ItemMenu("Signature Southern Style Fried Chicken", "The taste of Texas", 12.90, 100, "Available", category1, lunchSetMenu);
-                ItemMenu itemMenu6 = new ItemMenu("Steak with baked potatoes", "Sirloin steak served with baked potatoes", 17.90, 100, "Available", category3, lunchSetMenu);
-                ItemMenu itemMenu7 = new ItemMenu("Poke Bowl", "Diced raw salmon served with salad", 12.60, 100, "Available", category2, lunchSetMenu);
-                ItemMenu itemMenu8 = new ItemMenu("Seafood Spaghetti", "Tomato based spaghetti with shrimp and clams", 10.70, 100, "Available", category4, lunchSetMenu);
-                ItemMenu itemMenu9 = new ItemMenu("Roasted Chicken with Herbs", "Quarter Roasted Chicken with 2 sides", 14.90, 100, "Available", category1, dinnerSetMenu);
-                ItemMenu itemMenu10 = new ItemMenu("Fried Wild Mushrooms", "Wild Mushrooms fresh from Australia", 8.20, 100, "Available", category4, dinnerSetMenu);
-                ItemMenu itemMenu11 = new ItemMenu("Beef Stew", "Beef stew with bread", 14.20, 100, "Available", category3, dinnerSetMenu);
-                ItemMenu itemMenu12 = new ItemMenu("Fish and Chips", "Fried cod in batter served with chips", 11.90, 100, "Available", category3, dinnerSetMenu);
+                ItemMenu itemMenu1 = new ItemMenu(1, "French Toast", "Sliced bread soaked in eggs and milk, then fried.", 3.00, 100, "Available", category4, breakfastSetMenu);
+                ItemMenu itemMenu2 = new ItemMenu(2, "Grilled Chicken Sandwich", "Juicy grilled chicken wrapped within 2 slices of bread.", 5.60, 100, "Available", category1, breakfastSetMenu);
+                ItemMenu itemMenu3 = new ItemMenu(3, "Fish Congee", "Congee with red grouper slices", 5.80, 100, "Available", category1, breakfastSetMenu);
+                ItemMenu itemMenu4 = new ItemMenu(4, "Chicken Wrap", "Tortilla wrap with bits of chicken", 12.00, 100, "Available", category1, breakfastSetMenu);
+                ItemMenu itemMenu5 = new ItemMenu(5, "Signature Southern Style Fried Chicken", "The taste of Texas", 12.90, 100, "Available", category1, lunchSetMenu);
+                ItemMenu itemMenu6 = new ItemMenu(6, "Steak with baked potatoes", "Sirloin steak served with baked potatoes", 17.90, 100, "Available", category3, lunchSetMenu);
+                ItemMenu itemMenu7 = new ItemMenu(7, "Poke Bowl", "Diced raw salmon served with salad", 12.60, 100, "Available", category2, lunchSetMenu);
+                ItemMenu itemMenu8 = new ItemMenu(8, "Seafood Spaghetti", "Tomato based spaghetti with shrimp and clams", 10.70, 100, "Available", category4, lunchSetMenu);
+                ItemMenu itemMenu9 = new ItemMenu(9, "Roasted Chicken with Herbs", "Quarter Roasted Chicken with 2 sides", 14.90, 100, "Available", category1, dinnerSetMenu);
+                ItemMenu itemMenu10 = new ItemMenu(10, "Fried Wild Mushrooms", "Wild Mushrooms fresh from Australia", 8.20, 100, "Available", category4, dinnerSetMenu);
+                ItemMenu itemMenu11 = new ItemMenu(11, "Beef Stew", "Beef stew with bread", 14.20, 100, "Available", category3, dinnerSetMenu);
+                ItemMenu itemMenu12 = new ItemMenu(12, "Fish and Chips", "Fried cod in batter served with chips", 11.90, 100, "Available", category3, dinnerSetMenu);
                 itemMenus.Add(itemMenu1);
                 itemMenus.Add(itemMenu2);
                 itemMenus.Add(itemMenu3);
@@ -209,8 +212,125 @@ namespace SE_Assignment
 
             }
 
-            // Manager Functions (Kevin)
+            // Manage Menu and Manage Item (Kevin)
+
             // Use Case 5
+            void ManageSetMenu()
+            {
+                string functionTitle = "Manage Set Menu";
+                List<String> options = new List<string> { "Create Set Menu", "Remove Set Menu", "Update Set Menu", "Exit" };
+                String selectedOption = "";
+                do
+                {
+                    Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
+                    for (int i = 0; i < options.Count; i++)
+                    {
+                        if (((i + 1) % 4) == 0)
+                            Console.WriteLine($"\n[{(i + 1) % 4}] {options[i]}");
+                        else
+                            Console.WriteLine($"[{(i + 1) % 4}] {options[i]}");
+                    }
+                    Console.Write("\nSelect an option: ");
+                    selectedOption = Console.ReadLine();
+                    Console.WriteLine("");
+
+
+                    switch (selectedOption)
+                    {
+                        case "0":
+                            Console.WriteLine("Exiting From Manage Set Menu...\n");
+                            break;
+                        case "1":
+                            CreateSetMenu();
+                            break;
+                        case "2":
+                            RemoveSetMenu();
+                            break;
+                        case "3":
+                            UpdateSetMenu();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option selected");
+                            break;
+                    }
+                }
+                while (selectedOption != "0");
+            }
+
+            // Use Case 6
+            void CreateSetMenu()
+            {
+                string functionTitle = "Create Set Menu";
+                Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
+
+                string setMenuName = "";
+                bool isSetMenuNameValid = false;
+
+                DisplayAllSetMenus(setMenus);
+                while (!isSetMenuNameValid)
+                {
+                    Console.Write("Please enter the Set Menu ID to be removed: ");
+                    setMenuName = Console.ReadLine();
+                    if (setMenuName == "")
+                        Console.WriteLine("Set Menu name cannot be empty!");
+                    else
+                    {
+                        if (CheckSetMenuNameExists(GetAllSetMenuName(setMenus), setMenuName))
+                            Console.WriteLine($"Set Menu: {setMenuName} already exists! Please enter another different name!");
+                        else
+                        {
+                            SetMenu setMenu = new SetMenu(LatestAvailableSetMenuID(setMenus), setMenuName);
+                            setMenus.Add(setMenu);
+                        }
+                    }
+                }
+            }
+
+            // Use Case 7
+            void RemoveSetMenu()
+            {
+                string functionTitle = "Remove Set Menu";
+                Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
+                DisplayAllSetMenus(setMenus);
+
+                string setMenuID = "";
+                bool isSetMenuIDValid = false;
+                while (!isSetMenuIDValid)
+                {
+                    Console.Write("Please enter the Set Menu ID: ");
+                    setMenuID = Console.ReadLine();
+                    if (setMenuID == "")
+                        Console.WriteLine($"Set Menu ID: {setMenuID} cannot be empty");
+                    else
+                    {
+                        try
+                        {
+                            int parsedSetMenuID = int.Parse(setMenuID);
+                            if (GetSetMenuByID(setMenus, parsedSetMenuID) == null)
+                                Console.WriteLine($"Set Menu ID: {parsedSetMenuID} does not exist");
+                            else
+                            {
+                                Console.WriteLine($"The Set Menu: {GetSetMenuByID(setMenus, parsedSetMenuID).getSetMenuItem()} was removed.");
+                                setMenus.Remove(GetSetMenuByID(setMenus, parsedSetMenuID));
+                                isSetMenuIDValid = true;
+                            }
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid format, Set Menu ID is a number. \t Example: 1");
+                        }
+                    }
+                }
+            }
+
+            // Use Case 8
+            void UpdateSetMenu()
+            {
+                string functionTitle = "Update Set Menu";
+                Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
+            }
+
+            // Use Case 9
             void ManageItemMenu()
             {
                 string functionTitle = "Manage Item Menu";
@@ -240,7 +360,7 @@ namespace SE_Assignment
                             AddFoodItem();
                             break;
                         case "2":
-                            DeleteFoodItem();
+                            RemoveFoodItem();
                             break;
                         case "3":
                             UpdateFoodItem();
@@ -253,7 +373,7 @@ namespace SE_Assignment
                 while (selectedOption != "0");
             }
 
-            // Use Case 6 
+            // Use Case 10
             void AddFoodItem()
             {
                 // Title For Option
@@ -409,39 +529,281 @@ namespace SE_Assignment
                     }
                 }
 
-                ItemMenu newItem = new ItemMenu(foodName, description, double.Parse(price), int.Parse(unit), status, GetCategoryByID(categories, int.Parse(category)), GetSetMenuByID(setMenus, int.Parse(setMenu)));
+                ItemMenu newItem = new ItemMenu(LatestAvailableItemID(itemMenus), foodName, description, double.Parse(price), int.Parse(unit), status, GetCategoryByID(categories, int.Parse(category)), GetSetMenuByID(setMenus, int.Parse(setMenu)));
                 itemMenus.Add(newItem);
-                Console.WriteLine($"Food Item: {foodName} successfully was added.\n");
+                Console.WriteLine($"Food Item: {foodName} successfully added.\n");
 
             }
 
-            // Use Case 7
-            void DeleteFoodItem()
+            // Use Case 11
+            void RemoveFoodItem()
             {
                 string functionTitle = "Delete Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
                 DisplayAllItemMenu(itemMenus);
 
-                string itemMenu = "";
-                bool isItemMenuValid = false;
-                while(!isItemMenuValid)
+                string itemID = "";
+                string confirmation = "";
+                bool isItemIDValid = false;
+                bool isConfirmationValid = false;
+                while(!isItemIDValid)
                 {
-
+                    Console.Write("Please enter the ID of the Food Item to be deleted: ");
+                    itemID = Console.ReadLine();
+                    if (itemID == "")
+                    {
+                        Console.WriteLine("Food Item ID cannot be empty");
+                    }
+                    else
+                    {
+                        try
+                        {
+                            int parsedItemID = int.Parse(itemID);
+                            if (GetFoodItemByID(itemMenus, parsedItemID) == null)
+                                Console.WriteLine($"Food Item with ID: {parsedItemID} does not exists");
+                            else
+                                isItemIDValid = true;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid format, Food Item ID is a number. \t Example: 1");
+                        }
+                    }
                 }
-
+                Console.WriteLine();
+                while (!isConfirmationValid)
+                {
+                    Console.Write($"Confirm the deletion of Food Item: {GetFoodItemByID(itemMenus, int.Parse(itemID)).getName()}? (Y/N) :");
+                    confirmation = Console.ReadLine();
+                    switch(confirmation)
+                    {
+                        case "Y":
+                            Console.WriteLine($"Food Item: {GetFoodItemByID(itemMenus, int.Parse(itemID)).getName()} was removed.\n");
+                            itemMenus.Remove(GetFoodItemByID(itemMenus, int.Parse(itemID)));
+                            isConfirmationValid = true;
+                            break;
+                        case "N":
+                            isConfirmationValid = true;
+                            break;
+                        default:
+                            Console.WriteLine("Invalid response. Please enter 'Y' for Yes or 'N' for No");
+                            break;
+                    }
+                }
             }
 
-            // Use Case 8
+            // Use Case 12
             void UpdateFoodItem()
             {
                 string functionTitle = "Update Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
+                DisplayAllItemMenu(itemMenus);
+                
+                string itemID = "";
+                bool isItemIDValid = false;
+
+                while (!isItemIDValid)
+                {
+                    Console.Write("Please enter the ID of the Food Item to be updated: ");
+                    itemID = Console.ReadLine();
+                    if (itemID == "")
+                    {
+                        Console.WriteLine("Food Item ID cannot be empty");
+                    }
+                    else
+                    {
+                        try
+                        {
+                            int parsedItemID = int.Parse(itemID);
+                            if (GetFoodItemByID(itemMenus, parsedItemID) == null)
+                                Console.WriteLine($"Food Item with ID: {parsedItemID} does not exists");
+                            else
+                                isItemIDValid = true;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid format, Food Item ID is a number. \t Example: 1");
+                        }
+                    }
+                }
+
+                ItemMenu itemToBeUpdated = GetFoodItemByID(itemMenus, int.Parse(itemID));
+                Console.WriteLine($"\nSelected Item:\n");
+                Console.WriteLine(itemToBeUpdated.ToString());
+
+                string fieldToUpdate = "";
+                //bool isFieldValid = false;
+
+                //while (!isFieldValid)
+                //{
+                Console.Write("Please enter the field to be updated: ");
+                fieldToUpdate = Console.ReadLine();
+                switch(fieldToUpdate)
+                {
+                    case "Name":
+                        Console.Write("Updated Name: ");
+                        string updatedname = Console.ReadLine();
+                        itemToBeUpdated.setName(updatedname);
+                        break;
+                    case "Description":
+                        Console.Write("Updated Description: ");
+                        string updatedDescription = Console.ReadLine();
+                        itemToBeUpdated.setDescription(updatedDescription);
+                        break;
+                    case "Price":
+                        Console.Write("Updated Price: ");
+                        string updatedPrice = Console.ReadLine();
+                        itemToBeUpdated.setPrice(double.Parse(updatedPrice));
+                        break;
+                    case "Unit":
+                        Console.Write("Updated Unit: ");
+                        string updatedUnit = Console.ReadLine();
+                        itemToBeUpdated.setUnit(int.Parse(updatedUnit));
+                        break;
+                    case "Status":
+                        Console.Write("Updated Status: ");
+                        string updatedStatus = Console.ReadLine();
+                        itemToBeUpdated.setStatus(updatedStatus);
+                        break;
+                    case "Category":
+                        DisplayAllCategories(categories);
+                        Console.Write("Updated Category (Enter the ID): ");
+                        string updatedCategoryID = Console.ReadLine();
+                        itemToBeUpdated.setCategory(GetCategoryByID(categories, int.Parse(updatedCategoryID)));
+                        break;
+                    case "SetMenu":
+                        DisplayAllSetMenus(setMenus);
+                        Console.Write("Updated Set Menu (Enter the ID): ");
+                        string updatedSetMenuID = Console.ReadLine();
+                        itemToBeUpdated.setSetMenu(GetSetMenuByID(setMenus, int.Parse(updatedSetMenuID)));
+                        break;
+                    default:
+                        break;
+                }           
+                //}
+
             }
 
             // Other useful functions
+
+            // Employee Menu
+            void DisplayEmployeeMenu()
+            {
+                string functionTitle = "Employee Portal";
+                List<String> employeeMenuOptions = new List<String>() {"Manager", "Chef", "Dispatcher", "Exit"};
+                String selectedOption = "";
+                do
+                {
+                    Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
+                    for (int i = 0; i < employeeMenuOptions.Count; i++)
+                    {
+                        if (((i + 1) % 4) == 0)
+                            Console.WriteLine($"\n[{(i + 1) % 4}] {employeeMenuOptions[i]}");
+                        else
+                            Console.WriteLine($"[{(i + 1) % 4}] {employeeMenuOptions[i]}");
+                    }
+                    Console.Write("\nSelect an option: ");
+                    selectedOption = Console.ReadLine();
+                    Console.WriteLine();
+                    switch (selectedOption)
+                    {
+                        case "0":
+                            Console.WriteLine($"Exiting From {functionTitle}...\n");
+                            break;
+                        case "1":
+                            DisplayManagerMenu();
+                            break;
+                        case "2":
+                            // DisplayChefMenu();
+                            break;
+                        case "3":
+                            // DisplayDispatcherMenu()
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option selected");
+                            break;
+                    }
+                }
+                while (selectedOption != "0");
+            }
+
+            // Manager Menu
+            void DisplayManagerMenu()
+            {
+                string functionTitle = "Manager Menu";
+                List<String> managerMenuOptions = new List<String>() { "Manage Menu", "Manage Item", "View Orders", "Exit"};
+                String selectedOption = "";
+                do
+                {
+                    Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
+                    for (int i = 0; i < managerMenuOptions.Count; i++)
+                    {
+                        if (((i + 1) % 4) == 0)
+                            Console.WriteLine($"\n[{(i + 1) % 4}] {managerMenuOptions[i]}");
+                        else
+                            Console.WriteLine($"[{(i + 1) % 4}] {managerMenuOptions[i]}");
+                    }
+                    Console.Write("\nSelect an option: ");
+                    selectedOption = Console.ReadLine();
+                    Console.WriteLine();
+                    switch (selectedOption)
+                    {
+                        case "0":
+                            Console.WriteLine($"Exiting From {functionTitle}...\n");
+                            break;
+                        case "1":
+                            ManageSetMenu();
+                            break;
+                        case "2":
+                            ManageItemMenu();
+                            break;
+                        case "3":
+                            // DisplayDispatcherMenu()
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option selected");
+                            break;
+                    }
+                }
+                while (selectedOption != "0");
+            }
+
+
             string MultiplyString(string s, int value)
             {
                 return String.Concat(Enumerable.Repeat(s, value));
+            }
+
+            List<string> GetAllSetMenuName(List<SetMenu> setMenuList)
+            {
+                List<string> SetMenuNameList = new List<string>();
+                foreach (SetMenu setMenu in setMenuList)
+                {
+                    SetMenuNameList.Add(setMenu.getSetMenuItem());
+                }
+                return SetMenuNameList;
+            }
+
+            bool CheckSetMenuNameExists(List<String> nameList, string nameToCheck)
+            {
+                bool exists = false;
+                foreach (String name in nameList)
+                {
+                    if (name == nameToCheck)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+                return exists;
+            }
+
+            int LatestAvailableSetMenuID(List<SetMenu> setMenuList)
+            {
+                if (setMenuList.Count == 0)
+                    return 1;
+                else
+                    return setMenuList[setMenuList.Count - 1].getSetMenuID() + 1;
             }
 
             List<string> GetAllFoodItemName(List<ItemMenu> itemList)
@@ -532,9 +894,31 @@ namespace SE_Assignment
                 Console.WriteLine("Food Items:");
                 foreach (ItemMenu itemMenu in itemMenuList)
                 {
-                    Console.WriteLine($"Name: {itemMenu.getName()}");
+                    Console.WriteLine($"ID: {itemMenu.getItemID()}\tName: {itemMenu.getName()}");
                 }
                 Console.WriteLine();
+            }
+
+            ItemMenu GetFoodItemByID(List<ItemMenu> itemMenuList, int itemID)
+            {
+                ItemMenu foundItemMenu = null;
+                foreach(ItemMenu itemMenu in itemMenuList)
+                {
+                    if (itemMenu.getItemID() == itemID)
+                    {
+                        foundItemMenu = itemMenu;
+                        break;
+                    }
+                }
+                return foundItemMenu;
+            }
+
+            int LatestAvailableItemID(List<ItemMenu> itemMenusList)
+            {
+                if (itemMenusList.Count == 0)
+                    return 1;
+                else
+                    return itemMenusList[itemMenusList.Count - 1].getItemID() + 1;
             }
         }
     }
