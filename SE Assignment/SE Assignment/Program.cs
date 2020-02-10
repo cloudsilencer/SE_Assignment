@@ -24,7 +24,8 @@ namespace SE_Assignment
 
             bool login = false;
             Customer currentCust = new Customer();
-
+            // ViewOrder viewOrder = new ViewOrder();
+            
             // ManageItemMenu();
 
             Console.WriteLine("Login as Customer");
@@ -46,9 +47,13 @@ namespace SE_Assignment
                 Console.WriteLine("\nLogin Successful");
                 Console.WriteLine("What would you like to do today?");
                 Console.WriteLine("1. Create a new Order");
+                Console.WriteLine("2. View all Orders");
                 string choice = Console.ReadLine();
                 if (choice == "1")
                     placeOrder(currentCust);
+                if (choice == "2")
+                    // CUSTOMER VIEWS ORDER HERE OK MY CODE NOT WORKING BUT I JUST WANNA PUSH FIRST BEFORE I FUCK IT UP EVEN MORE
+                    //viewOrders(viewOrder);
                 Console.ReadKey();
             }
             else
@@ -213,6 +218,8 @@ namespace SE_Assignment
                 orders.Add(order1);
                 orders.Add(order2);
                 orders.Add(order3);
+
+                
 
                 Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
                 Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
@@ -442,6 +449,19 @@ namespace SE_Assignment
                 }
                 return FoodNameList;
             }
+
+            // Use Case 14 (Li Yun's implementation)
+            // COMMENTED THIS SO THAT I WONT FUCK UP THE MAIN REPO
+            // void viewOrders(List<Order> orderList)
+            // {
+            //    Console.WriteLine("this works");
+            //    for (int i = 0; i < orderList.Count; i++)
+            //    {
+            //        Console.WriteLine($"[{i + 1}]\t{orderList[i].getOrderItems()}");
+            //    }
+            //    Console.WriteLine();
+
+            //}
 
             bool CheckFoodNameExists(List<String> nameList, string nameToCheck)
             {
