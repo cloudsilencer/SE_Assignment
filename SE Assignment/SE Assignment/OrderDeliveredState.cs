@@ -45,11 +45,6 @@ namespace SE_Assignment
             throw new NotImplementedException();
         }
 
-        public void place()
-        {
-            throw new NotImplementedException();
-        }
-
         public void prepare()
         {
             throw new NotImplementedException();

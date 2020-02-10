@@ -58,7 +58,16 @@
     <Compile Include="MonitorOrder.cs" />
     <Compile Include="Observer.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderArchivedState.cs" />
+    <Compile Include="OrderCancelledState.cs" />
+    <Compile Include="OrderDeliveredState.cs" />
+    <Compile Include="OrderDispatchedState.cs" />
     <Compile Include="OrderItem.cs" />
+    <Compile Include="OrderNewState.cs" />
+    <Compile Include="OrderPlacedState.cs" />
+    <Compile Include="OrderPreparingState.cs" />
+    <Compile Include="OrderReadyState.cs" />
+    <Compile Include="OrderState.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="PrepareOrder.cs" />
     <Compile Include="Program.cs" />

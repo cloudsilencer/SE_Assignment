@@ -225,7 +225,7 @@ namespace SE_Assignment
 
             }
 
-            // Manager Functions
+            // Manager Functions (Kevin)
             void ManageItemMenu()
             {
                 string functionTitle = "Manage Item Menu";
