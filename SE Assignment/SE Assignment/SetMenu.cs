@@ -31,6 +31,11 @@ namespace SE_Assignment
             return setMenuItem;
         }
 
+        public void setSetMenuItem(string setMenuItem)
+        {
+            this.setMenuItem = setMenuItem;
+        }
+
         public void addItem(ItemMenu menu)
         {
             itemMenuList.Add(menu);
@@ -43,6 +48,12 @@ namespace SE_Assignment
         public void updateItem(ItemMenu menu)
         {
 
+        }
+
+        public override string ToString()
+        {
+            return $"ID: {getSetMenuID()}\n" +
+                   $"Name: {getSetMenuItem()}\n";
         }
     }
 }

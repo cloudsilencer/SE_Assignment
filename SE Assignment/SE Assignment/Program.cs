@@ -349,6 +349,60 @@ namespace SE_Assignment
             {
                 string functionTitle = "Update Set Menu";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
+
+                string setMenuID = "";
+                bool isSetMenuIDValid = false;
+                while (!isSetMenuIDValid)
+                {
+                    Console.Write("Please enter the Set Menu ID to be updated: ");
+                    setMenuID = Console.ReadLine();
+                    if (setMenuID == "")
+                        Console.WriteLine($"Set Menu ID: {setMenuID} cannot be empty");
+                    else
+                    {
+                        try
+                        {
+                            int parsedSetMenuID = int.Parse(setMenuID);
+                            if (GetSetMenuByID(setMenus, parsedSetMenuID) == null)
+                                Console.WriteLine($"Set Menu ID: {parsedSetMenuID} does not exist");
+                            else
+                            {
+                                Console.WriteLine($"The Set Menu: {GetSetMenuByID(setMenus, parsedSetMenuID).getSetMenuItem()} was removed.");
+                                isSetMenuIDValid = true;
+                            }
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid format, Set Menu ID is a number. \t Example: 1");
+                        }
+                    }
+                }
+
+                SetMenu setMenuToBeUpdated = GetSetMenuByID(setMenus, int.Parse(setMenuID));
+                Console.WriteLine($"\nSelected Item:\n");
+                Console.WriteLine(setMenuToBeUpdated.ToString());
+
+                string setMenuNameToUpdate = "";
+                bool isUpdatedSetMenuNameValid = false;
+                while(!isUpdatedSetMenuNameValid)
+                {
+                    Console.Write("Enter a new name for the Set Menu: ");
+                    setMenuNameToUpdate = Console.ReadLine();
+                    if (setMenuNameToUpdate == "")
+                        Console.WriteLine("New name for Set Menu cannot be empty");
+                    else
+                    {
+                        if (CheckSetMenuNameExists(GetAllSetMenuName(setMenus), setMenuNameToUpdate))
+                        {
+                            Console.WriteLine("Name for Set Menu already exists");
+                        }
+                        else
+                        {
+                            setMenuToBeUpdated.setSetMenuItem(setMenuNameToUpdate);
+                            Console.WriteLine("Set Menu has been successfully updated.");
+                        }
+                    }
+                }
             }
 
             // Use Case 9
