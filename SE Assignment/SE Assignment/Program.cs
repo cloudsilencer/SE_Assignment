@@ -16,15 +16,17 @@ namespace SE_Assignment
             List<Customer> customers = new List<Customer>();
             List<Branch> branches = new List<Branch>();
             List<Order> orders = new List<Order>();
+            List<Payment> payments = new List<Payment>();
             InitializeData();
             Console.WriteLine($"Number of food items: {itemMenus.Count}");
             ManageItemMenu();
             Console.WriteLine($"Number of food items: {itemMenus.Count}");
 
             bool login = false;
+            Customer currentCust = new Customer();
 
-            // The code provided will print ‘Hello World’ to the console.
-            // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
+            // ManageItemMenu();
+
             Console.WriteLine("Login as Customer");
             Console.Write("Email: ");
             string email = Console.ReadLine();
@@ -33,14 +35,20 @@ namespace SE_Assignment
             foreach (Customer c in customers)
             {
                 if (email == c.getEmail() && pass == c.getAccount().getPassword())
+                {
                     login = true;
+                    currentCust = c;
+                }
             }
+
             if (login == true)
             {
+                Console.WriteLine("\nLogin Successful");
+                Console.WriteLine("What would you like to do today?");
                 Console.WriteLine("1. Create a new Order");
                 string choice = Console.ReadLine();
                 if (choice == "1")
-                    placeOrder();
+                    placeOrder(currentCust);
                 Console.ReadKey();
             }
             else
@@ -52,72 +60,88 @@ namespace SE_Assignment
 
             // Use Case 1
 
-            void placeOrder()
+            void placeOrder(Customer cust)
             {
                 Order newOrder = new Order(orders.Count.ToString(), DateTime.Now);
+                Console.WriteLine("Please select an outlet from below");
+                for (int i = 0; i < branches.Count; i++)
+                    Console.WriteLine((i + 1) + ". " + branches[i].getBranchName());
+                newOrder.setBranch(branches[Convert.ToInt32(Console.ReadLine()) - 1]);
+
                 while (true)
                 {
                     Console.WriteLine("Please select an item from below");
-                    int index = 0;
-                    foreach (ItemMenu food in itemMenus)
-                    {
-                        Console.WriteLine((index + 1) + ". " + food.getName());
-                        index++;
-                    }
+                    for (int i = 0; i < itemMenus.Count; i++)
+                        Console.WriteLine((i + 1) + ". " + itemMenus[i].getName());
 
-                    string foodchoice = Console.ReadLine();
+                    int foodchoice = Convert.ToInt32(Console.ReadLine());
                     Console.Write("How many would you like? ");
                     string quantity = Console.ReadLine();
-
-                    OrderItem selected = new OrderItem(newOrder, Convert.ToInt32(quantity));
+                    OrderItem selected = new OrderItem(itemMenus[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
                     newOrder.addItem(selected);
                     Console.WriteLine("Would you like to add more items? (Y/N)");
                     string option = Console.ReadLine();
                     if (option == "N")
-                        checkOut();
+                        checkOut(newOrder, cust);
                 }
             }
 
             // Use Case 1
 
-            void checkOut()
+            void checkOut(Order coOrder, Customer cust)
             {
-                Console.WriteLine("Express Delivery? (Y/N)");
+                processOrder(coOrder);
+                Console.WriteLine("\n Order Summary");
+                coOrder.ToString();
+                Console.WriteLine("\n Would you like express delivery? (Y/N)");
                 string delivery = Console.ReadLine();
-                if (delivery == "Y")
+                Console.WriteLine("\n Order Summary");
+                coOrder.ToString();
+                if (delivery == "Y") //if "N", already set to Default and 0
                 {
-                    //Order Status Change
-                    //Order Price increase
+                    coOrder.setDeliveryType("Express");
+                    coOrder.setDeliveryCharge(2);
+                    Console.WriteLine("Express Delivery :D");
                 }
+                else if (delivery == "N")
+                    Console.WriteLine("Default Delivery");
+                else
+                    Console.WriteLine("Please enter a valid option");
 
-                // Order to string
-
-                Console.WriteLine("How would you like to make your payment?");
-                Console.WriteLine("1. Credit Card");
-                Console.WriteLine("2. Online Means");
+                Console.WriteLine("\nHow would you like to make your payment?\n1. Credit Card\n2. Online Means");
+                string paymentType = "";
                 string paymentChoice = Console.ReadLine();
                 if (paymentChoice == "1")
                 {
-                    //Prompts for credit card details
-                    //Keys in credit card details
-                    // Validates
-                    // Success
+                    paymentType = "Credit Card";
+                    Console.WriteLine("Please enter credit card number");
+                    string creditCardNo = Console.ReadLine();
+                    if (creditCardNo == cust.getCreditCardInfo())
+                        Console.WriteLine("SUCCESS");
+                    else
+                        Console.WriteLine("FAILURE");
                 }
 
                 else if (paymentChoice == "2")
                 {
-
+                    paymentType = "Online Means";
+                    System.Diagnostics.Process.Start("https://www.paypal.com/us/home");
                 }
-
                 else
-                {
-
-                }
-
+                    Console.WriteLine("Please select a valid option");
+                Payment newPayment = new Payment(payments.Count.ToString(), coOrder, coOrder.getTotalAmt(), DateTime.Now, paymentType);
             }
 
-
-
+            void processOrder(Order pOrder)
+            {
+                double subTotal = pOrder.getSubTotal();
+                foreach (OrderItem item in pOrder.getOrderItems())
+                {
+                    subTotal += (item.getItem().getPrice() * item.getQuantity()) + pOrder.getDeliveryCharge();
+                }
+                pOrder.setSubTotal(subTotal);
+                pOrder.setTotalAmt((subTotal * pOrder.getGST() / 100) + subTotal);
+            }
 
             // Initialize Data Function
             void InitializeData()
@@ -189,6 +213,15 @@ namespace SE_Assignment
                 orders.Add(order1);
                 orders.Add(order2);
                 orders.Add(order3);
+
+                Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
+                Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
+                Payment payment3 = new Payment("3", order3, 10.00, DateTime.Now, "Online");
+
+                payments.Add(payment1);
+                payments.Add(payment2);
+                payments.Add(payment3);
+
 
             }
 
@@ -483,5 +516,4 @@ namespace SE_Assignment
         }
     }
 }
-
 // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 

@@ -9,13 +9,24 @@ namespace SE_Assignment
     class OrderItem
     {
         private Order order;
-        private List<ItemMenu> items;
+        private ItemMenu item;
         private int quantity;
 
-        public OrderItem(Order order, int quantity)
+        public OrderItem(ItemMenu item, int quantity, Order order)
         {
             this.order = order;
             this.quantity = quantity;
+            this.item = item;
+        }
+
+        public ItemMenu getItem()
+        {
+            return item;
+        }
+
+        public int getQuantity()
+        {
+            return quantity;
         }
     }
 }

@@ -27,6 +27,17 @@ namespace SE_Assignment
             this.account = account;
         }
 
+        public Customer()
+        {
+
+        }
+
+        public string getCreditCardInfo()
+        {
+            return creditCardInfo;
+        }
+
+
         public string getEmail()
         {
             return email;
