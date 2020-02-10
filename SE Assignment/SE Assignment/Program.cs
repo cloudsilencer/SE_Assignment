@@ -129,7 +129,7 @@ namespace SE_Assignment
                 }
                 else
                     Console.WriteLine("Please select a valid option");
-                Payment newPayment = new Payment(payments.Count.ToString(), coOrder, coOrder.getTotalAmt(), DateTime.Now, paymentType);
+                // Payment newPayment = new Payment(payments.Count.ToString(), coOrder, coOrder.getTotalAmt(), DateTime.Now, paymentType);
             }
 
             void processOrder(Order pOrder)
@@ -226,6 +226,7 @@ namespace SE_Assignment
             }
 
             // Manager Functions (Kevin)
+            // Use Case 5
             void ManageItemMenu()
             {
                 string functionTitle = "Manage Item Menu";
@@ -268,7 +269,7 @@ namespace SE_Assignment
                 while (selectedOption != "0");
             }
 
-            // Use Case 1 
+            // Use Case 6 
             void AddFoodItem()
             {
                 // Title For Option
@@ -379,48 +380,74 @@ namespace SE_Assignment
                 DisplayAllCategories(categories);
                 while (!isCategoryValid)
                 {
-                    Console.Write("Select a category (Enter the name): ");
+                    Console.Write("Please enter the Category ID: ");
                     category = Console.ReadLine();
                     if (category == "")
-                        Console.WriteLine($"Category for Food Item: {foodName} cannot be empty");
+                        Console.WriteLine($"Category ID: {foodName} cannot be empty");
                     else
                     {
-                        if (GetCategoryByName(categories, category) == null)
-                            Console.WriteLine($"The category {category} does not exist");
-                        else
-                            isCategoryValid = true;
+                        try
+                        {
+                            int convertedCategory = int.Parse(category);
+                            if(GetCategoryByID(categories, convertedCategory)==null)
+                                Console.WriteLine($"Category ID: {category} does not exist");
+                            else
+                                isCategoryValid = true;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid format, Category ID is a number. \t Example: 1");
+                        }
                     }
                 }
 
                 DisplayAllSetMenus(setMenus);
                 while (!isSetMenuValid)
                 {
-                    Console.Write("Select a Set Menu (Enter the name): ");
+                    Console.Write("Please enter the Set Menu ID: ");
                     setMenu = Console.ReadLine();
                     if (setMenu == "")
-                        Console.WriteLine($"Set Menu for Food Item: {foodName} cannot be empty");
+                        Console.WriteLine($"Set Menu ID: {setMenu} cannot be empty");
                     else
                     {
-                        if (GetSetMenuByName(setMenus, setMenu) == null)
-                            Console.WriteLine($"The Set Menu {setMenu} does not exist");
-                        else
-                            isSetMenuValid = true;
+                        try
+                        {
+                            int convertedSetMenu = int.Parse(setMenu);
+                            if (GetSetMenuByID(setMenus, convertedSetMenu) == null)
+                                Console.WriteLine($"Set Menu ID: {setMenu} does not exist");
+                            else
+                                isSetMenuValid = true;
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid format, set Menu ID is a number. \t Example: 1");
+                        }
                     }
                 }
 
-                ItemMenu newItem = new ItemMenu(foodName, description, double.Parse(price), int.Parse(unit), status, GetCategoryByName(categories, category), GetSetMenuByName(setMenus, setMenu));
+                ItemMenu newItem = new ItemMenu(foodName, description, double.Parse(price), int.Parse(unit), status, GetCategoryByID(categories, int.Parse(category)), GetSetMenuByID(setMenus, int.Parse(setMenu)));
                 itemMenus.Add(newItem);
+                Console.WriteLine($"Food Item: {foodName} successfully was added.\n");
 
             }
 
-            // Use Case 2
+            // Use Case 7
             void DeleteFoodItem()
             {
                 string functionTitle = "Delete Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
+                DisplayAllItemMenu(itemMenus);
+
+                string itemMenu = "";
+                bool isItemMenuValid = false;
+                while(!isItemMenuValid)
+                {
+
+                }
+
             }
 
-            // Use Case 3
+            // Use Case 8
             void UpdateFoodItem()
             {
                 string functionTitle = "Update Food Item";
@@ -467,20 +494,21 @@ namespace SE_Assignment
 
             void DisplayAllCategories(List<Category> categoryList)
             {
+                Console.WriteLine();
                 Console.WriteLine("Categories:");
-                for(int i = 0; i < categoryList.Count; i++)
+                foreach(Category category in categoryList)
                 {
-                    Console.WriteLine($"[{i + 1}]\t{categoryList[i].GetCategoryName()}");
+                    Console.WriteLine($"ID: {category.GetCategoryID()}\tName: {category.GetCategoryName()}");
                 }
                 Console.WriteLine();
             }
 
-            Category GetCategoryByName(List<Category> categoryList, string categoryName)
+            Category GetCategoryByID(List<Category> categoryList, int categoryID)
             {
                 Category foundCategory = null;
                 foreach (Category category in categoryList)
                 {
-                    if (category.GetCategoryName() == categoryName)
+                    if (category.GetCategoryID() == categoryID)
                     {
                         foundCategory = category;
                         break;
@@ -491,27 +519,38 @@ namespace SE_Assignment
 
             void DisplayAllSetMenus(List<SetMenu> setMenusList)
             {
+                Console.WriteLine();
                 Console.WriteLine("Set Menus:");
-                for (int i = 0; i < setMenusList.Count; i++)
+                foreach(SetMenu setMenu in setMenusList)
                 {
-                    Console.WriteLine($"[{i + 1}]\t{setMenusList[i].getSetMenuItem()}");
+                    Console.WriteLine($"ID: {setMenu.getSetMenuID()}\tName: {setMenu.getSetMenuItem()}");
                 }
                 Console.WriteLine();
             }
 
-
-            SetMenu GetSetMenuByName(List<SetMenu> setMenuList, string setMenuName)
+            SetMenu GetSetMenuByID(List<SetMenu> setMenuList, int setMenuID)
             {
                 SetMenu foundSetMenu = null;
                 foreach (SetMenu setMenu in setMenuList)
                 {
-                    if (setMenu.getSetMenuItem() == setMenuName)
+                    if (setMenu.getSetMenuID() == setMenuID)
                     {
                         foundSetMenu = setMenu;
                         break;
                     }
                 }
                 return foundSetMenu;
+            }
+
+            void DisplayAllItemMenu(List<ItemMenu> itemMenuList)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Food Items:");
+                foreach (ItemMenu itemMenu in itemMenuList)
+                {
+                    Console.WriteLine($"Name: {itemMenu.getName()}");
+                }
+                Console.WriteLine();
             }
         }
     }

@@ -116,6 +116,11 @@ namespace SE_Assignment
             this.totalAmt = totalAmt;
         }
 
+        public void makeMayment()
+        {
+            state.payment();
+        }
+
         public double getSubTotal()
         {
             return subTotal;
