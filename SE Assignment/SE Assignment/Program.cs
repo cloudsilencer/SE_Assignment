@@ -235,7 +235,7 @@ namespace SE_Assignment
 
             // Manage Menu and Manage Item (Kevin)
 
-            // Use Case 5
+            // Use Case 5 - Manage Menu (Kevin)
             void ManageSetMenu()
             {
                 string functionTitle = "Manage Set Menu";
@@ -278,7 +278,7 @@ namespace SE_Assignment
                 while (selectedOption != "0");
             }
 
-            // Use Case 6
+            // Use Case 6 - Create Set Menu (Kevin)
             void CreateSetMenu()
             {
                 string functionTitle = "Create Set Menu";
@@ -307,7 +307,7 @@ namespace SE_Assignment
                 }
             }
 
-            // Use Case 7
+            // Use Case 7 - Remove Set Menu (Kevin)
             void RemoveSetMenu()
             {
                 string functionTitle = "Remove Set Menu";
@@ -344,7 +344,7 @@ namespace SE_Assignment
                 }
             }
 
-            // Use Case 8
+            // Use Case 8 - Update Set Menu (Kevin)
             void UpdateSetMenu()
             {
                 string functionTitle = "Update Set Menu";
@@ -405,11 +405,11 @@ namespace SE_Assignment
                 }
             }
 
-            // Use Case 9
+            // Use Case 9 - Manage Item Menu (Kevin)
             void ManageItemMenu()
             {
                 string functionTitle = "Manage Item Menu";
-                List<String> options = new List<string> { "Add Food Item", "Delete Food Item", "Update Food Item", "Exit"};
+                List<String> options = new List<string> { "Create Food Item", "Remove Food Item", "Update Food Item", "Exit"};
                 String selectedOption = "";
                 do
                 {
@@ -432,7 +432,7 @@ namespace SE_Assignment
                             Console.WriteLine("Exiting From Manage Item Menu...\n");
                             break;
                         case "1":
-                            AddFoodItem();
+                            CreateFoodItem();
                             break;
                         case "2":
                             RemoveFoodItem();
@@ -448,11 +448,11 @@ namespace SE_Assignment
                 while (selectedOption != "0");
             }
 
-            // Use Case 10
-            void AddFoodItem()
+            // Use Case 10 - Add Food Item (Kevin)
+            void CreateFoodItem()
             {
                 // Title For Option
-                string functionTitle = "Add Food Item";
+                string functionTitle = "Create Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
                 // Form Variables
                 string foodName = "";
@@ -604,13 +604,17 @@ namespace SE_Assignment
                     }
                 }
 
-                ItemMenu newItem = new ItemMenu(LatestAvailableItemID(itemMenus), foodName, description, double.Parse(price), int.Parse(unit), status, GetCategoryByID(categories, int.Parse(category)), GetSetMenuByID(setMenus, int.Parse(setMenu)));
+                ItemMenu newItem = new ItemMenu(LatestAvailableItemID(itemMenus), 
+                                                foodName, description, double.Parse(price), 
+                                                int.Parse(unit), status, 
+                                                GetCategoryByID(categories, int.Parse(category)), 
+                                                GetSetMenuByID(setMenus, int.Parse(setMenu)));
                 itemMenus.Add(newItem);
                 Console.WriteLine($"Food Item: {foodName} successfully added.\n");
 
             }
 
-            // Use Case 11
+            // Use Case 11 - Remove Food Item (Kevin)
             void RemoveFoodItem()
             {
                 string functionTitle = "Delete Food Item";
@@ -648,7 +652,7 @@ namespace SE_Assignment
                 Console.WriteLine();
                 while (!isConfirmationValid)
                 {
-                    Console.Write($"Confirm the deletion of Food Item: {GetFoodItemByID(itemMenus, int.Parse(itemID)).getName()}? (Y/N) :");
+                    Console.Write($"Confirm the removal of Food Item: {GetFoodItemByID(itemMenus, int.Parse(itemID)).getName()}? (Y/N) :");
                     confirmation = Console.ReadLine();
                     switch(confirmation)
                     {
@@ -667,7 +671,7 @@ namespace SE_Assignment
                 }
             }
 
-            // Use Case 12
+            // Use Case 12 - Update Food Item
             void UpdateFoodItem()
             {
                 string functionTitle = "Update Food Item";

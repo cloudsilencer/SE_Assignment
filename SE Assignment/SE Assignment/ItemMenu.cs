@@ -29,6 +29,9 @@ namespace SE_Assignment
             this.category = category;
             this.setMenu = setMenu;
             this.orderItems = new List<OrderItem>();
+
+            // Add Item To The Set Menu
+            this.setMenu.addItem(this);
         }
 
         public int getItemID()

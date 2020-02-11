@@ -78,6 +78,11 @@ namespace SE_Assignment
             return deliveryCharge;
         }
 
+        public OrderState getState()
+        {
+            return state;
+        }
+
         public void setStatus(string status)
         {
             this.status = status;
@@ -128,7 +133,7 @@ namespace SE_Assignment
             this.totalAmt = totalAmt;
         }
 
-        public void makeMayment(Customer customer, List<Payment> payments)
+        public void makeMayment(List<Payment> payments)
         {
             state.payment(customer, payments);
         }

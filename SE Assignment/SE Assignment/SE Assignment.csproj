@@ -63,6 +63,7 @@
     <Compile Include="OrderDeliveredState.cs" />
     <Compile Include="OrderDispatchedState.cs" />
     <Compile Include="OrderItem.cs" />
+    <Compile Include="OrderIterator.cs" />
     <Compile Include="OrderNewState.cs" />
     <Compile Include="OrderPlacedState.cs" />
     <Compile Include="OrderPreparingState.cs" />
