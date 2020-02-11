@@ -24,8 +24,7 @@ namespace SE_Assignment
 
             bool login = false;
             Customer currentCust = new Customer();
-            // ViewOrder viewOrder = new ViewOrder();
-            
+
             // ManageItemMenu();
             Console.WriteLine("Who are you?\n1. Customer\n2. Employee");
             Console.Write("Select an option: ");
@@ -137,15 +136,74 @@ namespace SE_Assignment
                 pOrder.setTotalAmt((subTotal * pOrder.getGST() / 100) + subTotal);
             }
 
-            // Use Case 14(Li Yun's implementation)
+            // View all Orders (Li Yun)
              void viewOrders(Customer cust)
              {
-                for (int i = 0; i < orders.Count; i++)
+                Console.WriteLine("Your Orders:");
+
+                foreach(Order o in orders)
                 {
-                    Console.WriteLine($"[{i + 1}]\t{orders[i].getOrderItems()}");
+                    if (cust == o.getCust())
+                    {
+                        Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()}");
+
+                        foreach (OrderItem item in o.getOrderItems())
+                        {
+                            Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().getName()}");
+                        }
+
+                        // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
+
+                    }
+
+                   
                 }
 
-                Console.WriteLine();
+                Console.WriteLine("\n");
+                Console.WriteLine("Select Current or Past order(s):");
+                Console.WriteLine(" 1. Current order(s)");
+                Console.WriteLine(" 2. Past order(s)");
+
+                string choice = Console.ReadLine();
+
+
+                if (choice == "1")
+                {
+                    foreach (Order o in orders)
+                    {
+                        if (cust == o.getCust() && o.getOrderDate() == DateTime.Now)
+                        {
+                            Console.WriteLine("\n" + $"Order Number: {o.getOrderNum()} at {o.getOrderDate()}");
+
+                            foreach (OrderItem item in o.getOrderItems())
+                            {
+                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().getName()}");
+                            }
+
+                        }
+                    }      
+                }
+
+                if (choice == "2")
+                {
+                    foreach (Order o in orders)
+                    {
+                        if (cust == o.getCust())
+                        {
+                            Console.WriteLine($"Order Number: {o.getOrderNum()} at {o.getOrderDate()}");
+
+                            foreach (OrderItem item in o.getOrderItems())
+                            {
+                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().getName()}");
+                            }
+
+                        }
+
+                    }
+                        
+                }
+
+                Console.ReadKey();
 
              }
 
@@ -214,13 +272,22 @@ namespace SE_Assignment
                 branches.Add(branch3);
 
                 Order order1 = new Order("1", cust1, DateTime.Now);
+
                 Order order2 = new Order("2", cust2, DateTime.Now);
+
                 Order order3= new Order("3", cust3, DateTime.Now);
+                order3.addItem(new OrderItem(itemMenu1, 1, order3));
+
+                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1));
+                order4.addItem(new OrderItem(itemMenu2, 5, order4));
+
+
                 orders.Add(order1);
                 orders.Add(order2);
                 orders.Add(order3);
+                orders.Add(order4);
 
-                
+
 
                 Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
                 Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
