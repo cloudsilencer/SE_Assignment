@@ -682,55 +682,68 @@ namespace SE_Assignment
                 Console.WriteLine(itemToBeUpdated.ToString());
 
                 string fieldToUpdate = "";
-                //bool isFieldValid = false;
+                bool isFieldValid = false;
 
-                //while (!isFieldValid)
-                //{
-                Console.Write("Please enter the field to be updated: ");
-                fieldToUpdate = Console.ReadLine();
-                switch(fieldToUpdate)
+                while (!isFieldValid)
                 {
-                    case "Name":
-                        Console.Write("Updated Name: ");
-                        string updatedname = Console.ReadLine();
-                        itemToBeUpdated.Name = updatedname;
-                        break;
-                    case "Description":
-                        Console.Write("Updated Description: ");
-                        string updatedDescription = Console.ReadLine();
-                        itemToBeUpdated.Description = updatedDescription;
-                        break;
-                    case "Price":
-                        Console.Write("Updated Price: ");
-                        string updatedPrice = Console.ReadLine();
-                        itemToBeUpdated.Price = double.Parse(updatedPrice);
-                        break;
-                    case "Unit":
-                        Console.Write("Updated Unit: ");
-                        string updatedUnit = Console.ReadLine();
-                        itemToBeUpdated.Unit = int.Parse(updatedUnit);
-                        break;
-                    case "Status":
-                        Console.Write("Updated Status: ");
-                        string updatedStatus = Console.ReadLine();
-                        itemToBeUpdated.Status = updatedStatus;
-                        break;
-                    case "Category":
-                        DisplayAllCategories(categories);
-                        Console.Write("Updated Category (Enter the ID): ");
-                        string updatedCategoryID = Console.ReadLine();
-                        itemToBeUpdated.Category = GetCategoryByID(categories, int.Parse(updatedCategoryID));
-                        break;
-                    case "SetMenu":
-                        DisplayAllSetMenus(setMenus);
-                        Console.Write("Updated Set Menu (Enter the ID): ");
-                        string updatedSetMenuID = Console.ReadLine();
-                        itemToBeUpdated.SetMenu = GetSetMenuByID(setMenus, int.Parse(updatedSetMenuID));
-                        break;
-                    default:
-                        break;
-                }           
-                //}
+                    Console.Write("Please enter the field to be updated: ");
+                    fieldToUpdate = Console.ReadLine();
+                    switch(fieldToUpdate)
+                    {
+                        case "Name":
+                            bool isNameValid = false;
+                            while (!isNameValid)
+                            {
+                                Console.WriteLine($"Current Name: {itemToBeUpdated.Name}");
+                                Console.Write("Updated Name: ");
+                                string updatedName = Console.ReadLine();
+                                if (updatedName == "")
+                                    Console.WriteLine("Updated Name cannot be empty!");
+                                else if (CheckSetMenuNameExists(GetAllSetMenuName(setMenus), updatedName) && (updatedName != itemToBeUpdated.Name))
+                                    Console.WriteLine("The updated name entered is similar to another food item!");
+                                else
+                                {
+                                    isNameValid = true;
+                                    itemToBeUpdated.Name = updatedName;
+                                }
+                            }
+                            break;
+                        case "Description":
+                            Console.Write("Updated Description: ");
+                            string updatedDescription = Console.ReadLine();
+                            itemToBeUpdated.Description = updatedDescription;
+                            break;
+                        case "Price":
+                            Console.Write("Updated Price: ");
+                            string updatedPrice = Console.ReadLine();
+                            itemToBeUpdated.Price = double.Parse(updatedPrice);
+                            break;
+                        case "Unit":
+                            Console.Write("Updated Unit: ");
+                            string updatedUnit = Console.ReadLine();
+                            itemToBeUpdated.Unit = int.Parse(updatedUnit);
+                            break;
+                        case "Status":
+                            Console.Write("Updated Status: ");
+                            string updatedStatus = Console.ReadLine();
+                            itemToBeUpdated.Status = updatedStatus;
+                            break;
+                        case "Category":
+                            DisplayAllCategories(categories);
+                            Console.Write("Updated Category (Enter the ID): ");
+                            string updatedCategoryID = Console.ReadLine();
+                            itemToBeUpdated.Category = GetCategoryByID(categories, int.Parse(updatedCategoryID));
+                            break;
+                        case "SetMenu":
+                            DisplayAllSetMenus(setMenus);
+                            Console.Write("Updated Set Menu (Enter the ID): ");
+                            string updatedSetMenuID = Console.ReadLine();
+                            itemToBeUpdated.SetMenu = GetSetMenuByID(setMenus, int.Parse(updatedSetMenuID));
+                            break;
+                        default:
+                            break;
+                    }           
+                }
 
             }
 

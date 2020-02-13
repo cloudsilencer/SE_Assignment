@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace SE_Assignment
@@ -80,7 +77,6 @@ namespace SE_Assignment
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             TimeRemaining -= 1;
-            Console.WriteLine($"Time Remaining: {TimeRemaining}s ");
             if (TimeRemaining == 0)
             {
                 StopTimer();
