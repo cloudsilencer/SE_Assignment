@@ -8,6 +8,6 @@ namespace SE_Assignment
 {
     interface Observer
     {
-        void resetComission();
+        void update();
     }
 }

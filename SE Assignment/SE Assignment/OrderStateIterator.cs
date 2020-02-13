@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace SE_Assignment
 {
-    class OrderIterator
+    class OrderStateIterator
     {
         private OrderState state;
         private int position = 0;
         public List<Order> orders;
 
-        public OrderIterator(List<Order> orders, OrderState state)
+        public OrderStateIterator(List<Order> orders, OrderState state)
         {
             this.orders = orders;
             this.state = state;
