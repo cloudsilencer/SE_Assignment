@@ -14,6 +14,7 @@ namespace SE_Assignment
             List<SetMenu> setMenus = new List<SetMenu>();
             List<FoodItem> foodItems = new List<FoodItem>();
             List<Customer> customers = new List<Customer>();
+            List<Employee> employees = new List<Employee>();
             List<Branch> branches = new List<Branch>();
             List<Order> orders = new List<Order>();
             List<Payment> payments = new List<Payment>();
@@ -813,8 +814,6 @@ namespace SE_Assignment
                 orders.Add(order3);
                 orders.Add(order4);
 
-
-
                 Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
                 Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
                 Payment payment3 = new Payment("3", order3, 10.00, DateTime.Now, "Online");
@@ -823,6 +822,14 @@ namespace SE_Assignment
                 payments.Add(payment2);
                 payments.Add(payment3);
 
+                // Start The Clock
+                Clock clock = Clock.getInstance();
+
+                Dispatcher dispatcher1 = new Dispatcher(50, "S9213724G", "Male", "Employed", new DateTime(2017, 10, 19), branch1, clock);
+                Dispatcher dispatcher2 = new Dispatcher(51, "S9605134B", "Female", "Employed", new DateTime(2018, 2, 25), branch1, clock);
+
+                employees.Add(dispatcher1);
+                employees.Add(dispatcher2);
 
             }
 

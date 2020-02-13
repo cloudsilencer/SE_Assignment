@@ -9,6 +9,7 @@ namespace SE_Assignment
 {
     class Clock: Subject
     {
+        private static Clock uniqueInstance = null;
         private List<Observer> observers;
         private Timer timer;
         public Timer Timer
@@ -25,12 +26,22 @@ namespace SE_Assignment
         }
 
 
-        public Clock()
+        private Clock()
         {
+            // Private Constructor
             observers = new List<Observer>();
             Timer = new Timer(1000);
             InitializeTimeRemaining();
             SetTimer();
+        }
+
+        public static Clock getInstance()
+        {
+            if (uniqueInstance == null)
+            {
+                uniqueInstance = new Clock();
+            }
+            return uniqueInstance;
         }
 
         public void InitializeTimeRemaining()

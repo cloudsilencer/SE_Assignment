@@ -16,15 +16,25 @@ namespace SE_Assignment
             set { totalCommission = value; }
         }
 
-        public Dispatcher(int employeeNo, string employeeNRIC, string employeeGender, string employeeStatus, DateTime employeeDateJoin, Branch branch) : base(employeeNo, employeeNRIC, employeeGender, employeeStatus, employeeDateJoin, branch)
+        private Subject clock;
+
+        public Subject Clock
+        {
+            get { return clock; }
+            set { clock = value; }
+        }
+
+
+        public Dispatcher(int employeeNo, string employeeNRIC, string employeeGender, string employeeStatus, DateTime employeeDateJoin, Branch branch, Subject clock) : base(employeeNo, employeeNRIC, employeeGender, employeeStatus, employeeDateJoin, branch)
         {
             base.employeeNo = employeeNo;
-            this.employeeNRIC = employeeNRIC;
-            this.employeeGender = employeeGender;
-            this.employeeStatus = employeeStatus;
-            this.employeeDateJoin = employeeDateJoin;
-            this.branch = branch;
+            base.employeeNRIC = employeeNRIC;
+            base.employeeGender = employeeGender;
+            base.employeeStatus = employeeStatus;
+            base.employeeDateJoin = employeeDateJoin;
+            base.branch = branch;
             TotalCommission = 0;
+            Clock = clock;
         }
 
         public void deliverOrder()
