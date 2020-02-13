@@ -12,20 +12,16 @@ namespace SE_Assignment
         {
             List<Category> categories = new List<Category>();
             List<SetMenu> setMenus = new List<SetMenu>();
-            List<ItemMenu> itemMenus = new List<ItemMenu>();
+            List<FoodItem> foodItems = new List<FoodItem>();
             List<Customer> customers = new List<Customer>();
             List<Branch> branches = new List<Branch>();
             List<Order> orders = new List<Order>();
             List<Payment> payments = new List<Payment>();
             InitializeData();
-            //Console.WriteLine($"Number of food items: {itemMenus.Count}");
-            //ManageItemMenu();
-            //Console.WriteLine($"Number of food items: {itemMenus.Count}");
 
             bool login = false;
             Customer currentCust = new Customer();
 
-            // ManageItemMenu();
             Console.WriteLine("Who are you?\n1. Customer\n2. Employee");
             Console.Write("Select an option: ");
             string user = Console.ReadLine();
@@ -87,13 +83,13 @@ namespace SE_Assignment
                 while (true)
                 {
                     Console.WriteLine("Please select an item from below");
-                    for (int i = 0; i < itemMenus.Count; i++)
-                        Console.WriteLine((i + 1) + ". " + itemMenus[i].getName());
+                    for (int i = 0; i < foodItems.Count; i++)
+                        Console.WriteLine((i + 1) + ". " + foodItems[i].Name);
 
                     int foodchoice = Convert.ToInt32(Console.ReadLine());
                     Console.Write("How many would you like? ");
                     string quantity = Console.ReadLine();
-                    OrderItem selected = new OrderItem(itemMenus[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
+                    OrderItem selected = new OrderItem(foodItems[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
                     newOrder.addItem(selected);
                     Console.WriteLine("Would you like to add more items? (Y/N)");
                     string option = Console.ReadLine();
@@ -130,7 +126,7 @@ namespace SE_Assignment
                 double subTotal = pOrder.getSubTotal();
                 foreach (OrderItem item in pOrder.getOrderItems())
                 {
-                    subTotal += (item.getItem().getPrice() * item.getQuantity()) + pOrder.getDeliveryCharge();
+                    subTotal += (item.getItem().Price * item.getQuantity()) + pOrder.getDeliveryCharge();
                 }
                 pOrder.setSubTotal(subTotal);
                 pOrder.setTotalAmt((subTotal * pOrder.getGST() / 100) + subTotal);
@@ -149,7 +145,7 @@ namespace SE_Assignment
 
                         foreach (OrderItem item in o.getOrderItems())
                         {
-                            Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().getName()}");
+                            Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                         }
 
                         // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
@@ -177,7 +173,7 @@ namespace SE_Assignment
 
                             foreach (OrderItem item in o.getOrderItems())
                             {
-                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().getName()}");
+                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                             }
 
                         }
@@ -194,7 +190,7 @@ namespace SE_Assignment
 
                             foreach (OrderItem item in o.getOrderItems())
                             {
-                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().getName()}");
+                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                             }
 
                         }
@@ -206,99 +202,6 @@ namespace SE_Assignment
                 Console.ReadKey();
 
              }
-
-            // Initialize Data Function
-            void InitializeData()
-            {
-                Category category1 = new Category(1, "Chicken");
-                Category category2 = new Category(2, "Fish");
-                Category category3 = new Category(3, "Beef");
-                Category category4 = new Category(4, "Others");
-                categories.Add(category1);
-                categories.Add(category2);
-                categories.Add(category3);
-                categories.Add(category4);
-
-                SetMenu breakfastSetMenu = new SetMenu(1, "Breakfast");
-                SetMenu lunchSetMenu = new SetMenu(2, "Lunch");
-                SetMenu dinnerSetMenu = new SetMenu(3, "Dinner");
-                setMenus.Add(breakfastSetMenu);
-                setMenus.Add(lunchSetMenu);
-                setMenus.Add(dinnerSetMenu);
-
-                ItemMenu itemMenu1 = new ItemMenu(1, "French Toast", "Sliced bread soaked in eggs and milk, then fried.", 3.00, 100, "Available", category4, breakfastSetMenu);
-                ItemMenu itemMenu2 = new ItemMenu(2, "Grilled Chicken Sandwich", "Juicy grilled chicken wrapped within 2 slices of bread.", 5.60, 100, "Available", category1, breakfastSetMenu);
-                ItemMenu itemMenu3 = new ItemMenu(3, "Fish Congee", "Congee with red grouper slices", 5.80, 100, "Available", category1, breakfastSetMenu);
-                ItemMenu itemMenu4 = new ItemMenu(4, "Chicken Wrap", "Tortilla wrap with bits of chicken", 12.00, 100, "Available", category1, breakfastSetMenu);
-                ItemMenu itemMenu5 = new ItemMenu(5, "Signature Southern Style Fried Chicken", "The taste of Texas", 12.90, 100, "Available", category1, lunchSetMenu);
-                ItemMenu itemMenu6 = new ItemMenu(6, "Steak with baked potatoes", "Sirloin steak served with baked potatoes", 17.90, 100, "Available", category3, lunchSetMenu);
-                ItemMenu itemMenu7 = new ItemMenu(7, "Poke Bowl", "Diced raw salmon served with salad", 12.60, 100, "Available", category2, lunchSetMenu);
-                ItemMenu itemMenu8 = new ItemMenu(8, "Seafood Spaghetti", "Tomato based spaghetti with shrimp and clams", 10.70, 100, "Available", category4, lunchSetMenu);
-                ItemMenu itemMenu9 = new ItemMenu(9, "Roasted Chicken with Herbs", "Quarter Roasted Chicken with 2 sides", 14.90, 100, "Available", category1, dinnerSetMenu);
-                ItemMenu itemMenu10 = new ItemMenu(10, "Fried Wild Mushrooms", "Wild Mushrooms fresh from Australia", 8.20, 100, "Available", category4, dinnerSetMenu);
-                ItemMenu itemMenu11 = new ItemMenu(11, "Beef Stew", "Beef stew with bread", 14.20, 100, "Available", category3, dinnerSetMenu);
-                ItemMenu itemMenu12 = new ItemMenu(12, "Fish and Chips", "Fried cod in batter served with chips", 11.90, 100, "Available", category3, dinnerSetMenu);
-                itemMenus.Add(itemMenu1);
-                itemMenus.Add(itemMenu2);
-                itemMenus.Add(itemMenu3);
-                itemMenus.Add(itemMenu4);
-                itemMenus.Add(itemMenu5);
-                itemMenus.Add(itemMenu6);
-                itemMenus.Add(itemMenu7);
-                itemMenus.Add(itemMenu8);
-                itemMenus.Add(itemMenu9);
-                itemMenus.Add(itemMenu10);
-                itemMenus.Add(itemMenu11);
-                itemMenus.Add(itemMenu12);
-
-                Account acc1 = new Account(1, "password", "Logged Out");
-                Account acc2 = new Account(2, "password", "Logged Out");
-                Account acc3 = new Account(3, "password", "Logged Out");
-                Account acc4 = new Account(4, "password", "Logged Out");
-                Account acc5 = new Account(5, "password", "Logged Out");
-
-                Customer cust1 = new Customer("Dominic", "Sengkang", "dominic8281@gmail.com", "97828840", "123123", acc1);
-                Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123124", acc2);
-                Customer cust3 = new Customer("Li Yun", "Punggol", "liyun8281@gmail.com", "97828842", "123125", acc3);
-                customers.Add(cust1);
-                customers.Add(cust2);
-                customers.Add(cust3);
-
-                Branch branch1 = new Branch(1, "Sengkang");
-                Branch branch2 = new Branch(1, "Hougang");
-                Branch branch3 = new Branch(1, "Punggol");
-                branches.Add(branch1);
-                branches.Add(branch2);
-                branches.Add(branch3);
-
-                Order order1 = new Order("1", cust1, DateTime.Now);
-
-                Order order2 = new Order("2", cust2, DateTime.Now);
-
-                Order order3= new Order("3", cust3, DateTime.Now);
-                order3.addItem(new OrderItem(itemMenu1, 1, order3));
-
-                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1));
-                order4.addItem(new OrderItem(itemMenu2, 5, order4));
-
-
-                orders.Add(order1);
-                orders.Add(order2);
-                orders.Add(order3);
-                orders.Add(order4);
-
-
-
-                Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
-                Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
-                Payment payment3 = new Payment("3", order3, 10.00, DateTime.Now, "Online");
-
-                payments.Add(payment1);
-                payments.Add(payment2);
-                payments.Add(payment3);
-
-
-            }
 
             // Manage Menu and Manage Item (Kevin)
 
@@ -398,7 +301,7 @@ namespace SE_Assignment
                                 Console.WriteLine($"Set Menu ID: {parsedSetMenuID} does not exist");
                             else
                             {
-                                Console.WriteLine($"The Set Menu: {GetSetMenuByID(setMenus, parsedSetMenuID).getSetMenuItem()} was removed.");
+                                Console.WriteLine($"The Set Menu: {GetSetMenuByID(setMenus, parsedSetMenuID).SetMenuName} was removed.");
                                 setMenus.Remove(GetSetMenuByID(setMenus, parsedSetMenuID));
                                 isSetMenuIDValid = true;
                             }
@@ -434,7 +337,7 @@ namespace SE_Assignment
                                 Console.WriteLine($"Set Menu ID: {parsedSetMenuID} does not exist");
                             else
                             {
-                                Console.WriteLine($"The Set Menu: {GetSetMenuByID(setMenus, parsedSetMenuID).getSetMenuItem()} was removed.");
+                                Console.WriteLine($"The Set Menu: {GetSetMenuByID(setMenus, parsedSetMenuID).SetMenuName} was removed.");
                                 isSetMenuIDValid = true;
                             }
                         }
@@ -465,17 +368,17 @@ namespace SE_Assignment
                         }
                         else
                         {
-                            setMenuToBeUpdated.setSetMenuItem(setMenuNameToUpdate);
+                            setMenuToBeUpdated.SetMenuName = setMenuNameToUpdate;
                             Console.WriteLine("Set Menu has been successfully updated.");
                         }
                     }
                 }
             }
 
-            // Use Case 9 - Manage Item Menu (Kevin)
-            void ManageItemMenu()
+            // Use Case 9 - Manage Item (Kevin)
+            void ManageItem()
             {
-                string functionTitle = "Manage Item Menu";
+                string functionTitle = "Manage Food Items";
                 List<String> options = new List<string> { "Create Food Item", "Remove Food Item", "Update Food Item", "Exit"};
                 String selectedOption = "";
                 do
@@ -546,7 +449,7 @@ namespace SE_Assignment
                     foodName = Console.ReadLine();
                     if (foodName == "")
                         Console.WriteLine("Name of Food Item cannot be empty");
-                    else if (CheckFoodNameExists(GetAllFoodItemName(itemMenus), foodName))
+                    else if (CheckFoodNameExists(GetAllFoodItemName(foodItems), foodName))
                         Console.WriteLine($"The food name {foodName} already exists.");
                     else
                         isFoodNameValid = true;
@@ -671,12 +574,12 @@ namespace SE_Assignment
                     }
                 }
 
-                ItemMenu newItem = new ItemMenu(LatestAvailableItemID(itemMenus), 
+                FoodItem newItem = new FoodItem(LatestAvailableItemID(foodItems), 
                                                 foodName, description, double.Parse(price), 
                                                 int.Parse(unit), status, 
                                                 GetCategoryByID(categories, int.Parse(category)), 
                                                 GetSetMenuByID(setMenus, int.Parse(setMenu)));
-                itemMenus.Add(newItem);
+                foodItems.Add(newItem);
                 Console.WriteLine($"Food Item: {foodName} successfully added.\n");
 
             }
@@ -686,7 +589,7 @@ namespace SE_Assignment
             {
                 string functionTitle = "Delete Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
-                DisplayAllItemMenu(itemMenus);
+                DisplayAllItemMenu(foodItems);
 
                 string itemID = "";
                 string confirmation = "";
@@ -705,7 +608,7 @@ namespace SE_Assignment
                         try
                         {
                             int parsedItemID = int.Parse(itemID);
-                            if (GetFoodItemByID(itemMenus, parsedItemID) == null)
+                            if (GetFoodItemByID(foodItems, parsedItemID) == null)
                                 Console.WriteLine($"Food Item with ID: {parsedItemID} does not exists");
                             else
                                 isItemIDValid = true;
@@ -719,13 +622,13 @@ namespace SE_Assignment
                 Console.WriteLine();
                 while (!isConfirmationValid)
                 {
-                    Console.Write($"Confirm the removal of Food Item: {GetFoodItemByID(itemMenus, int.Parse(itemID)).getName()}? (Y/N) :");
+                    Console.Write($"Confirm the removal of Food Item: {GetFoodItemByID(foodItems, int.Parse(itemID)).Name}? (Y/N) :");
                     confirmation = Console.ReadLine();
                     switch(confirmation)
                     {
                         case "Y":
-                            Console.WriteLine($"Food Item: {GetFoodItemByID(itemMenus, int.Parse(itemID)).getName()} was removed.\n");
-                            itemMenus.Remove(GetFoodItemByID(itemMenus, int.Parse(itemID)));
+                            Console.WriteLine($"Food Item: {GetFoodItemByID(foodItems, int.Parse(itemID)).Name} was removed.\n");
+                            foodItems.Remove(GetFoodItemByID(foodItems, int.Parse(itemID)));
                             isConfirmationValid = true;
                             break;
                         case "N":
@@ -743,7 +646,7 @@ namespace SE_Assignment
             {
                 string functionTitle = "Update Food Item";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
-                DisplayAllItemMenu(itemMenus);
+                DisplayAllItemMenu(foodItems);
                 
                 string itemID = "";
                 bool isItemIDValid = false;
@@ -761,7 +664,7 @@ namespace SE_Assignment
                         try
                         {
                             int parsedItemID = int.Parse(itemID);
-                            if (GetFoodItemByID(itemMenus, parsedItemID) == null)
+                            if (GetFoodItemByID(foodItems, parsedItemID) == null)
                                 Console.WriteLine($"Food Item with ID: {parsedItemID} does not exists");
                             else
                                 isItemIDValid = true;
@@ -773,7 +676,7 @@ namespace SE_Assignment
                     }
                 }
 
-                ItemMenu itemToBeUpdated = GetFoodItemByID(itemMenus, int.Parse(itemID));
+                FoodItem itemToBeUpdated = GetFoodItemByID(foodItems, int.Parse(itemID));
                 Console.WriteLine($"\nSelected Item:\n");
                 Console.WriteLine(itemToBeUpdated.ToString());
 
@@ -789,44 +692,137 @@ namespace SE_Assignment
                     case "Name":
                         Console.Write("Updated Name: ");
                         string updatedname = Console.ReadLine();
-                        itemToBeUpdated.setName(updatedname);
+                        itemToBeUpdated.Name = updatedname;
                         break;
                     case "Description":
                         Console.Write("Updated Description: ");
                         string updatedDescription = Console.ReadLine();
-                        itemToBeUpdated.setDescription(updatedDescription);
+                        itemToBeUpdated.Description = updatedDescription;
                         break;
                     case "Price":
                         Console.Write("Updated Price: ");
                         string updatedPrice = Console.ReadLine();
-                        itemToBeUpdated.setPrice(double.Parse(updatedPrice));
+                        itemToBeUpdated.Price = double.Parse(updatedPrice);
                         break;
                     case "Unit":
                         Console.Write("Updated Unit: ");
                         string updatedUnit = Console.ReadLine();
-                        itemToBeUpdated.setUnit(int.Parse(updatedUnit));
+                        itemToBeUpdated.Unit = int.Parse(updatedUnit);
                         break;
                     case "Status":
                         Console.Write("Updated Status: ");
                         string updatedStatus = Console.ReadLine();
-                        itemToBeUpdated.setStatus(updatedStatus);
+                        itemToBeUpdated.Status = updatedStatus;
                         break;
                     case "Category":
                         DisplayAllCategories(categories);
                         Console.Write("Updated Category (Enter the ID): ");
                         string updatedCategoryID = Console.ReadLine();
-                        itemToBeUpdated.setCategory(GetCategoryByID(categories, int.Parse(updatedCategoryID)));
+                        itemToBeUpdated.Category = GetCategoryByID(categories, int.Parse(updatedCategoryID));
                         break;
                     case "SetMenu":
                         DisplayAllSetMenus(setMenus);
                         Console.Write("Updated Set Menu (Enter the ID): ");
                         string updatedSetMenuID = Console.ReadLine();
-                        itemToBeUpdated.setSetMenu(GetSetMenuByID(setMenus, int.Parse(updatedSetMenuID)));
+                        itemToBeUpdated.SetMenu = GetSetMenuByID(setMenus, int.Parse(updatedSetMenuID));
                         break;
                     default:
                         break;
                 }           
                 //}
+
+            }
+
+            // Initialize Data Function
+            void InitializeData()
+            {
+                Category category1 = new Category(1, "Chicken");
+                Category category2 = new Category(2, "Fish");
+                Category category3 = new Category(3, "Beef");
+                Category category4 = new Category(4, "Others");
+                categories.Add(category1);
+                categories.Add(category2);
+                categories.Add(category3);
+                categories.Add(category4);
+
+                SetMenu breakfastSetMenu = new SetMenu(1, "Breakfast");
+                SetMenu lunchSetMenu = new SetMenu(2, "Lunch");
+                SetMenu dinnerSetMenu = new SetMenu(3, "Dinner");
+                setMenus.Add(breakfastSetMenu);
+                setMenus.Add(lunchSetMenu);
+                setMenus.Add(dinnerSetMenu);
+
+                FoodItem itemMenu1 = new FoodItem(1, "French Toast", "Sliced bread soaked in eggs and milk, then fried.", 3.00, 100, "Available", category4, breakfastSetMenu);
+                FoodItem itemMenu2 = new FoodItem(2, "Grilled Chicken Sandwich", "Juicy grilled chicken wrapped within 2 slices of bread.", 5.60, 100, "Available", category1, breakfastSetMenu);
+                FoodItem itemMenu3 = new FoodItem(3, "Fish Congee", "Congee with red grouper slices", 5.80, 100, "Available", category1, breakfastSetMenu);
+                FoodItem itemMenu4 = new FoodItem(4, "Chicken Wrap", "Tortilla wrap with bits of chicken", 12.00, 100, "Available", category1, breakfastSetMenu);
+                FoodItem itemMenu5 = new FoodItem(5, "Signature Southern Style Fried Chicken", "The taste of Texas", 12.90, 100, "Available", category1, lunchSetMenu);
+                FoodItem itemMenu6 = new FoodItem(6, "Steak with baked potatoes", "Sirloin steak served with baked potatoes", 17.90, 100, "Available", category3, lunchSetMenu);
+                FoodItem itemMenu7 = new FoodItem(7, "Poke Bowl", "Diced raw salmon served with salad", 12.60, 100, "Available", category2, lunchSetMenu);
+                FoodItem itemMenu8 = new FoodItem(8, "Seafood Spaghetti", "Tomato based spaghetti with shrimp and clams", 10.70, 100, "Available", category4, lunchSetMenu);
+                FoodItem itemMenu9 = new FoodItem(9, "Roasted Chicken with Herbs", "Quarter Roasted Chicken with 2 sides", 14.90, 100, "Available", category1, dinnerSetMenu);
+                FoodItem itemMenu10 = new FoodItem(10, "Fried Wild Mushrooms", "Wild Mushrooms fresh from Australia", 8.20, 100, "Available", category4, dinnerSetMenu);
+                FoodItem itemMenu11 = new FoodItem(11, "Beef Stew", "Beef stew with bread", 14.20, 100, "Available", category3, dinnerSetMenu);
+                FoodItem itemMenu12 = new FoodItem(12, "Fish and Chips", "Fried cod in batter served with chips", 11.90, 100, "Available", category3, dinnerSetMenu);
+                foodItems.Add(itemMenu1);
+                foodItems.Add(itemMenu2);
+                foodItems.Add(itemMenu3);
+                foodItems.Add(itemMenu4);
+                foodItems.Add(itemMenu5);
+                foodItems.Add(itemMenu6);
+                foodItems.Add(itemMenu7);
+                foodItems.Add(itemMenu8);
+                foodItems.Add(itemMenu9);
+                foodItems.Add(itemMenu10);
+                foodItems.Add(itemMenu11);
+                foodItems.Add(itemMenu12);
+
+                Account acc1 = new Account(1, "password", "Logged Out");
+                Account acc2 = new Account(2, "password", "Logged Out");
+                Account acc3 = new Account(3, "password", "Logged Out");
+                Account acc4 = new Account(4, "password", "Logged Out");
+                Account acc5 = new Account(5, "password", "Logged Out");
+
+                Customer cust1 = new Customer("Dominic", "Sengkang", "dominic8281@gmail.com", "97828840", "123123", acc1);
+                Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123124", acc2);
+                Customer cust3 = new Customer("Li Yun", "Punggol", "liyun8281@gmail.com", "97828842", "123125", acc3);
+                customers.Add(cust1);
+                customers.Add(cust2);
+                customers.Add(cust3);
+
+                Branch branch1 = new Branch(1, "Sengkang");
+                Branch branch2 = new Branch(1, "Hougang");
+                Branch branch3 = new Branch(1, "Punggol");
+                branches.Add(branch1);
+                branches.Add(branch2);
+                branches.Add(branch3);
+
+                Order order1 = new Order("1", cust1, DateTime.Now);
+
+                Order order2 = new Order("2", cust2, DateTime.Now);
+
+                Order order3 = new Order("3", cust3, DateTime.Now);
+                order3.addItem(new OrderItem(itemMenu1, 1, order3));
+
+                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1));
+                order4.addItem(new OrderItem(itemMenu2, 5, order4));
+
+
+                orders.Add(order1);
+                orders.Add(order2);
+                orders.Add(order3);
+                orders.Add(order4);
+
+
+
+                Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
+                Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
+                Payment payment3 = new Payment("3", order3, 10.00, DateTime.Now, "Online");
+
+                payments.Add(payment1);
+                payments.Add(payment2);
+                payments.Add(payment3);
+
 
             }
 
@@ -901,7 +897,7 @@ namespace SE_Assignment
                             ManageSetMenu();
                             break;
                         case "2":
-                            ManageItemMenu();
+                            ManageItem();
                             break;
                         case "3":
                             // DisplayDispatcherMenu()
@@ -925,7 +921,7 @@ namespace SE_Assignment
                 List<string> SetMenuNameList = new List<string>();
                 foreach (SetMenu setMenu in setMenuList)
                 {
-                    SetMenuNameList.Add(setMenu.getSetMenuItem());
+                    SetMenuNameList.Add(setMenu.SetMenuName);
                 }
                 return SetMenuNameList;
             }
@@ -949,15 +945,15 @@ namespace SE_Assignment
                 if (setMenuList.Count == 0)
                     return 1;
                 else
-                    return setMenuList[setMenuList.Count - 1].getSetMenuID() + 1;
+                    return setMenuList[setMenuList.Count - 1].SetMenuID + 1;
             }
 
-            List<string> GetAllFoodItemName(List<ItemMenu> itemList)
+            List<string> GetAllFoodItemName(List<FoodItem> itemList)
             {
                 List<string> FoodNameList = new List<string>();
-                foreach(ItemMenu itemMenu in itemList)
+                foreach(FoodItem itemMenu in itemList)
                 {
-                    FoodNameList.Add(itemMenu.getName());
+                    FoodNameList.Add(itemMenu.Name);
                 }
                 return FoodNameList;
             }
@@ -990,7 +986,7 @@ namespace SE_Assignment
                 Console.WriteLine("Categories:");
                 foreach(Category category in categoryList)
                 {
-                    Console.WriteLine($"ID: {category.GetCategoryID()}\tName: {category.GetCategoryName()}");
+                    Console.WriteLine($"ID: {category.CategoryID}\tName: {category.CategoryName}");
                 }
                 Console.WriteLine();
             }
@@ -1000,7 +996,7 @@ namespace SE_Assignment
                 Category foundCategory = null;
                 foreach (Category category in categoryList)
                 {
-                    if (category.GetCategoryID() == categoryID)
+                    if (category.CategoryID == categoryID)
                     {
                         foundCategory = category;
                         break;
@@ -1015,7 +1011,7 @@ namespace SE_Assignment
                 Console.WriteLine("Set Menus:");
                 foreach(SetMenu setMenu in setMenusList)
                 {
-                    Console.WriteLine($"ID: {setMenu.getSetMenuID()}\tName: {setMenu.getSetMenuItem()}");
+                    Console.WriteLine($"ID: {setMenu.SetMenuID}\tName: {setMenu.SetMenuName}");
                 }
                 Console.WriteLine();
             }
@@ -1025,7 +1021,7 @@ namespace SE_Assignment
                 SetMenu foundSetMenu = null;
                 foreach (SetMenu setMenu in setMenuList)
                 {
-                    if (setMenu.getSetMenuID() == setMenuID)
+                    if (setMenu.SetMenuID == setMenuID)
                     {
                         foundSetMenu = setMenu;
                         break;
@@ -1034,37 +1030,37 @@ namespace SE_Assignment
                 return foundSetMenu;
             }
 
-            void DisplayAllItemMenu(List<ItemMenu> itemMenuList)
+            void DisplayAllItemMenu(List<FoodItem> foodItemList)
             {
                 Console.WriteLine();
                 Console.WriteLine("Food Items:");
-                foreach (ItemMenu itemMenu in itemMenuList)
+                foreach (FoodItem foodItem in foodItemList)
                 {
-                    Console.WriteLine($"ID: {itemMenu.getItemID()}\tName: {itemMenu.getName()}");
+                    Console.WriteLine($"ID: {foodItem.ItemID}\tName: {foodItem.Name}");
                 }
                 Console.WriteLine();
             }
 
-            ItemMenu GetFoodItemByID(List<ItemMenu> itemMenuList, int itemID)
+            FoodItem GetFoodItemByID(List<FoodItem> foodItemList, int itemID)
             {
-                ItemMenu foundItemMenu = null;
-                foreach(ItemMenu itemMenu in itemMenuList)
+                FoodItem foundFoodItem = null;
+                foreach(FoodItem foodItem in foodItemList)
                 {
-                    if (itemMenu.getItemID() == itemID)
+                    if (foodItem.ItemID == itemID)
                     {
-                        foundItemMenu = itemMenu;
+                        foundFoodItem = foodItem;
                         break;
                     }
                 }
-                return foundItemMenu;
+                return foundFoodItem;
             }
 
-            int LatestAvailableItemID(List<ItemMenu> itemMenusList)
+            int LatestAvailableItemID(List<FoodItem> foodItemList)
             {
-                if (itemMenusList.Count == 0)
+                if (foodItemList.Count == 0)
                     return 1;
                 else
-                    return itemMenusList[itemMenusList.Count - 1].getItemID() + 1;
+                    return foodItemList[foodItemList.Count - 1].ItemID + 1;
             }
         }
     }

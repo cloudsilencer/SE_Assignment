@@ -9,51 +9,56 @@ namespace SE_Assignment
     class SetMenu
     {
         private int setMenuID;
-        private string setMenuItem;
-        private List<ItemMenu> itemMenuList;
+
+        public int SetMenuID
+        {
+            get { return setMenuID; }
+            set { setMenuID = value; }
+        }
+
+        private string setMenuName;
+        public string SetMenuName
+        {
+            get { return setMenuName; }
+            set { setMenuName = value; }
+        }
+
+        private List<FoodItem> foodItemList;
+        public List<FoodItem> FoodItemList
+        {
+            get { return foodItemList; }
+            set { foodItemList = value; }
+        }
+
         private int size;
-
-        public SetMenu(int setMenuID, string setMenuItem)
+        public int Size
         {
-            this.setMenuID = setMenuID;
-            this.setMenuItem = setMenuItem;
-            this.itemMenuList = new List<ItemMenu>();
-            this.size = this.itemMenuList.Count();
+            get { return size; }
+            set { size = value; }
         }
 
-        public int getSetMenuID()
+        public SetMenu(int setMenuID, string setMenuName)
         {
-            return setMenuID;
+            SetMenuID = setMenuID;
+            SetMenuName = setMenuName;
+            FoodItemList = new List<FoodItem>();
+            Size = FoodItemList.Count;
         }
 
-        public string getSetMenuItem()
+        public void AddItem(FoodItem item)
         {
-            return setMenuItem;
+            FoodItemList.Add(item);
         }
 
-        public void setSetMenuItem(string setMenuItem)
+        public void RemoveItem(FoodItem item)
         {
-            this.setMenuItem = setMenuItem;
-        }
-
-        public void addItem(ItemMenu menu)
-        {
-            itemMenuList.Add(menu);
-        }
-
-        public void removeItem(ItemMenu menu)
-        {
-            itemMenuList.Remove(menu);
-        }
-        public void updateItem(ItemMenu menu)
-        {
-
+            FoodItemList.Remove(item);
         }
 
         public override string ToString()
         {
-            return $"ID: {getSetMenuID()}\n" +
-                   $"Name: {getSetMenuItem()}\n";
+            return $"ID: {SetMenuID}\n" +
+                   $"Name: {SetMenuName}\n";
         }
     }
 }

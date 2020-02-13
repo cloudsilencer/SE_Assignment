@@ -53,7 +53,7 @@
     <Compile Include="Dispatcher.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="HandleOrderBehaviour.cs" />
-    <Compile Include="ItemMenu.cs" />
+    <Compile Include="FoodItem.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="MonitorOrder.cs" />
     <Compile Include="Observer.cs" />

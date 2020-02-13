@@ -9,22 +9,22 @@ namespace SE_Assignment
     class Category
     {
         private int categoryID;
-        private string categoryName;
+        public int CategoryID
+        {
+            get { return categoryID; }
+            set { categoryID = value; }
+        }
 
+        private string categoryName;
+        public string CategoryName
+        {
+            get { return categoryName; }
+            set { categoryName = value; }
+        }
         public Category(int categoryID, string categoryName)
         {
-            this.categoryID = categoryID;
-            this.categoryName = categoryName;
+            CategoryID = categoryID;
+            CategoryName = categoryName;
         }
-
-        public int GetCategoryID()
-        {
-            return categoryID;
-        }
-        public string GetCategoryName()
-        {
-            return categoryName;
-        }
-
     }
 }

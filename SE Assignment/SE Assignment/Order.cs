@@ -188,7 +188,7 @@ namespace SE_Assignment
         {
             foreach (OrderItem item in orderItems)
             {
-                Console.WriteLine(item.getItem().getName() + ", " + item.getItem().getPrice() + ", x" + item.getQuantity());
+                Console.WriteLine(item.getItem().Name + ", " + item.getItem().Price + ", x" + item.getQuantity());
             }
             Console.WriteLine("Subtotal: $" + subTotal);
             Console.WriteLine("GST: " + gst + "%");
@@ -201,7 +201,7 @@ namespace SE_Assignment
         {
             foreach (OrderItem item in orderItems)
             {
-                Console.WriteLine(item.getItem().getName() + ", " + item.getItem().getPrice() + ", x" + item.getQuantity());
+                Console.WriteLine(item.getItem().Name + ", " + item.getItem().Price + ", x" + item.getQuantity());
             }
             Console.WriteLine("Subtotal: $" + subTotal);
             Console.WriteLine("GST: " + gst + "%");
