@@ -11,7 +11,6 @@ namespace SE_Assignment
         private int userId;
         private string password;
         private string loginStatus;
-        public string test;
 
         public Account(int userId, string password, string loginStatus)
         {

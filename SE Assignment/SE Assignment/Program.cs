@@ -74,7 +74,7 @@ namespace SE_Assignment
 
             void placeOrder(Customer cust)
             {
-                Order newOrder = new Order(orders.Count.ToString(), currentCust, DateTime.Now);
+                Order newOrder = new Order(orders.Count.ToString(), currentCust, DateTime.Now, "1");
                 currentCust.addOrder(newOrder);
                 Console.WriteLine("Please select an outlet from below");
                 for (int i = 0; i < branches.Count; i++)
@@ -150,11 +150,10 @@ namespace SE_Assignment
                         }
 
                         // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
-
                     }
-
-                   
                 }
+
+
 
                 Console.WriteLine("\n");
                 Console.WriteLine("Select Current or Past order(s):");
@@ -794,12 +793,11 @@ namespace SE_Assignment
                 Account acc1 = new Account(1, "password", "Logged Out");
                 Account acc2 = new Account(2, "password", "Logged Out");
                 Account acc3 = new Account(3, "password", "Logged Out");
-                Account acc4 = new Account(4, "password", "Logged Out");
-                Account acc5 = new Account(5, "password", "Logged Out");
 
                 Customer cust1 = new Customer("Dominic", "Sengkang", "dominic8281@gmail.com", "97828840", "123123", acc1);
                 Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123124", acc2);
                 Customer cust3 = new Customer("Li Yun", "Punggol", "liyun8281@gmail.com", "97828842", "123125", acc3);
+              
                 customers.Add(cust1);
                 customers.Add(cust2);
                 customers.Add(cust3);
@@ -807,18 +805,20 @@ namespace SE_Assignment
                 Branch branch1 = new Branch(1, "Sengkang");
                 Branch branch2 = new Branch(1, "Hougang");
                 Branch branch3 = new Branch(1, "Punggol");
+
                 branches.Add(branch1);
                 branches.Add(branch2);
                 branches.Add(branch3);
 
-                Order order1 = new Order("1", cust1, DateTime.Now);
+                Order order1 = new Order("1", cust1, DateTime.Now, "2");
 
-                Order order2 = new Order("2", cust2, DateTime.Now);
+                Order order2 = new Order("2", cust2, DateTime.Now, "3");
 
-                Order order3 = new Order("3", cust3, DateTime.Now);
+                Order order3 = new Order("3", cust3, DateTime.Now, "1");
+
                 order3.addItem(new OrderItem(itemMenu1, 1, order3));
 
-                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1));
+                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "1");
                 order4.addItem(new OrderItem(itemMenu2, 5, order4));
 
 
@@ -889,6 +889,33 @@ namespace SE_Assignment
                 while (selectedOption != "0");
             }
 
+            void ViewAllCustOrder()
+            {
+                Console.WriteLine("Please select order type: ");
+                Console.WriteLine("[1] New");
+                Console.WriteLine("[2] Cancelled");
+                Console.WriteLine("[3] Delivered");
+
+
+                string vieworderoption = Console.ReadLine();
+
+
+
+                foreach (Order o in orders)
+                {
+
+                    if (o.getOrderStatus() == vieworderoption)
+                    {
+                        Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()} status: {o.getOrderStatus()}");
+
+                        foreach (OrderItem item in o.getOrderItems())
+                        {
+
+                            Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                        }
+                    }
+                    }
+            }
             // Manager Menu
             void DisplayManagerMenu()
             {
@@ -920,16 +947,16 @@ namespace SE_Assignment
                             ManageItem();
                             break;
                         case "3":
-                            // DisplayDispatcherMenu()
+                            ViewAllCustOrder();
                             break;
                         default:
                             Console.WriteLine("Invalid option selected");
                             break;
                     }
                 }
+
                 while (selectedOption != "0");
             }
-
 
             string MultiplyString(string s, int value)
             {
