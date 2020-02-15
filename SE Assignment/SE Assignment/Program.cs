@@ -184,12 +184,20 @@ namespace SE_Assignment
                     selected = new OrderItem(displayList[Convert.ToInt32(foodchoice) - 1], Convert.ToInt32(quantity), newOrder);
                     newOrder.addItem(selected);
                     Console.WriteLine("Would you like to add more items? (Y/N)");
-                    string option = Console.ReadLine();
-                    if (option == "N")
-                        checkOut(newOrder, cust);
-                    else if (option == "Y") ;
-                    else
-                        Console.WriteLine("Error! Please select either Y or N.");
+                    while (true)
+                    {
+                        string option = Console.ReadLine();
+                        if (option == "N")
+                        {
+                            checkOut(newOrder, cust);
+                            break;
+                        }
+
+                        else if (option == "Y")
+                            break;
+                        else
+                            Console.WriteLine("Error! Please select either Y or N.");
+                    }
                 }
             }
         
@@ -227,13 +235,23 @@ namespace SE_Assignment
                 coOrder.ToString();
                 Console.WriteLine("\n Would you like express delivery? (Y/N)");
                 string delivery = Console.ReadLine();
+                while (true)
+                {
+                    if (delivery == "Y") //if "N", already set to Default and 0
+                    {
+                        coOrder.expressDelivery();
+                        break;
+                    }
+                    else if (delivery == "N")
+                    {
+                        coOrder.normalDelivery();
+                        break;
+                    }
+                    else
+                        Console.WriteLine("Please enter a valid option");
+                }
+
                 Console.WriteLine("\n Order Summary");
-                if (delivery == "Y") //if "N", already set to Default and 0
-                    coOrder.expressDelivery();
-                else if (delivery == "N")
-                    coOrder.normalDelivery();
-                else
-                    Console.WriteLine("Please enter a valid option");
                 coOrder.displayReceipt();
                 coOrder.makePayment(payments);
             }

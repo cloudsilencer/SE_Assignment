@@ -45,24 +45,35 @@ namespace SE_Assignment
             Console.WriteLine("\nHow would you like to make your payment?\n1. Credit Card\n2. Online Means");
             string paymentType = "";
             string paymentChoice = Console.ReadLine();
-            if (paymentChoice == "1")
+            while (true)
             {
-                paymentType = "Credit Card";
-                Console.WriteLine("Please enter credit card number");
-                string creditCardNo = Console.ReadLine();
-                if (creditCardNo == customer.getCreditCardInfo())
-                    Console.WriteLine("Payment Successful! Thank you for ordering with HungryEatNow...");
-                else
-                    Console.WriteLine("Payment Failed! Please try again");
-            }
+                if (paymentChoice == "1")
+                {
+                    paymentType = "Credit Card";
+                    Console.WriteLine("Please enter credit card number");
+                    string creditCardNo = Console.ReadLine();
+                    while (true)
+                    {
+                        if (creditCardNo == customer.getCreditCardInfo())
+                        {
+                            Console.WriteLine("Payment Successful! Thank you for ordering with HungryEatNow...");
+                            break;
+                        }
+                        else
+                            Console.WriteLine("Payment Failed! Please try again");
+                    }
+                    break;
+                }
 
-            else if (paymentChoice == "2")
-            {
-                paymentType = "Online Means";
-                System.Diagnostics.Process.Start("https://www.paypal.com/us/home");
+                else if (paymentChoice == "2")
+                {
+                    paymentType = "Online Means";
+                    System.Diagnostics.Process.Start("https://www.paypal.com/us/home");
+                    break;
+                }
+                else
+                    Console.WriteLine("Please select a valid option");
             }
-            else
-                Console.WriteLine("Please select a valid option");
             Payment newPayment = new Payment(payments.Count.ToString(), order, order.getTotalAmt(), DateTime.Now, paymentType);
         }
 
