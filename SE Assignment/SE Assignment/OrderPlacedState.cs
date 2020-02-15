@@ -44,16 +44,19 @@ namespace SE_Assignment
         {
             Console.WriteLine("\nHow would you like to make your payment?\n1. Credit Card\n2. Online Means");
             string paymentType = "";
-            string paymentChoice = Console.ReadLine();
+            string paymentChoice = "";
             while (true)
             {
+                paymentChoice = Console.ReadLine();
+
                 if (paymentChoice == "1")
                 {
                     paymentType = "Credit Card";
                     Console.WriteLine("Please enter credit card number");
-                    string creditCardNo = Console.ReadLine();
+                    string creditCardNo = "";
                     while (true)
                     {
+                        creditCardNo = Console.ReadLine();
                         if (creditCardNo == customer.getCreditCardInfo())
                         {
                             Console.WriteLine("Payment Successful! Thank you for ordering with HungryEatNow...");

@@ -97,6 +97,7 @@ namespace SE_Assignment
                         if (filterChoice == "1")
                         {
                             options = new List<string>();
+                            Console.WriteLine("Please select a Category");
                             for (int i = 1; i <= categories.Count; i++)
                             {
                                 Console.WriteLine((i) + ". " + categories[i - 1].CategoryName);
@@ -118,12 +119,14 @@ namespace SE_Assignment
                                 if (item.Category == categories[Convert.ToInt32(catChoice)])
                                     displayList.Add(item);
                             }
+
                             break;
                         }
 
                         else if (filterChoice == "2")
                         {
                             options = new List<string>();
+                            Console.WriteLine("Please select a Set Menu");
                             for (int i = 1; i <= setMenus.Count; i++)
                             {
                                 Console.WriteLine((i) + ". " + setMenus[i - 1].SetMenuName);
@@ -151,6 +154,8 @@ namespace SE_Assignment
                             Console.WriteLine("Error! Please select a valid filter.");
                     }
 
+                    Console.WriteLine("Please select a food item");
+
                     options = new List<string>();
                     for (int i = 1; i <= displayList.Count; i++)
                     {
@@ -158,10 +163,10 @@ namespace SE_Assignment
                         options.Add(i.ToString());
                     }
 
-                    Console.WriteLine("Please select a food item");
-                    string foodchoice = Console.ReadLine();
+                    string foodchoice = "";
                     while (true)
                     {
+                        foodchoice = Console.ReadLine();
                         if (options.Contains(foodchoice))
                             break;
                         else
@@ -169,14 +174,20 @@ namespace SE_Assignment
                     }
 
                     Console.Write("How many would you like? ");
-                    string quantity = Console.ReadLine();
+                    string quantity = "";
 
                     while (true)
                     {
-                        if (Convert.ToInt32(quantity) > 100)
-                            Console.WriteLine("Error! We do not have enough stock! Please select another quantity");
-                        else if (int.TryParse(quantity, out _))
-                            break;
+                        quantity = Console.ReadLine();
+                        if (int.TryParse(quantity, out _))
+                        {
+                            if (Convert.ToInt32(quantity) > 100)
+                                Console.WriteLine("Error! We do not have enough stock! Please select another quantity");
+                            else if (Convert.ToInt32(quantity) <= 0)
+                                Console.WriteLine("Error! Please select a valid quantity.");
+                            else
+                                break;
+                        }
                         else
                             Console.WriteLine("Error! Please select a valid quantity.");
                     }
@@ -233,10 +244,11 @@ namespace SE_Assignment
                 processOrder(coOrder);
                 Console.WriteLine("\n Order Summary");
                 coOrder.ToString();
-                Console.WriteLine("\n Would you like express delivery? (Y/N)");
-                string delivery = Console.ReadLine();
+                Console.WriteLine("\nWould you like express delivery? (Y/N)");
+                string delivery = "";
                 while (true)
                 {
+                    delivery = Console.ReadLine();
                     if (delivery == "Y") //if "N", already set to Default and 0
                     {
                         coOrder.expressDelivery();
