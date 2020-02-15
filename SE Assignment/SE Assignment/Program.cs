@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SE_Assignment
@@ -186,7 +185,7 @@ namespace SE_Assignment
                                 Console.WriteLine("Error! We do not have enough stock! Please select another quantity"); // System display error message
                             else if (Convert.ToInt32(quantity) <= 0)
                                 Console.WriteLine("Error! Please select a valid quantity."); // System display error message
-                            else
+                            else 
                                 break;
                         }
                         else
@@ -211,9 +210,9 @@ namespace SE_Assignment
                     }
                 }
             }
-
+        
             // Place Order (Dominic)
-
+            
             Branch selectRestaurant()
             {
                 // Executes Select Restaurant Use case
@@ -284,11 +283,11 @@ namespace SE_Assignment
 
 
             // View all Orders (Li Yun)
-            void viewOrders(Customer cust)
-            {
+             void viewOrders(Customer cust)
+             {
                 Console.WriteLine("\n Your Orders:");
 
-                foreach (Order o in orders)
+                foreach(Order o in orders)
                 {
                     if (cust == o.getCust())
                     {
@@ -300,7 +299,7 @@ namespace SE_Assignment
                             Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                         }
 
-                        // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
+                       // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
                     }
                 }
 
@@ -330,7 +329,7 @@ namespace SE_Assignment
                             }
 
                         }
-                    }
+                    }      
                 }
 
                 if (choice == "2")
@@ -351,221 +350,17 @@ namespace SE_Assignment
                         }
 
                     }
-
+                        
                 }
 
                 Console.ReadKey();
 
-            }
+             }
 
-            // Use Case 1 - Select and Prepare Order (Qi Quan)
-            void SelectCustOrder()
-            {
-                List<Order> availOrders = new List<Order>();
+            // Manage Menu and Manage Item (Kevin)
 
-                foreach (Order o in orders.Where(order => order.getState() is OrderPlacedState))
-                {
-                    availOrders.Add(o);
-
-                    Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()}");
-
-                    foreach (OrderItem item in o.getOrderItems())
-                    {
-
-                        Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
-                    }
-                }
-
-                if (availOrders.Count == 0)
-                {
-                    Console.WriteLine("No Orders Found\n");
-                }
-
-                else
-                {
-                    while (true)
-                    {
-                        Console.WriteLine("Select order: ");
-                        string selectedOrderNumber = Console.ReadLine();
-                        Order selectedOrder = availOrders.FirstOrDefault(order => order.getOrderNum() == selectedOrderNumber);
-
-                        if (selectedOrder != null)
-                        {
-                            Console.WriteLine(String.Format("You have selected Order {0}, please confirm. (Yes / No)", selectedOrderNumber));
-                            string confirmation = Console.ReadLine();
-
-                            if (confirmation == "Yes" || confirmation == "yes")
-                            {
-                                OrderPreparingState orderPreparing = new OrderPreparingState(selectedOrder);
-                                selectedOrder.setState(orderPreparing);
-
-                                Console.WriteLine("Enter estimated time for preparation (Example 06:00 for 6 minutes or 00:30 for 30 seconds): ");
-                                TimeSpan preparationTime = new TimeSpan();
-
-                                while (true)
-                                {
-                                    try
-                                    {
-                                        preparationTime = TimeSpan.ParseExact(Console.ReadLine(), "mm':'ss", null);
-
-                                        while (preparationTime != TimeSpan.Zero)
-                                        {
-                                            Console.WriteLine(String.Format("Remaining Time: {0:mm\\:ss}", preparationTime));
-                                            preparationTime = preparationTime.Subtract(TimeSpan.FromSeconds(1));
-                                            Thread.Sleep(1000);
-                                        }
-
-                                        Console.WriteLine("Remaining Time: 00:00");
-                                        Console.WriteLine("Food has finished preparing.\n");
-                                        for (int i = 0; i < 5; i++)
-                                        {
-                                            Console.Beep(1500, 200);
-                                        }
-                                        break;
-                                    }
-                                    catch (FormatException)
-                                    {
-                                        Console.WriteLine("\nInvalid format entered.");
-                                        Console.WriteLine("Please re-enter estimated time for preparation (Example 06:00 for 6 minutes or 00:30 for 30 seconds): ");
-                                        continue;
-                                    }
-                                }  
-                            }
-                            else
-                            {
-                                Console.WriteLine("Please select a different order to prepare.\n");
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine(String.Format("No order with order number {0}, please enter a proper order number.\n", selectedOrderNumber));
-                            continue;
-                        }
-
-                        break;
-                    }                    
-                }
-            }
-
-            // Use Case 2 - Update Order Status (Qi Quan)
-            void UpdateCustOrder()
-            {
-                List<Order> preparingOrders = new List<Order>();
-
-                foreach (Order o in orders.Where(order => order.getState() is OrderPreparingState))
-                {
-                    preparingOrders.Add(o);
-
-                    Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()}");
-
-                    foreach (OrderItem item in o.getOrderItems())
-                    {
-                        Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
-                    }
-                }
-
-                if (preparingOrders.Count == 0)
-                {
-                    Console.WriteLine("No orders being prepared now\n");
-                }
-                else
-                {
-                    while (true)
-                    {
-                        Console.WriteLine("Select order that is ready for delivery.");
-                        string selectedOrderNumber = Console.ReadLine();
-                        Order selectedOrder = preparingOrders.FirstOrDefault(order => order.getOrderNum() == selectedOrderNumber);
-
-                        if (selectedOrder != null)
-                        {
-                            Console.WriteLine(String.Format("You have selected Order {0}, please confirm. (Yes / No)", selectedOrderNumber));
-                            string confirmation = Console.ReadLine();
-
-                            if (confirmation == "Yes" || confirmation == "yes")
-                            {
-                                OrderReadyState orderReady = new OrderReadyState(selectedOrder);
-                                selectedOrder.setState(orderReady);
-
-                                Console.WriteLine(String.Format("Order {0} is ready for collection. Dispatcher has been notified.\n", selectedOrderNumber));
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Please select a different order.\n");
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine(String.Format("No order with order number {0}, please enter a proper order number.\n", selectedOrderNumber));
-                            continue;
-                        }
-                    }                    
-                }
-            }
-
-            // Use Case 3 - Dispatch Order (Qi Quan)
-            void DispatchCustOrder()
-            {
-                List<Order> readyOrders = new List<Order>();
-
-                foreach (Order o in orders.Where(order => order.getState() is OrderReadyState))
-                {
-                    readyOrders.Add(o);
-
-                    Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()}");
-
-                    foreach (OrderItem item in o.getOrderItems())
-                    {
-                        Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
-                    }
-                }
-
-                if (readyOrders.Count == 0)
-                {
-                    Console.WriteLine("No orders are ready for delivery now\n");
-                }
-                else
-                {
-                    while (true)
-                    {
-                        Console.WriteLine("Select order to be dispatched.");
-                        string selectedOrderNumber = Console.ReadLine();
-                        Order selectedOrder = readyOrders.FirstOrDefault(order => order.getOrderNum() == selectedOrderNumber);
-
-                        if (selectedOrder != null)
-                        {
-                            Console.WriteLine(String.Format("You have selected Order {0}, please confirm. (Yes / No)", selectedOrderNumber));
-                            string confirmation = Console.ReadLine();
-
-                            if (confirmation == "Yes" || confirmation == "yes")
-                            {
-                                OrderDispatchedState orderDispatched = new OrderDispatchedState(selectedOrder);
-                                selectedOrder.setState(orderDispatched);
-
-                                Console.WriteLine(String.Format("Order {0} has been dispatched for delivery.\n", selectedOrderNumber));
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Please select a different order.\n");
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine(String.Format("No order with order number {0}, please enter a proper order number.\n", selectedOrderNumber));
-                            continue;
-                        }
-                    }
-                }
-            }
-
-                // Manage Menu and Manage Item (Kevin)
-
-                // Use Case 5 - Manage Menu (Kevin)
-                void ManageSetMenu()
+            // Use Case 5 - Manage Menu (Kevin)
+            void ManageSetMenu()
             {
                 string functionTitle = "Manage Set Menu";
                 List<String> options = new List<string> { "Create Set Menu", "Remove Set Menu", "Update Set Menu", "Exit" };
@@ -1214,12 +1009,8 @@ namespace SE_Assignment
                 branches.Add(branch3);
 
                 Order order1 = new Order("1", cust1, DateTime.Now, "2");
-                OrderCancelledState cancelled1 = new OrderCancelledState(order1);
-                order1.setState(cancelled1);
 
                 Order order2 = new Order("2", cust2, DateTime.Now, "3");
-                OrderDeliveredState delivered1 = new OrderDeliveredState(order2);
-                order2.setState(delivered1);
 
                 Order order3 = new Order("3", cust3, DateTime.Now, "1");
 
@@ -1228,6 +1019,7 @@ namespace SE_Assignment
 
                 Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "1");
                 order4.addItem(new OrderItem(itemMenu2, 5, order4));
+
 
                 orders.Add(order1);
                 orders.Add(order2);
@@ -1283,7 +1075,7 @@ namespace SE_Assignment
                             DisplayManagerMenu();
                             break;
                         case "2":
-                            DisplayChefMenu();
+                            // DisplayChefMenu();
                             break;
                         case "3":
                             // DisplayDispatcherMenu()
@@ -1355,47 +1147,6 @@ namespace SE_Assignment
                             break;
                         case "3":
                             ViewAllCustOrder();
-                            break;
-                        default:
-                            Console.WriteLine("Invalid option selected");
-                            break;
-                    }
-                }
-
-                while (selectedOption != "0");
-            }
-
-            void DisplayChefMenu()
-            {
-                string functionTitle = "Chef Menu";
-                List<String> chefMenuOptions = new List<String>() { "Select Order to Prepare", "Update Order", "Dispatch Order", "Exit" };
-                String selectedOption = "";
-                do
-                {
-                    Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
-                    for (int i = 0; i < chefMenuOptions.Count; i++)
-                    {
-                        if (((i + 1) % 4) == 0)
-                            Console.WriteLine($"\n[{(i + 1) % 4}] {chefMenuOptions[i]}");
-                        else
-                            Console.WriteLine($"[{(i + 1) % 4}] {chefMenuOptions[i]}");
-                    }
-                    Console.Write("\nSelect an option: ");
-                    selectedOption = Console.ReadLine();
-                    Console.WriteLine();
-                    switch (selectedOption)
-                    {
-                        case "0":
-                            Console.WriteLine($"Exiting From {functionTitle}...\n");
-                            break;
-                        case "1":
-                            SelectCustOrder();
-                            break;
-                        case "2":
-                            UpdateCustOrder();
-                            break;
-                        case "3":
-                            DispatchCustOrder();
                             break;
                         default:
                             Console.WriteLine("Invalid option selected");
