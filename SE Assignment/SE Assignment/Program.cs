@@ -83,14 +83,50 @@ namespace SE_Assignment
 
                 while (true)
                 {
-                    Console.WriteLine("Please select an item from below");
-                    for (int i = 0; i < foodItems.Count; i++)
-                        Console.WriteLine((i + 1) + ". " + foodItems[i].Name);
+                    Console.WriteLine("How would you like to filter the menu?\n1. Categories\n2. Set Menu");
+                    string filterChoice = Console.ReadLine();
+                    OrderItem selected = new OrderItem();
+                    if (filterChoice == "1")
+                    {
+                        for (int i = 0; i < categories.Count; i++)
+                            Console.WriteLine((i + 1) + ". " + categories[i].CategoryName);
+                        int catChoice = Convert.ToInt32(Console.ReadLine());
+                        List<FoodItem> displayList = new List<FoodItem>();
+                        foreach (FoodItem item in foodItems)
+                        {
+                            if (item.Category == categories[catChoice])
+                                displayList.Add(item);
+                        }
+                        for (int i = 0; i < displayList.Count; i++)
+                            Console.WriteLine((i + 1) + ". " + displayList[i].Name);
+                        int foodchoice = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("How many would you like? ");
+                        string quantity = Console.ReadLine();
+                        selected = new OrderItem(displayList[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
+                    }
 
-                    int foodchoice = Convert.ToInt32(Console.ReadLine());
-                    Console.Write("How many would you like? ");
-                    string quantity = Console.ReadLine();
-                    OrderItem selected = new OrderItem(foodItems[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
+                    else if (filterChoice == "2")
+                    {
+                        for (int i = 0; i < setMenus.Count; i++)
+                            Console.WriteLine((i + 1) + ". " + setMenus[i].SetMenuName);
+                        int setChoice = Convert.ToInt32(Console.ReadLine());
+                        List<FoodItem> displayList = new List<FoodItem>();
+                        foreach (FoodItem item in foodItems)
+                        {
+                            if (item.SetMenu == setMenus[setChoice])
+                                displayList.Add(item);
+                        }
+                        for (int i = 0; i < displayList.Count; i++)
+                            Console.WriteLine((i + 1) + ". " + displayList[i].Name);
+                        int foodchoice = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("How many would you like? ");
+                        string quantity = Console.ReadLine();
+                        selected = new OrderItem(displayList[foodchoice - 1], Convert.ToInt32(quantity), newOrder);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid choice!");
+                    }
                     newOrder.addItem(selected);
                     Console.WriteLine("Would you like to add more items? (Y/N)");
                     string option = Console.ReadLine();
