@@ -70,18 +70,39 @@ namespace SE_Assignment
                 Console.ReadKey();
             }
 
+
             // Place Order (Dominic)
 
             void placeOrder(Customer cust)
             {
+                // Create New Order Object
                 Order newOrder = new Order(orders.Count.ToString(), currentCust, DateTime.Now, "1");
                 currentCust.addOrder(newOrder);
+
+                // Executes Select Restaurant Use case
+                List<string> options = new List<string>();
                 Console.WriteLine("Please select an outlet from below");
-                for (int i = 0; i < branches.Count; i++)
-                    Console.WriteLine((i + 1) + ". " + branches[i].getBranchName());
-                newOrder.setBranch(branches[Convert.ToInt32(Console.ReadLine()) - 1]);
+                for (int i = 1; i < branches.Count; i++)
+                {
+                    Console.WriteLine((i) + ". " + branches[i - 1].getBranchName());
+                    options.Add(i.ToString());
+                }
 
                 while (true)
+                {
+                    string choice = Console.ReadLine();
+                    if (options.Contains(choice))
+                    {
+                        newOrder.setBranch(branches[Convert.ToInt32(choice) - 1]);
+                        break;
+                    }
+                    else
+                        Console.WriteLine("Error! Please select a valid outlet.");
+                }
+
+                // Selection of Filter and Displaying Food Items
+
+                while (true) // To allow customers to add more items into Order
                 {
                     Console.WriteLine("How would you like to filter the menu?\n1. Categories\n2. Set Menu");
                     string filterChoice = Console.ReadLine();
