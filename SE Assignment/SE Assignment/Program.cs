@@ -285,24 +285,43 @@ namespace SE_Assignment
             // View all Orders (Li Yun)
              void viewOrders(Customer cust)
              {
-                Console.WriteLine("\n Your Orders:");
+                Console.WriteLine("\n All Orders:");
 
                 foreach(Order o in orders)
                 {
                     if (cust == o.getCust())
                     {
-                        String date = o.getOrderDate().ToString("dd/MM/yyy");
-                        Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {date}");
-
-                        foreach (OrderItem item in o.getOrderItems())
+                        if (o.getOrderItems().Count == 0)
                         {
-                            Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                            Console.WriteLine("No Order Records Found!");
+                        }
+                        
+                        else
+                        {
+                            String date = o.getOrderDate().ToString("dd/MM/yyy");
+                            Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {date}");
+
+                            foreach (OrderItem item in o.getOrderItems())
+                            {
+                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                            }
+
+                            // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
+
+                            // run view current or past orders method
+                            CurrentOrPastOrder(currentCust);
+
                         }
 
-                       // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
                     }
+
+                    
                 }
 
+             }
+
+            void CurrentOrPastOrder(Customer cust)
+            {
                 Console.WriteLine("\n");
                 Console.WriteLine("View Current or Past order(s):");
                 Console.WriteLine(" 1. Current order(s)");
@@ -315,47 +334,72 @@ namespace SE_Assignment
                 {
                     foreach (Order o in orders)
                     {
-
-                        if (cust == o.getCust() && o.getOrderDate() == DateTime.Today)
+                        if (cust == o.getCust())
                         {
-                            String date = DateTime.Today.ToString("dd/MM/yyy");
-
-                            Console.WriteLine("\n" + $"Order Number: {o.getOrderNum()} at {date}");
-
-                            foreach (OrderItem item in o.getOrderItems())
-
+                            if (o.getOrderItems().Count == 0)
                             {
-                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                                Console.WriteLine("No Current Order Records Found!");
+                            }
+
+                            else
+                            {
+                                if (o.getOrderDate() == DateTime.Today)
+                                {
+                                    String date = DateTime.Today.ToString("dd/MM/yyy");
+
+                                    Console.WriteLine("\n" + "Your current order(s):");
+                                    Console.WriteLine("\n" + $"Order Number: {o.getOrderNum()} at {date}");
+
+                                    foreach (OrderItem item in o.getOrderItems())
+
+                                    {
+                                        Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                                    }
+                                }
+
                             }
 
                         }
-                    }      
+                    }
                 }
 
                 if (choice == "2")
                 {
                     foreach (Order o in orders)
                     {
-                        if (cust == o.getCust() && o.getOrderDate() != DateTime.Today)
+                        if (cust == o.getCust())
                         {
-                            String date = o.getOrderDate().ToString("dd/MM/yyy");
-
-                            Console.WriteLine($"Order Number: {o.getOrderNum()} at {date}");
-
-                            foreach (OrderItem item in o.getOrderItems())
+                            if (o.getOrderItems().Count == 0)
                             {
-                                Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                                Console.WriteLine("No Past Order Records Found!");
+                            }
+
+                            else
+                            {
+                                if(o.getOrderDate() != DateTime.Today)
+                                {
+                                    String date = o.getOrderDate().ToString("dd/MM/yyy");
+
+                                    Console.WriteLine("\n" + "Your past order(s):");
+                                    Console.WriteLine($"Order Number: {o.getOrderNum()} at {date}");
+
+                                    foreach (OrderItem item in o.getOrderItems())
+                                    {
+                                        Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                                    }
+
+                                }
                             }
 
                         }
 
                     }
-                        
+
                 }
 
                 Console.ReadKey();
 
-             }
+            }
 
             // Manage Menu and Manage Item (Kevin)
 
@@ -1009,22 +1053,25 @@ namespace SE_Assignment
                 branches.Add(branch3);
 
                 Order order1 = new Order("1", cust1, DateTime.Now, "2");
-
                 Order order2 = new Order("2", cust2, DateTime.Now, "3");
-
                 Order order3 = new Order("3", cust3, DateTime.Now, "1");
+                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "1");
+                Order order5 = new Order("4", cust3, DateTime.Now.AddDays(-4), "1");
 
+
+                order1.addItem(new OrderItem(itemMenu3, 2, order1));
+                order1.addItem(new OrderItem(itemMenu7, 2, order1));
                 order3.addItem(new OrderItem(itemMenu1, 1, order3));
                 order3.addItem(new OrderItem(itemMenu10, 2, order3));
-
-                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "1");
                 order4.addItem(new OrderItem(itemMenu2, 5, order4));
-
+                order5.addItem(new OrderItem(itemMenu6, 3, order5));
+                order5.addItem(new OrderItem(itemMenu4, 1, order5));
 
                 orders.Add(order1);
                 orders.Add(order2);
                 orders.Add(order3);
                 orders.Add(order4);
+                orders.Add(order5);
 
                 Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
                 Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
