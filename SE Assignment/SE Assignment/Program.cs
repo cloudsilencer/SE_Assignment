@@ -172,27 +172,26 @@ namespace SE_Assignment
             // View all Orders (Li Yun)
              void viewOrders(Customer cust)
              {
-                Console.WriteLine("Your Orders:");
+                Console.WriteLine("\n Your Orders:");
 
                 foreach(Order o in orders)
                 {
                     if (cust == o.getCust())
                     {
-                        Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()}");
+                        String date = o.getOrderDate().ToString("dd/MM/yyy");
+                        Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {date}");
 
                         foreach (OrderItem item in o.getOrderItems())
                         {
                             Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                         }
 
-                        // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
+                       // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
                     }
                 }
 
-
-
                 Console.WriteLine("\n");
-                Console.WriteLine("Select Current or Past order(s):");
+                Console.WriteLine("View Current or Past order(s):");
                 Console.WriteLine(" 1. Current order(s)");
                 Console.WriteLine(" 2. Past order(s)");
 
@@ -203,9 +202,12 @@ namespace SE_Assignment
                 {
                     foreach (Order o in orders)
                     {
-                        if (cust == o.getCust() && o.getOrderDate() == DateTime.Now)
+
+                        if (cust == o.getCust() && o.getOrderDate() == DateTime.Today)
                         {
-                            Console.WriteLine("\n" + $"Order Number: {o.getOrderNum()} at {o.getOrderDate()}");
+                            String date = DateTime.Today.ToString("dd/MM/yyy");
+
+                            Console.WriteLine("\n" + $"Order Number: {o.getOrderNum()} at {date}");
 
                             foreach (OrderItem item in o.getOrderItems())
                             {
@@ -220,9 +222,11 @@ namespace SE_Assignment
                 {
                     foreach (Order o in orders)
                     {
-                        if (cust == o.getCust())
+                        if (cust == o.getCust() && o.getOrderDate() != DateTime.Today)
                         {
-                            Console.WriteLine($"Order Number: {o.getOrderNum()} at {o.getOrderDate()}");
+                            String date = o.getOrderDate().ToString("dd/MM/yyy");
+
+                            Console.WriteLine($"Order Number: {o.getOrderNum()} at {date}");
 
                             foreach (OrderItem item in o.getOrderItems())
                             {
@@ -897,6 +901,7 @@ namespace SE_Assignment
                 Order order3 = new Order("3", cust3, DateTime.Now, "1");
 
                 order3.addItem(new OrderItem(itemMenu1, 1, order3));
+                order3.addItem(new OrderItem(itemMenu10, 2, order3));
 
                 Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "1");
                 order4.addItem(new OrderItem(itemMenu2, 5, order4));

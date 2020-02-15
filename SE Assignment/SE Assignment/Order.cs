@@ -76,7 +76,7 @@ namespace SE_Assignment
 
         public DateTime getOrderDate()
         {
-            return dateTimeOfOrder;
+            return dateTimeOfOrder.Date;
         }
 
         public void makePayment(List<Payment> payments)
