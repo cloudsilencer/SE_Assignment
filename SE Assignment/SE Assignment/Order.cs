@@ -24,6 +24,8 @@ namespace SE_Assignment
         private Branch branch;
         private Customer customer;
 
+        private string orderStatus;
+
         // States for the Order Object
         private OrderState placedState;
         private OrderState orderNewState;
@@ -36,11 +38,12 @@ namespace SE_Assignment
 
         private OrderState state;
 
-        public Order(string orderNumber, Customer customer, DateTime dateTimeOfOrder)
+        public Order(string orderNumber, Customer customer, DateTime dateTimeOfOrder, string orderStatus)
         {
             this.orderNumber = orderNumber;
             this.dateTimeOfOrder = dateTimeOfOrder;
             this.customer = customer;
+            this.orderStatus = orderStatus;
             orderItems = new List<OrderItem>();
             deliveryType = "Default";
             deliveryCharge = 0;
@@ -57,7 +60,10 @@ namespace SE_Assignment
 
             this.state = placedState;
         }
-
+        public string getOrderStatus()
+        {
+            return orderStatus;
+        }
         public Customer getCust()
         {
             return customer;

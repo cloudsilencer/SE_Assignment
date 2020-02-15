@@ -19,6 +19,11 @@ namespace SE_Assignment
             this.item = item;
         }
 
+        public OrderItem()
+        {
+
+        }
+
         public FoodItem getItem()
         {
             return item;
