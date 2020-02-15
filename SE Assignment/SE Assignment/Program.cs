@@ -329,67 +329,63 @@ namespace SE_Assignment
 
                 string choice = Console.ReadLine();
 
-
+                // current order selection
                 if (choice == "1")
                 {
                     foreach (Order o in orders)
                     {
                         if (cust == o.getCust())
                         {
-                            if (o.getOrderItems().Count == 0)
+                            if (o.getOrderDate() == DateTime.Today)
                             {
-                                Console.WriteLine("No Current Order Records Found!");
-                            }
+                                String date = DateTime.Today.ToString("dd/MM/yyy");
 
+                                Console.WriteLine("\n" + "Your current order(s):");
+                                Console.WriteLine("\n" + $"Order Number: {o.getOrderNum()} at {date}");
+
+                                foreach (OrderItem item in o.getOrderItems())
+
+                                {
+                                    Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                                }
+                            }
                             else
                             {
-                                if (o.getOrderDate() == DateTime.Today)
-                                {
-                                    String date = DateTime.Today.ToString("dd/MM/yyy");
-
-                                    Console.WriteLine("\n" + "Your current order(s):");
-                                    Console.WriteLine("\n" + $"Order Number: {o.getOrderNum()} at {date}");
-
-                                    foreach (OrderItem item in o.getOrderItems())
-
-                                    {
-                                        Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
-                                    }
-                                }
-
+                                Console.WriteLine("\n" + "No Current Order Records Found!");
                             }
+
+                            
 
                         }
                     }
                 }
 
+                // past order selection
                 if (choice == "2")
                 {
+
                     foreach (Order o in orders)
                     {
                         if (cust == o.getCust())
                         {
-                            if (o.getOrderItems().Count == 0)
+                            if(o.getOrderDate() != DateTime.Today)
                             {
-                                Console.WriteLine("No Past Order Records Found!");
-                            }
+                                String date = o.getOrderDate().ToString("dd/MM/yyy");
 
+                                Console.WriteLine("\n" + "Your past order(s):");
+                                Console.WriteLine($"Order Number: {o.getOrderNum()} at {date}");
+
+                                foreach (OrderItem item in o.getOrderItems())
+                                {
+                                    Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                                }
+
+                            }
                             else
                             {
-                                if(o.getOrderDate() != DateTime.Today)
-                                {
-                                    String date = o.getOrderDate().ToString("dd/MM/yyy");
-
-                                    Console.WriteLine("\n" + "Your past order(s):");
-                                    Console.WriteLine($"Order Number: {o.getOrderNum()} at {date}");
-
-                                    foreach (OrderItem item in o.getOrderItems())
-                                    {
-                                        Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
-                                    }
-
-                                }
+                                Console.WriteLine("\n" + "No Past Order Records Found!");
                             }
+                            
 
                         }
 
@@ -1053,7 +1049,7 @@ namespace SE_Assignment
                 branches.Add(branch3);
 
                 Order order1 = new Order("1", cust1, DateTime.Now, "2");
-                Order order2 = new Order("2", cust2, DateTime.Now, "3");
+                Order order2 = new Order("2", cust2, DateTime.Now.AddDays(-2), "3");
                 Order order3 = new Order("3", cust3, DateTime.Now, "1");
                 Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "1");
                 Order order5 = new Order("4", cust3, DateTime.Now.AddDays(-4), "1");
@@ -1061,8 +1057,9 @@ namespace SE_Assignment
 
                 order1.addItem(new OrderItem(itemMenu3, 2, order1));
                 order1.addItem(new OrderItem(itemMenu7, 2, order1));
-                order3.addItem(new OrderItem(itemMenu1, 1, order3));
+                order2.addItem(new OrderItem(itemMenu1, 1, order2));
                 order3.addItem(new OrderItem(itemMenu10, 2, order3));
+                order3.addItem(new OrderItem(itemMenu8, 2, order3));
                 order4.addItem(new OrderItem(itemMenu2, 5, order4));
                 order5.addItem(new OrderItem(itemMenu6, 3, order5));
                 order5.addItem(new OrderItem(itemMenu4, 1, order5));
