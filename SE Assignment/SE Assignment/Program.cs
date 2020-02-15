@@ -14,6 +14,11 @@ namespace SE_Assignment
             List<SetMenu> setMenus = new List<SetMenu>();
             List<FoodItem> foodItems = new List<FoodItem>();
             List<Customer> customers = new List<Customer>();
+            List<Manager> managers = new List<Manager>();
+            List<StoreAssistant> storeassistant = new List<StoreAssistant>();
+            List<Chef> chef = new List<Chef>();
+            List<Dispatcher> dispatcher = new List<Dispatcher>();
+
             List<Employee> employees = new List<Employee>();
             List<Branch> branches = new List<Branch>();
             List<Order> orders = new List<Order>();
@@ -22,6 +27,8 @@ namespace SE_Assignment
 
             bool login = false;
             Customer currentCust = new Customer();
+
+            Employee currentEmployee = new Employee();
 
             Console.WriteLine("Who are you?\n1. Customer\n2. Employee");
             Console.Write("Select an option: ");
@@ -46,6 +53,7 @@ namespace SE_Assignment
 
             else if (user == "2")
             {
+
                 //Implementation
                 Console.WriteLine();
                 DisplayEmployeeMenu();
@@ -76,7 +84,7 @@ namespace SE_Assignment
             void placeOrder(Customer cust)
             {
                 // Create New Order Object
-                Order newOrder = new Order(orders.Count.ToString(), currentCust, DateTime.Now, "1");
+                Order newOrder = new Order(orders.Count.ToString(), currentCust, DateTime.Now, "New");
                 currentCust.addOrder(newOrder);
 
                 // Executes Select Restaurant Use case
@@ -278,6 +286,7 @@ namespace SE_Assignment
                 }
                 pOrder.setSubTotal(subTotal);
                 pOrder.setTotalAmt((subTotal * pOrder.getGST() / 100) + subTotal);
+                pOrder.setStatus("Process");
             }
 
 
@@ -1031,6 +1040,8 @@ namespace SE_Assignment
                 Account acc1 = new Account(1, "password", "Logged Out");
                 Account acc2 = new Account(2, "password", "Logged Out");
                 Account acc3 = new Account(3, "password", "Logged Out");
+                Account acc4 = new Account(4, "password", "Logged Out");
+                Account acc5 = new Account(5, "password", "Logged Out");
 
                 Customer cust1 = new Customer("Dominic", "Sengkang", "dominic8281@gmail.com", "97828840", "123123", acc1);
                 Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123124", acc2);
@@ -1048,11 +1059,11 @@ namespace SE_Assignment
                 branches.Add(branch2);
                 branches.Add(branch3);
 
-                Order order1 = new Order("1", cust1, DateTime.Now, "2");
-                Order order2 = new Order("2", cust2, DateTime.Now.AddDays(-2), "3");
-                Order order3 = new Order("3", cust3, DateTime.Now, "1");
-                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "1");
-                Order order5 = new Order("4", cust3, DateTime.Now.AddDays(-4), "1");
+                Order order1 = new Order("1", cust1, DateTime.Now, "Cancelled");
+                Order order2 = new Order("2", cust2, DateTime.Now.AddDays(-2), "Delivered");
+                Order order3 = new Order("3", cust3, DateTime.Now, "New");
+                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "New");
+                Order order5 = new Order("4", cust3, DateTime.Now.AddDays(-4), "New");
 
 
                 order1.addItem(new OrderItem(itemMenu3, 2, order1));
@@ -1081,11 +1092,25 @@ namespace SE_Assignment
                 // Start The Clock
                 Clock clock = Clock.getInstance();
 
-                Dispatcher dispatcher1 = new Dispatcher(50, "S9213724G", "Male", "Employed", new DateTime(2017, 10, 19), branch1, clock);
-                Dispatcher dispatcher2 = new Dispatcher(51, "S9605134B", "Female", "Employed", new DateTime(2018, 2, 25), branch1, clock);
+                //Dispatcher dispatcher1 = new Dispatcher(50, "S9213724G", "Male", "Employed", new DateTime(2017, 10, 19), branch1, clock);
+                //Dispatcher dispatcher2 = new Dispatcher(51, "S9605134B", "Female", "Employed", new DateTime(2018, 2, 25), branch1, clock);
 
-                employees.Add(dispatcher1);
-                employees.Add(dispatcher2);
+                Manager manager1 = new Manager(52, "S9839890F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "ky@gmail.com", "Manager");
+
+
+
+                StoreAssistant sa1 = new StoreAssistant(1001, "S9839890F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "virus@gmail.com", "StoreAssistant");
+
+                Chef chf1 = new Chef(2001, "S9839889F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "corona@gmail.com", "Chef");
+
+                Dispatcher d1 = new Dispatcher(3001, "S9899890F", "Female", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "wuhan@gmail.com", "Dispatcher");
+                //employees.Add(dispatcher1);
+                //employees.Add(dispatcher2);
+                employees.Add(manager1);
+                employees.Add(sa1);
+                employees.Add(chf1);
+                employees.Add(d1);
+
 
             }
 
@@ -1097,6 +1122,7 @@ namespace SE_Assignment
                 string functionTitle = "Employee Portal";
                 List<String> employeeMenuOptions = new List<String>() {"Manager", "Chef", "Dispatcher", "Exit"};
                 String selectedOption = "";
+
                 do
                 {
                     Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}");
@@ -1116,13 +1142,78 @@ namespace SE_Assignment
                             Console.WriteLine($"Exiting From {functionTitle}...\n");
                             break;
                         case "1":
-                            DisplayManagerMenu();
+                            string employeetypem = "Manager";
+                            Console.WriteLine("Login as Manager");
+                            Console.Write("Email: ");
+                            string emailm = Console.ReadLine();
+                            Console.Write("Password: ");
+                            string passm = Console.ReadLine();
+
+                            foreach (Employee e in employees)
+                            {
+                       
+                                if (emailm == e.getEmail() && passm == e.getAccount().getPassword() && employeetypem == e.getEmployeeType())
+                                {
+                                    login = true;
+                                    currentEmployee = e;
+                                    DisplayManagerMenu();
+                                    break;
+                                }
+                            }
+                            if(login != true)
+                            {
+                                Console.WriteLine("Invalid email and password!");
+                            }
                             break;
+                            
+                            
                         case "2":
-                            // DisplayChefMenu();
+                            string employeetypec= "Chef";
+                            Console.WriteLine("Login as Chef");
+                            Console.Write("Email: ");
+                            string emailc = Console.ReadLine();
+                            Console.Write("Password: ");
+                            string passc = Console.ReadLine();
+
+                            foreach (Employee e in employees)
+                            {
+                          
+                                if (emailc == e.getEmail() && passc == e.getAccount().getPassword() && employeetypec == e.getEmployeeType())
+                                {
+                                    login = true;
+                                    currentEmployee = e;
+                                    // DisplayChefMenu();
+                                    break;
+                                }
+                            }
+                            if (login != true)
+                            {
+                                Console.WriteLine("Invalid email and password!");
+                            }                                     
                             break;
                         case "3":
-                            // DisplayDispatcherMenu()
+                            string employeetyped = "Dispatcher";
+                            Console.WriteLine("Login as Dispatcher");
+                            Console.Write("Email: ");
+                            string emaild = Console.ReadLine();
+                            Console.Write("Password: ");
+                            string passd = Console.ReadLine();
+
+                            foreach (Employee e in employees)
+                            {
+
+                                if (emaild == e.getEmail() && passd == e.getAccount().getPassword() && employeetyped == e.getEmployeeType())
+                                {
+                                    login = true;
+                                    currentEmployee = e;
+                                    // DisplayDispatcher();
+                                    break;
+                                }
+                            }
+                            if (login != true)
+                            {
+                                Console.WriteLine("Invalid email and password!");
+                            }
                             break;
                         default:
                             Console.WriteLine("Invalid option selected");
@@ -1139,9 +1230,43 @@ namespace SE_Assignment
                 Console.WriteLine("[2] Cancelled");
                 Console.WriteLine("[3] Delivered");
 
+                //Console.WriteLine("Login as Customer");
+                //Console.Write("Email: ");
+                //string email = Console.ReadLine();
+                //Console.Write("Password: ");
+                //string pass = Console.ReadLine();
+
 
                 string vieworderoption = Console.ReadLine();
 
+                if(vieworderoption == "1")
+                {
+                    vieworderoption = "New";
+                }
+                else if (vieworderoption == "2")
+                {
+                    vieworderoption = "Cancelled";
+                }
+                else if (vieworderoption == "3")
+                {
+                    vieworderoption = "Delivered";
+                }
+                else if (vieworderoption == "4")
+                {
+                    vieworderoption = "Preparing";
+                }
+                else if (vieworderoption == "5")
+                {
+                    vieworderoption = "Ready";
+                }
+                else if (vieworderoption == "6")
+                {
+                    vieworderoption = "Dispatched";
+                }
+                else if (vieworderoption == "7")
+                {
+                    vieworderoption = "Archived";
+                }
 
 
                 foreach (Order o in orders)

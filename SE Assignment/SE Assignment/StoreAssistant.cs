@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace SE_Assignment
 {
+
     class StoreAssistant: Employee
     {
-        public StoreAssistant(int employeeNo, string employeeNRIC, string employeeGender, string employeeStatus, DateTime employeeDateJoin, Branch branch) : base(employeeNo, employeeNRIC, employeeGender, employeeStatus, employeeDateJoin, branch)
+        private Account account;
+        private string employeetype;
+        public StoreAssistant(int employeeNo, string employeeNRIC, string employeeGender, string employeeStatus, DateTime employeeDateJoin, Branch branch, Account account, string email, string employeetype) : base(employeeNo, employeeNRIC, employeeGender, employeeStatus, employeeDateJoin, branch, account, email, employeetype)
         {
             base.employeeNo = employeeNo;
             this.employeeNRIC = employeeNRIC;
@@ -16,6 +19,13 @@ namespace SE_Assignment
             this.employeeStatus = employeeStatus;
             this.employeeDateJoin = employeeDateJoin;
             this.branch = branch;
+            this.employeetype = employeetype;
+
+        }
+
+        public string getEmployeeType()
+        {
+            return employeetype;
         }
     }
 }
