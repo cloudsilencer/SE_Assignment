@@ -691,6 +691,7 @@ namespace SE_Assignment
                     switch(fieldToUpdate)
                     {
                         case "Name":
+                            isFieldValid = true;
                             bool isNameValid = false;
                             while (!isNameValid)
                             {
@@ -698,25 +699,67 @@ namespace SE_Assignment
                                 Console.Write("Updated Name: ");
                                 string updatedName = Console.ReadLine();
                                 if (updatedName == "")
-                                    Console.WriteLine("Updated Name cannot be empty!");
-                                else if (CheckSetMenuNameExists(GetAllSetMenuName(setMenus), updatedName) && (updatedName != itemToBeUpdated.Name))
-                                    Console.WriteLine("The updated name entered is similar to another food item!");
+                                    Console.WriteLine("\nName cannot be empty!\n");
+                                else if (CheckFoodNameExists(GetAllFoodItemName(foodItems), updatedName) && (updatedName != itemToBeUpdated.Name))
+                                    Console.WriteLine("\nName entered is similar to another food item!\n");
                                 else
                                 {
+                                    Console.WriteLine($"Name successfully updated from '{itemToBeUpdated.Name}' to '{updatedName}'.");
                                     isNameValid = true;
                                     itemToBeUpdated.Name = updatedName;
                                 }
                             }
                             break;
                         case "Description":
-                            Console.Write("Updated Description: ");
-                            string updatedDescription = Console.ReadLine();
-                            itemToBeUpdated.Description = updatedDescription;
+                            isFieldValid = true;
+                            bool isDescriptionValid = false;
+                            while (!isDescriptionValid)
+                            {
+                                Console.WriteLine($"Current Description: {itemToBeUpdated.Description}");
+                                Console.Write("Updated Description: ");
+                                string updatedDescription = Console.ReadLine();
+                                if (updatedDescription == "")
+                                    Console.WriteLine("\nDescription entered cannot be empty!\n");
+                                else
+                                {
+                                    Console.WriteLine($"Description successfully updated from '{itemToBeUpdated.Description}' to '{updatedDescription}'.");
+                                    isDescriptionValid = true;
+                                    itemToBeUpdated.Description = updatedDescription;
+                                }
+                            }
                             break;
                         case "Price":
-                            Console.Write("Updated Price: ");
-                            string updatedPrice = Console.ReadLine();
-                            itemToBeUpdated.Price = double.Parse(updatedPrice);
+                            isFieldValid = true;
+                            bool isPriceValid = false;
+                            while (!isPriceValid)
+                            {
+                                Console.WriteLine($"Current Price ($): {itemToBeUpdated.Price}");
+                                Console.Write("Updated Price ($): ");
+                                string updatedPrice = Console.ReadLine();
+                                if (updatedPrice == "")
+                                    Console.WriteLine("\nPrice entered cannot be empty!\n");
+                                else
+                                {
+                                    try
+                                    {
+                                        double convertedPrice = double.Parse(updatedPrice);
+                                        if (convertedPrice <= 0.00)
+                                        {
+                                            Console.WriteLine("Price cannot be $0 or less.");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Price successfully updated from ${itemToBeUpdated.Price} to ${double.Parse(updatedPrice)}.");
+                                            isDescriptionValid = true;
+                                            itemToBeUpdated.Price = double.Parse(updatedPrice);
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine("Invalid format, price should be in the format of X.XX\t Example: 4.90");
+                                    }
+                                }
+                            }
                             break;
                         case "Unit":
                             Console.Write("Updated Unit: ");
@@ -724,7 +767,7 @@ namespace SE_Assignment
                             itemToBeUpdated.Unit = int.Parse(updatedUnit);
                             break;
                         case "Status":
-                            Console.Write("Updated Status: ");
+                            Console.Write("Updated Status ('Available' or 'Unavailable'): ");
                             string updatedStatus = Console.ReadLine();
                             itemToBeUpdated.Status = updatedStatus;
                             break;
@@ -741,6 +784,7 @@ namespace SE_Assignment
                             itemToBeUpdated.SetMenu = GetSetMenuByID(setMenus, int.Parse(updatedSetMenuID));
                             break;
                         default:
+                            Console.WriteLine($"{fieldToUpdate} is not a valid field!\n");
                             break;
                     }           
                 }
