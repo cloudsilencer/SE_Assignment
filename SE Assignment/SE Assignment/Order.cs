@@ -23,7 +23,6 @@ namespace SE_Assignment
         private Payment payment;
         private Branch branch;
         private Customer customer;
-
         private string orderStatus;
 
         // States for the Order Object

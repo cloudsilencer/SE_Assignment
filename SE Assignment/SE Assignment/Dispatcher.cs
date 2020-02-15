@@ -8,8 +8,9 @@ namespace SE_Assignment
 {
     class Dispatcher: Employee, Observer    
     {
+        private Account account;
         private double totalCommission;
-
+        private string employeetype;
         public double TotalCommission
         {
             get { return totalCommission; }
@@ -25,7 +26,7 @@ namespace SE_Assignment
         }
 
 
-        public Dispatcher(int employeeNo, string employeeNRIC, string employeeGender, string employeeStatus, DateTime employeeDateJoin, Branch branch, Subject clock) : base(employeeNo, employeeNRIC, employeeGender, employeeStatus, employeeDateJoin, branch)
+        public Dispatcher(int employeeNo, string employeeNRIC, string employeeGender, string employeeStatus, DateTime employeeDateJoin, Branch branch, Account account, string email, string employeetype) : base(employeeNo, employeeNRIC, employeeGender, employeeStatus, employeeDateJoin, branch, account, email, employeetype)
         {
             base.employeeNo = employeeNo;
             base.employeeNRIC = employeeNRIC;
@@ -33,6 +34,7 @@ namespace SE_Assignment
             base.employeeStatus = employeeStatus;
             base.employeeDateJoin = employeeDateJoin;
             base.branch = branch;
+            base.employeetype = employeetype;
             TotalCommission = 0;
             Clock = clock;
         }
@@ -40,6 +42,11 @@ namespace SE_Assignment
         public void deliverOrder()
         {
             addComission(5);
+        }
+
+        public string getEmployeeType()
+        {
+            return employeetype;
         }
 
         public void addComission(double amount)
