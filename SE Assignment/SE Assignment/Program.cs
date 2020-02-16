@@ -123,18 +123,11 @@ namespace SE_Assignment
                                     Console.WriteLine("Error! Please select a valid category."); // System display error message
                             }
 
-                            // New iterator way
+                            // System retrieve food item from selected category
                             FoodItemCategoryIterator foodItemCategoryIterator = 
                                 new FoodItemCategoryIterator(foodItems, categories[Convert.ToInt32(catChoice) - 1]);
                             while (foodItemCategoryIterator.hasNext())
                                 displayList.Add((FoodItem)foodItemCategoryIterator.next());
-                            /*
-                            foreach (FoodItem item in foodItems) // System retrieve food item from selected category
-                            {
-                                if (item.Category == categories[Convert.ToInt32(catChoice)])
-                                    displayList.Add(item);
-                            }
-                            */
                             break;
                         }
 
@@ -158,19 +151,11 @@ namespace SE_Assignment
                                     Console.WriteLine("Error! Please select a valid Set Menu."); // System display error message
                             }
 
-                            // New iterator way
+                            // // System retrieves food items from selected set menu
                             FoodItemSetMenuIterator foodItemSetMenuIterator =
                                 new FoodItemSetMenuIterator(foodItems, setMenus[Convert.ToInt32(setChoice) - 1]);
                             while (foodItemSetMenuIterator.hasNext())
                                 displayList.Add((FoodItem)foodItemSetMenuIterator.next());
-
-                            /*
-                            foreach (FoodItem item in foodItems) // System retrieves food items from selected set menu
-                            {
-                                if (item.SetMenu == setMenus[Convert.ToInt32(setChoice)])
-                                    displayList.Add(item);
-                            }
-                            */
                             break;
                         }
                         else
