@@ -26,6 +26,16 @@ namespace SE_Assignment
             List<Payment> payments = new List<Payment>();
             InitializeData();
 
+            //OrderStatusIterator orderStatusIterator = new OrderStatusIterator(orders, "New");
+            //while (orderStatusIterator.hasNext())
+            //{
+                //Order order = (Order)orderStatusIterator.next();
+                //Console.WriteLine($"Order ID: {order.getOrderNum()}");
+                //Console.WriteLine();
+                //order.ToString();
+                //Console.WriteLine();
+            //}
+
             bool login = false;
             Customer currentCust = new Customer();
 
@@ -1403,7 +1413,7 @@ namespace SE_Assignment
                 order2.setState(delivered1);
                 Order order3 = new Order("3", cust3, DateTime.Now, "New");
                 Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "New");
-                Order order5 = new Order("4", cust3, DateTime.Now.AddDays(-4), "New");
+                Order order5 = new Order("5", cust3, DateTime.Now.AddDays(-4), "New");
 
 
                 order1.addItem(new OrderItem(itemMenu3, 2, order1));
@@ -1608,7 +1618,21 @@ namespace SE_Assignment
                     vieworderoption = "Archived";
                 }
 
+                OrderStatusIterator orderStatusIterator = new OrderStatusIterator(orders, vieworderoption);
+                while (orderStatusIterator.hasNext())
+                { 
+                    Order o = (Order)orderStatusIterator.next();
+                    Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()} status: {o.getOrderStatus()}");
 
+                    foreach (OrderItem item in o.getOrderItems())
+                    {
+
+                        Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                    }
+                    Console.WriteLine();
+                }
+
+                /*
                 foreach (Order o in orders)
                 {
 
@@ -1622,7 +1646,8 @@ namespace SE_Assignment
                             Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                         }
                     }
-                    }
+                }
+                */
             }
             // Manager Menu
             void DisplayManagerMenu()
