@@ -33,5 +33,10 @@ namespace SE_Assignment
         {
             return quantity;
         }
+
+        public void setQuantity(int quantity)
+        {
+            this.quantity = quantity;
+        }
     }
 }

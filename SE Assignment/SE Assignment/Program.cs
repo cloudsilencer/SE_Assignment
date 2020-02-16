@@ -201,8 +201,26 @@ namespace SE_Assignment
                             Console.WriteLine("Error! Please select a valid quantity."); // System display error message
                     }
 
-                    selected = new OrderItem(displayList[Convert.ToInt32(foodchoice) - 1], Convert.ToInt32(quantity), newOrder);
-                    newOrder.addItem(selected);
+                    FoodItem selectedFood = displayList[Convert.ToInt32(foodchoice) - 1];
+                    int loopIndex = 0;
+                    bool duplicatedFound = false;
+                    foreach (OrderItem orderItems in newOrder.getOrderItems()) //Check if Food Item selected is already in Order
+                    {
+                        if (orderItems.getItem() == selectedFood)
+                        {
+                            int totalQty = orderItems.getQuantity() + Convert.ToInt32(quantity);
+                            newOrder.getOrderItems()[loopIndex].setQuantity(totalQty); //If in order, update quantity
+                            duplicatedFound = true;
+                            break;
+                        }
+                        loopIndex++;
+                    }
+                    if (!duplicatedFound)
+                    {
+                        selected = new OrderItem(selectedFood, Convert.ToInt32(quantity), newOrder);
+                        newOrder.addItem(selected);
+                    }
+
                     Console.WriteLine("Would you like to add more items? (Y/N)");
                     while (true) // Validation for invalid option chosen
                     {
