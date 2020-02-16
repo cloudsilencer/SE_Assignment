@@ -123,11 +123,18 @@ namespace SE_Assignment
                                     Console.WriteLine("Error! Please select a valid category."); // System display error message
                             }
 
+                            // New iterator way
+                            FoodItemCategoryIterator foodItemCategoryIterator = 
+                                new FoodItemCategoryIterator(foodItems, categories[Convert.ToInt32(catChoice) - 1]);
+                            while (foodItemCategoryIterator.hasNext())
+                                displayList.Add((FoodItem)foodItemCategoryIterator.next());
+                            /*
                             foreach (FoodItem item in foodItems) // System retrieve food item from selected category
                             {
                                 if (item.Category == categories[Convert.ToInt32(catChoice)])
                                     displayList.Add(item);
                             }
+                            */
                             break;
                         }
 
@@ -151,11 +158,19 @@ namespace SE_Assignment
                                     Console.WriteLine("Error! Please select a valid Set Menu."); // System display error message
                             }
 
+                            // New iterator way
+                            FoodItemSetMenuIterator foodItemSetMenuIterator =
+                                new FoodItemSetMenuIterator(foodItems, setMenus[Convert.ToInt32(setChoice) - 1]);
+                            while (foodItemSetMenuIterator.hasNext())
+                                displayList.Add((FoodItem)foodItemSetMenuIterator.next());
+
+                            /*
                             foreach (FoodItem item in foodItems) // System retrieves food items from selected set menu
                             {
                                 if (item.SetMenu == setMenus[Convert.ToInt32(setChoice)])
                                     displayList.Add(item);
                             }
+                            */
                             break;
                         }
                         else
@@ -1347,9 +1362,10 @@ namespace SE_Assignment
                 setMenus.Add(lunchSetMenu);
                 setMenus.Add(dinnerSetMenu);
 
+
                 FoodItem itemMenu1 = new FoodItem(1, "French Toast", "Sliced bread soaked in eggs and milk, then fried.", 3.00, 100, "Available", category4, breakfastSetMenu);
                 FoodItem itemMenu2 = new FoodItem(2, "Grilled Chicken Sandwich", "Juicy grilled chicken wrapped within 2 slices of bread.", 5.60, 100, "Available", category1, breakfastSetMenu);
-                FoodItem itemMenu3 = new FoodItem(3, "Fish Congee", "Congee with red grouper slices", 5.80, 100, "Available", category1, breakfastSetMenu);
+                FoodItem itemMenu3 = new FoodItem(3, "Fish Congee", "Congee with red grouper slices", 5.80, 100, "Available", category2, breakfastSetMenu);
                 FoodItem itemMenu4 = new FoodItem(4, "Chicken Wrap", "Tortilla wrap with bits of chicken", 12.00, 100, "Available", category1, breakfastSetMenu);
                 FoodItem itemMenu5 = new FoodItem(5, "Signature Southern Style Fried Chicken", "The taste of Texas", 12.90, 100, "Available", category1, lunchSetMenu);
                 FoodItem itemMenu6 = new FoodItem(6, "Steak with baked potatoes", "Sirloin steak served with baked potatoes", 17.90, 100, "Available", category3, lunchSetMenu);
@@ -1358,7 +1374,7 @@ namespace SE_Assignment
                 FoodItem itemMenu9 = new FoodItem(9, "Roasted Chicken with Herbs", "Quarter Roasted Chicken with 2 sides", 14.90, 100, "Available", category1, dinnerSetMenu);
                 FoodItem itemMenu10 = new FoodItem(10, "Fried Wild Mushrooms", "Wild Mushrooms fresh from Australia", 8.20, 100, "Available", category4, dinnerSetMenu);
                 FoodItem itemMenu11 = new FoodItem(11, "Beef Stew", "Beef stew with bread", 14.20, 100, "Available", category3, dinnerSetMenu);
-                FoodItem itemMenu12 = new FoodItem(12, "Fish and Chips", "Fried cod in batter served with chips", 11.90, 100, "Available", category3, dinnerSetMenu);
+                FoodItem itemMenu12 = new FoodItem(12, "Fish and Chips", "Fried cod in batter served with chips", 11.90, 100, "Available", category2, dinnerSetMenu);
                 foodItems.Add(itemMenu1);
                 foodItems.Add(itemMenu2);
                 foodItems.Add(itemMenu3);

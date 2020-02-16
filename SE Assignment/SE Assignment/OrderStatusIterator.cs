@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SE_Assignment
 {
-    class OrderStatusIterator
+    class OrderStatusIterator : Iterator
     {
         private string orderStatus;
         private int position = 0;
-        public List<Order> orders;
+        private List<Order> orders;
 
         public OrderStatusIterator(List<Order> orders, string orderStatus)
         {
@@ -36,6 +36,11 @@ namespace SE_Assignment
             while ((position < orders.Count) && (orders[position].getOrderStatus() != orderStatus))
                 ++position;
             return order;
+        }
+
+        public void remove()
+        {
+            // Not implemented
         }
     }
 }

@@ -52,8 +52,11 @@
     <Compile Include="Customer.cs" />
     <Compile Include="Dispatcher.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="FoodItemCategoryIterator.cs" />
+    <Compile Include="FoodItemSetMenuIterator.cs" />
     <Compile Include="HandleOrderBehaviour.cs" />
     <Compile Include="FoodItem.cs" />
+    <Compile Include="Iterator.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="MonitorOrder.cs" />
     <Compile Include="Observer.cs" />
