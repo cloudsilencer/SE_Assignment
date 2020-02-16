@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace SE_Assignment
 {
-    class OrderStateIterator
+    class OrderStatusIterator
     {
-        private OrderState state;
+        private string orderStatus;
         private int position = 0;
         public List<Order> orders;
 
-        public OrderStateIterator(List<Order> orders, OrderState state)
+        public OrderStatusIterator(List<Order> orders, string orderStatus)
         {
             this.orders = orders;
-            this.state = state;
+            this.orderStatus = orderStatus;
+            // move position to first order with the order status
+            while ((position < orders.Count) &&
+                   (orders[position].getOrderStatus() != orderStatus))
+                ++position;
         }
 
         public bool hasNext()
@@ -29,7 +33,7 @@ namespace SE_Assignment
         {
             Order order = orders[position];
             ++position;
-            while ((position < orders.Count) && (orders[position].getState() != state))
+            while ((position < orders.Count) && (orders[position].getOrderStatus() != orderStatus))
                 ++position;
             return order;
         }
