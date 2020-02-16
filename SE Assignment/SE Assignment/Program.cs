@@ -665,10 +665,9 @@ namespace SE_Assignment
                 string setMenuName = "";
                 bool isSetMenuNameValid = false;
 
-                DisplayAllSetMenus(setMenus);
                 while (!isSetMenuNameValid)
                 {
-                    Console.Write("Please enter the Set Menu ID to be removed: ");
+                    Console.Write("Please enter a name for the new Set Menu: ");
                     setMenuName = Console.ReadLine();
                     if (setMenuName == "")
                         Console.WriteLine("Set Menu name cannot be empty!");
@@ -678,6 +677,7 @@ namespace SE_Assignment
                             Console.WriteLine($"Set Menu: {setMenuName} already exists! Please enter another different name!");
                         else
                         {
+                            isSetMenuNameValid = true;
                             SetMenu setMenu = new SetMenu(LatestAvailableSetMenuID(setMenus), setMenuName);
                             setMenus.Add(setMenu);
                         }
@@ -693,7 +693,9 @@ namespace SE_Assignment
                 DisplayAllSetMenus(setMenus);
 
                 string setMenuID = "";
+                string confirmation = "";
                 bool isSetMenuIDValid = false;
+                bool isConfirmationValid = false;
                 while (!isSetMenuIDValid)
                 {
                     Console.Write("Please enter the Set Menu ID: ");
@@ -708,16 +710,33 @@ namespace SE_Assignment
                             if (GetSetMenuByID(setMenus, parsedSetMenuID) == null)
                                 Console.WriteLine($"Set Menu ID: {parsedSetMenuID} does not exist");
                             else
-                            {
-                                Console.WriteLine($"The Set Menu: {GetSetMenuByID(setMenus, parsedSetMenuID).SetMenuName} was removed.");
-                                setMenus.Remove(GetSetMenuByID(setMenus, parsedSetMenuID));
                                 isSetMenuIDValid = true;
-                            }
                         }
                         catch
                         {
                             Console.WriteLine("Invalid format, Set Menu ID is a number. \t Example: 1");
                         }
+                    }
+                }
+                Console.WriteLine();
+                while (!isConfirmationValid)
+                {
+                    Console.Write($"Confirm the removal of Set Menu: {GetSetMenuByID(setMenus, int.Parse(setMenuID)).SetMenuName}? (Y/N) :");
+                    confirmation = Console.ReadLine();
+                    switch (confirmation)
+                    {
+                        case "Y":
+                            Console.WriteLine($"Set Menu: {GetSetMenuByID(setMenus, int.Parse(setMenuID)).SetMenuName} was removed.\n");
+                            setMenus.Remove(GetSetMenuByID(setMenus, int.Parse(setMenuID)));
+                            isConfirmationValid = true;
+                            break;
+                        case "N":
+                            Console.WriteLine($"Removal of Set Menu: {GetSetMenuByID(setMenus, int.Parse(setMenuID)).SetMenuName} was cancelled.\n");
+                            isConfirmationValid = true;
+                            break;
+                        default:
+                            Console.WriteLine("Invalid response. Please enter 'Y' for Yes or 'N' for No");
+                            break;
                     }
                 }
             }
@@ -727,6 +746,7 @@ namespace SE_Assignment
             {
                 string functionTitle = "Update Set Menu";
                 Console.WriteLine($"{functionTitle}\n{MultiplyString("-", functionTitle.Length)}\n");
+                DisplayAllSetMenus(setMenus);
 
                 string setMenuID = "";
                 bool isSetMenuIDValid = false;
@@ -744,10 +764,7 @@ namespace SE_Assignment
                             if (GetSetMenuByID(setMenus, parsedSetMenuID) == null)
                                 Console.WriteLine($"Set Menu ID: {parsedSetMenuID} does not exist");
                             else
-                            {
-                                Console.WriteLine($"The Set Menu: {GetSetMenuByID(setMenus, parsedSetMenuID).SetMenuName} was removed.");
                                 isSetMenuIDValid = true;
-                            }
                         }
                         catch
                         {
@@ -770,12 +787,13 @@ namespace SE_Assignment
                         Console.WriteLine("New name for Set Menu cannot be empty");
                     else
                     {
-                        if (CheckSetMenuNameExists(GetAllSetMenuName(setMenus), setMenuNameToUpdate))
+                        if (CheckSetMenuNameExists(GetAllSetMenuName(setMenus), setMenuNameToUpdate) && (setMenuNameToUpdate != setMenuToBeUpdated.SetMenuName))
                         {
                             Console.WriteLine("Name for Set Menu already exists");
                         }
                         else
                         {
+                            isUpdatedSetMenuNameValid = true;
                             setMenuToBeUpdated.SetMenuName = setMenuNameToUpdate;
                             Console.WriteLine("Set Menu has been successfully updated.");
                         }
@@ -930,7 +948,7 @@ namespace SE_Assignment
                         if (isAValidStatus(status))
                             isStatusValid = true;
                         else
-                            Console.WriteLine($"Status can be either 'Available' or 'Unavailable'");
+                            Console.WriteLine($"Status can only be either 'Available' or 'Unavailable'");
                     }
                 }
 
@@ -940,7 +958,7 @@ namespace SE_Assignment
                     Console.Write("Please enter the Category ID: ");
                     category = Console.ReadLine();
                     if (category == "")
-                        Console.WriteLine($"Category ID: {foodName} cannot be empty");
+                        Console.WriteLine($"Category ID for {foodName} cannot be empty");
                     else
                     {
                         try
@@ -964,7 +982,7 @@ namespace SE_Assignment
                     Console.Write("Please enter the Set Menu ID: ");
                     setMenu = Console.ReadLine();
                     if (setMenu == "")
-                        Console.WriteLine($"Set Menu ID: {setMenu} cannot be empty");
+                        Console.WriteLine($"Set Menu ID for {foodName} cannot be empty");
                     else
                     {
                         try
@@ -1040,6 +1058,7 @@ namespace SE_Assignment
                             isConfirmationValid = true;
                             break;
                         case "N":
+                            Console.WriteLine($"Removal of Food Item: {GetFoodItemByID(foodItems, int.Parse(itemID)).Name} was cancelled.\n");
                             isConfirmationValid = true;
                             break;
                         default:
@@ -1111,7 +1130,7 @@ namespace SE_Assignment
                                     Console.WriteLine("\nName entered is similar to another food item!\n");
                                 else
                                 {
-                                    Console.WriteLine($"Name successfully updated from '{itemToBeUpdated.Name}' to '{updatedName}'.");
+                                    Console.WriteLine($"Name successfully updated from '{itemToBeUpdated.Name}' to '{updatedName}'.\n");
                                     isNameValid = true;
                                     itemToBeUpdated.Name = updatedName;
                                 }
@@ -1129,7 +1148,7 @@ namespace SE_Assignment
                                     Console.WriteLine("\nDescription entered cannot be empty!\n");
                                 else
                                 {
-                                    Console.WriteLine($"Description successfully updated from '{itemToBeUpdated.Description}' to '{updatedDescription}'.");
+                                    Console.WriteLine($"Description successfully updated from '{itemToBeUpdated.Description}' to '{updatedDescription}'.\n");
                                     isDescriptionValid = true;
                                     itemToBeUpdated.Description = updatedDescription;
                                 }
@@ -1151,13 +1170,11 @@ namespace SE_Assignment
                                     {
                                         double convertedPrice = double.Parse(updatedPrice);
                                         if (convertedPrice <= 0.00)
-                                        {
                                             Console.WriteLine("Price cannot be $0 or less.");
-                                        }
                                         else
                                         {
-                                            Console.WriteLine($"Price successfully updated from ${itemToBeUpdated.Price} to ${double.Parse(updatedPrice)}.");
-                                            isDescriptionValid = true;
+                                            Console.WriteLine($"Price successfully updated from ${itemToBeUpdated.Price} to ${double.Parse(updatedPrice)}.\n");
+                                            isPriceValid = true;
                                             itemToBeUpdated.Price = double.Parse(updatedPrice);
                                         }
                                     }
@@ -1169,26 +1186,122 @@ namespace SE_Assignment
                             }
                             break;
                         case "Unit":
-                            Console.Write("Updated Unit: ");
-                            string updatedUnit = Console.ReadLine();
-                            itemToBeUpdated.Unit = int.Parse(updatedUnit);
+                            isFieldValid = true;
+                            bool isUnitValid = false;
+                            while (!isUnitValid)
+                            {
+                                Console.WriteLine($"Current Unit (Stock): {itemToBeUpdated.Unit}");
+                                Console.Write("Updated Unit: ");
+                                string updatedUnit = Console.ReadLine();
+                                if (updatedUnit == "")
+                                    Console.WriteLine("\nUnit entered cannot be empty!\n");
+                                else
+                                {
+                                    try
+                                    {
+                                        int convertedUnit = int.Parse(updatedUnit);
+                                        if (convertedUnit < 0)
+                                            Console.WriteLine("Unit cannot be less than 0.");
+                                        else
+                                        {
+                                            Console.WriteLine($"Unit successfully updated from {itemToBeUpdated.Unit} to {int.Parse(updatedUnit)}.\n");
+                                            isUnitValid = true;
+                                            itemToBeUpdated.Unit = int.Parse(updatedUnit);
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine("Invalid format, unit should be an integer\t Example: 100");
+                                    }
+                                }
+                            }                   
                             break;
                         case "Status":
-                            Console.Write("Updated Status ('Available' or 'Unavailable'): ");
-                            string updatedStatus = Console.ReadLine();
-                            itemToBeUpdated.Status = updatedStatus;
+                            isFieldValid = true;
+                            bool isStatusValid = false;
+                            while (!isStatusValid)
+                            {
+                                Console.WriteLine($"Current Status: {itemToBeUpdated.Status}");
+                                Console.Write("Updated Status ('Available' or 'Unavailable'): ");
+                                string updatedStatus = Console.ReadLine();
+                                if (updatedStatus == "")
+                                    Console.WriteLine($"Status for Food Item: {itemToBeUpdated.Name} cannot be empty");
+                                else
+                                {
+                                    if (isAValidStatus(updatedStatus))
+                                    {
+                                        Console.WriteLine($"Status successfully updated from {itemToBeUpdated.Status} to {updatedStatus}.\n");
+                                        isStatusValid = true;
+                                        itemToBeUpdated.Status = updatedStatus;
+                                    }
+                                    else
+                                        Console.WriteLine($"Status only can be either 'Available' or 'Unavailable'");
+                                }
+                            }
                             break;
                         case "Category":
+                            isFieldValid = true;
+                            bool isCategoryValid = false;
                             DisplayAllCategories(categories);
-                            Console.Write("Updated Category (Enter the ID): ");
-                            string updatedCategoryID = Console.ReadLine();
-                            itemToBeUpdated.Category = GetCategoryByID(categories, int.Parse(updatedCategoryID));
+                            while (!isCategoryValid)
+                            {
+                                Console.WriteLine($"Current Category: {itemToBeUpdated.Category.CategoryName}");
+                                Console.Write("Updated Category (Enter the ID): ");
+                                string updatedCategoryID = Console.ReadLine();
+                                if (updatedCategoryID == "")
+                                    Console.WriteLine($"Updated Category ID for {itemToBeUpdated.Name} cannot be empty");
+                                else
+                                {
+                                    try
+                                    {
+                                        int convertedCategory = int.Parse(updatedCategoryID);
+                                        if (GetCategoryByID(categories, convertedCategory) == null)
+                                            Console.WriteLine($"Category ID: {updatedCategoryID} does not exist");
+                                        else
+                                        {
+                                            Console.WriteLine($"Category successfully updated from {itemToBeUpdated.Category.CategoryName} to {GetCategoryByID(categories, int.Parse(updatedCategoryID)).CategoryName}.\n");
+                                            isCategoryValid = true;
+                                            itemToBeUpdated.Category = GetCategoryByID(categories, int.Parse(updatedCategoryID));
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine("Invalid format, Category ID is a number. \t Example: 1");
+                                    }
+                                }
+                            }
                             break;
-                        case "SetMenu":
+                        case "Set Menu":
+                            isFieldValid = true;
+                            bool isSetMenuValid = false;
                             DisplayAllSetMenus(setMenus);
-                            Console.Write("Updated Set Menu (Enter the ID): ");
-                            string updatedSetMenuID = Console.ReadLine();
-                            itemToBeUpdated.SetMenu = GetSetMenuByID(setMenus, int.Parse(updatedSetMenuID));
+                            while (!isSetMenuValid)
+                            {
+                                Console.WriteLine($"Current Set Menu: {itemToBeUpdated.SetMenu.SetMenuName}");
+                                Console.Write("Updated Set Menu (Enter the ID): ");
+                                string updatedSetMenuID = Console.ReadLine();
+                                if (updatedSetMenuID == "")
+                                    Console.WriteLine($"Set Menu ID for {itemToBeUpdated.Name} cannot be empty");
+                                else
+                                {
+                                    try
+                                    {
+                                        int convertedSetMenu = int.Parse(updatedSetMenuID);
+                                        if (GetSetMenuByID(setMenus, convertedSetMenu) == null)
+                                            Console.WriteLine($"Set Menu ID: {updatedSetMenuID} does not exist");
+                                        else
+                                        {
+                                            Console.WriteLine($"Set Menu successfully updated from {itemToBeUpdated.SetMenu.SetMenuName} to {GetSetMenuByID(setMenus, int.Parse(updatedSetMenuID)).SetMenuName}.\n");
+                                            isSetMenuValid = true;
+                                            itemToBeUpdated.SetMenu = GetSetMenuByID(setMenus, int.Parse(updatedSetMenuID));
+                                        }
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine("Invalid format, set Menu ID is a number. \t Example: 1");
+                                    }
+                                }
+                            }
                             break;
                         default:
                             Console.WriteLine($"{fieldToUpdate} is not a valid field!\n");
@@ -1312,7 +1425,7 @@ namespace SE_Assignment
 
                 Chef chf1 = new Chef(2001, "S9839889F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "corona@gmail.com", "Chef");
 
-                Dispatcher d1 = new Dispatcher(3001, "S9899890F", "Female", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "wuhan@gmail.com", "Dispatcher");
+                Dispatcher d1 = new Dispatcher(3001, "S9899890F", "Female", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "wuhan@gmail.com", "Dispatcher", clock);
                 //employees.Add(dispatcher1);
                 //employees.Add(dispatcher2);
                 employees.Add(manager1);
