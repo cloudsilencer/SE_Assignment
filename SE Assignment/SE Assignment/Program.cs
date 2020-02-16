@@ -78,7 +78,7 @@ namespace SE_Assignment
                 Console.WriteLine("2. View all Orders");
                 string choice = Console.ReadLine();
                 if (choice == "1")
-                    placeOrder(currentCust);
+                    placeOrder(currentCust); //User selects Place Order, system executes Place Order Use case.
                 if (choice == "2")
                     viewOrders(currentCust);
                 Console.ReadKey();
@@ -98,8 +98,7 @@ namespace SE_Assignment
                 Order newOrder = new Order(orders.Count.ToString(), currentCust, DateTime.Now, "New");
                 currentCust.addOrder(newOrder);
 
-                // Executes Select Restaurant Use case
-                newOrder.setBranch(selectRestaurant());
+                newOrder.setBranch(selectRestaurant()); // System Executes Select Restaurant Use case
 
                 List<string> options = new List<string>(); // For validations
 
@@ -107,28 +106,28 @@ namespace SE_Assignment
 
                 while (true) // To allow customers to add more items into Order
                 {
-                    List<FoodItem> displayList = new List<FoodItem>();
-                    OrderItem selected = new OrderItem();
-                    Console.WriteLine("How would you like to filter the menu?\n1. Categories\n2. Set Menu"); // System prompts
+                    List<FoodItem> displayList = new List<FoodItem>(); //List to store food items from chosen category / set menu
+                    OrderItem selected = new OrderItem(); //Create new OrderItem object
+                    Console.WriteLine("How would you like to filter the menu?\n1. Categories\n2. Set Menu"); // System prompts for user to select filter
 
                     while (true) // Validation for invalid filter choice
                     {
                         string filterChoice = Console.ReadLine();
-                        if (filterChoice == "1")
+                        if (filterChoice == "1") //User selects Category
                         {
                             options = new List<string>(); // For validation
-                            Console.WriteLine("Please select a Category");
-                            for (int i = 1; i <= categories.Count; i++) // System retrieves and display categories
+                            Console.WriteLine("Please select a Category"); //System prompts to select a category
+                            for (int i = 1; i <= categories.Count; i++) // System retrieves categories
                             {
-                                Console.WriteLine((i) + ". " + categories[i - 1].CategoryName);
-                                options.Add(i.ToString());
+                                Console.WriteLine((i) + ". " + categories[i - 1].CategoryName); //System displays categories
+                                options.Add(i.ToString()); // For validation
                             }
 
                             string catChoice = "";
-                            while (true) // Validation for invalid Category chice
+                            while (true) // Validation for invalid Category choice
                             {
                                 catChoice = Console.ReadLine();
-                                if (options.Contains(catChoice))
+                                if (options.Contains(catChoice)) //If user selects a valid category
                                     break;
                                 else
                                     Console.WriteLine("Error! Please select a valid category."); // System display error message
@@ -146,9 +145,9 @@ namespace SE_Assignment
                         {
                             options = new List<string>(); // For Validation
                             Console.WriteLine("Please select a Set Menu");
-                            for (int i = 1; i <= setMenus.Count; i++) // System retrieve and display set menus
+                            for (int i = 1; i <= setMenus.Count; i++) // System retrieve set menus
                             {
-                                Console.WriteLine((i) + ". " + setMenus[i - 1].SetMenuName);
+                                Console.WriteLine((i) + ". " + setMenus[i - 1].SetMenuName); // System display set menus
                                 options.Add(i.ToString());
                             }
 
@@ -156,7 +155,7 @@ namespace SE_Assignment
                             while (true) // Validation for invalid set menu chocie
                             {
                                 setChoice = Console.ReadLine();
-                                if (options.Contains(setChoice))
+                                if (options.Contains(setChoice)) // If customer selects a valid set menu
                                     break;
                                 else
                                     Console.WriteLine("Error! Please select a valid Set Menu."); // System display error message
@@ -186,28 +185,28 @@ namespace SE_Assignment
                     while (true) // Validation for invalid food item selected
                     {
                         foodchoice = Console.ReadLine();
-                        if (options.Contains(foodchoice))
+                        if (options.Contains(foodchoice)) //User selects a valid food item
                             break;
                         else
                             Console.WriteLine("Error! Please select a valid food item."); // System display error message
                     }
 
-                    Console.Write("How many would you like? ");
+                    Console.Write("How many would you like? "); //System prompts for quantity
                     string quantity = "";
 
                     while (true) // Validation for invalid quantity selected 
                     {
                         quantity = Console.ReadLine();
-                        if (int.TryParse(quantity, out _))
+                        if (int.TryParse(quantity, out _)) //If input is not an integer
                         {
-                            if (Convert.ToInt32(quantity) > 100)
+                            if (Convert.ToInt32(quantity) > 100) //If user selects a quantity of more than 100
                                 Console.WriteLine("Error! We do not have enough stock! Please select another quantity"); // System display error message
-                            else if (Convert.ToInt32(quantity) <= 0)
+                            else if (Convert.ToInt32(quantity) <= 0) //If user selects a quantity of less than or 0
                                 Console.WriteLine("Error! Please select a valid quantity."); // System display error message
                             else
                                 break;
                         }
-                        else
+                        else //User enters an input that is not an integer
                             Console.WriteLine("Error! Please select a valid quantity."); // System display error message
                     }
 
@@ -225,22 +224,22 @@ namespace SE_Assignment
                         }
                         loopIndex++;
                     }
-                    if (!duplicatedFound)
+                    if (!duplicatedFound) //If not found in order
                     {
-                        selected = new OrderItem(selectedFood, Convert.ToInt32(quantity), newOrder);
-                        newOrder.addItem(selected);
+                        selected = new OrderItem(selectedFood, Convert.ToInt32(quantity), newOrder); //Create the OrderItem
+                        newOrder.addItem(selected); //Add it into the list of OrderItems in Order
                     }
 
-                    Console.WriteLine("Would you like to add more items? (Y/N)");
+                    Console.WriteLine("Would you like to add more items? (Y/N)"); //System prompt for checkout
                     while (true) // Validation for invalid option chosen
                     {
                         string option = Console.ReadLine();
-                        if (option == "N")
+                        if (option == "N") //Checkout
                         {
                             checkOut(newOrder, cust);
                             break;
                         }
-                        else if (option == "Y")
+                        else if (option == "Y") //Add more item
                             break;
                         else
                             Console.WriteLine("Error! Please select either Y or N."); // System display error message
@@ -254,23 +253,23 @@ namespace SE_Assignment
             {
                 // Executes Select Restaurant Use case
                 List<string> options = new List<string>(); // For validation
-                Console.WriteLine("Please select an outlet from below");
+                Console.WriteLine("Please select an outlet from below"); //System prompts to select an outlet
                 for (int i = 1; i <= branches.Count; i++) // System retrieve all branches
                 {
-                    Console.WriteLine((i) + ". " + branches[i - 1].getBranchName());
+                    Console.WriteLine((i) + ". " + branches[i - 1].getBranchName()); //System displays all outlets
                     options.Add(i.ToString());
                 }
 
                 string choice = "";
                 while (true) // Validation for invalid outlet chosen
                 {
-                    choice = Console.ReadLine();
+                    choice = Console.ReadLine(); //User select a valid outlet
                     if (options.Contains(choice))
                         break;
                     else
                         Console.WriteLine("Error! Please select a valid outlet."); // System display error message
                 }
-                return branches[Convert.ToInt32(choice) - 1];
+                return branches[Convert.ToInt32(choice) - 1]; //Return the Branch object the customer has chosen
             }
 
             // Place Order (Dominic)
@@ -278,9 +277,9 @@ namespace SE_Assignment
             void checkOut(Order coOrder, Customer cust)
             {
                 processOrder(coOrder);
-                Console.WriteLine("\n Order Summary");
-                coOrder.ToString();
-                Console.WriteLine("\nWould you like express delivery? (Y/N)");
+                Console.WriteLine("\n Order Summary"); 
+                coOrder.ToString(); //System display order summary
+                Console.WriteLine("\nWould you like express delivery? (Y/N)"); // System prompts for express delivery
                 string delivery = "";
                 while (true) // Validation for express delivery
                 {
@@ -292,7 +291,7 @@ namespace SE_Assignment
                     }
                     else if (delivery == "N")
                     {
-                        coOrder.normalDelivery();
+                        coOrder.normalDelivery(); //System proceeds to print reciept and make payment
                         break;
                     }
                     else
@@ -301,7 +300,8 @@ namespace SE_Assignment
 
                 Console.WriteLine("\n Order Summary");
                 coOrder.displayReceipt();
-                coOrder.makePayment(payments);
+                coOrder.makePayment(payments); //System executes make payment use case 
+                //makePayment method codes is found in OrderPlacedState.cs under payment(Customer customer, List<Payment> payments) method
             }
 
             // Place Order (Dominic)
@@ -317,7 +317,6 @@ namespace SE_Assignment
                 pOrder.setTotalAmt((subTotal * pOrder.getGST() / 100) + subTotal);
                 pOrder.setStatus("Process");
             }
-
 
 
             // View all Orders (Li Yun)
