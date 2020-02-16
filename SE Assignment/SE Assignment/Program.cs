@@ -318,49 +318,20 @@ namespace SE_Assignment
             // View all Orders (Li Yun)
              void viewOrders(Customer cust)
              {
+                Boolean CurrentPastOrderOption = false;
+
                 Console.WriteLine("\n All Orders:");
 
                 foreach (Order o in orders)
                 {
                     if (cust == o.getCust())
                     {
-                        if (o.getOrderItems().Count == 0)
-                        {
-                            Console.WriteLine("No Order Records Found!");
-                        }
-                        
-                        else
+                        if (o.getOrderItems().Count > 0)
                         {
                             String date = o.getOrderDate().ToString("dd/MM/yyy");
-                            String state = "";
-
-                            if (o.getState() is OrderPlacedState)
-                            {
-                                state = "Placed";
-                            }
-
-                            if (o.getState() is OrderPreparingState)
-                            {
-                                state = "Preparing";
-                            }
-
-                            if (o.getState() is OrderDispatchedState)
-                            {
-                                state = "Dispatched";
-                            }
-
-                            if (o.getState() is OrderDeliveredState)
-                            {
-                                state = "Delivered";
-                            }
-
-                            if (o.getState() is OrderCancelledState)
-                            {
-                                state = "Cancelled";
-                            }
 
                             Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {date}");
-                            Console.WriteLine($"Order Status: {state}");
+                            Console.WriteLine($"Order Status: {o.getOrderStatus()}");
 
                             foreach (OrderItem item in o.getOrderItems())
                             {
@@ -369,14 +340,23 @@ namespace SE_Assignment
 
                             Console.WriteLine($"Total amount paid: ${o.getPaymentDetails().paymentAmt()}");
 
-                            // run view current or past orders method
-                            CurrentOrPastOrder(currentCust);
+                            CurrentPastOrderOption = true;
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("No order records found!");
 
                         }
 
                     }
-
                     
+                }
+
+                if (CurrentPastOrderOption == true)
+                {
+                    // run view current or past orders method
+                    CurrentOrPastOrder(currentCust);
                 }
 
              }
@@ -387,6 +367,8 @@ namespace SE_Assignment
                 Console.WriteLine("View Current or Past order(s):");
                 Console.WriteLine(" 1. Current order(s)");
                 Console.WriteLine(" 2. Past order(s)");
+
+                Boolean flagOrderExist = false;
 
                 string choice = Console.ReadLine();
 
@@ -399,37 +381,13 @@ namespace SE_Assignment
                         {
                             if (o.getOrderDate() == DateTime.Today)
                             {
+                                flagOrderExist = true;  
+                                
                                 String date = DateTime.Today.ToString("dd/MM/yyy");
-                                String state = "";
-
-                                if (o.getState() is OrderPlacedState)
-                                {
-                                    state = "Placed";
-                                }
-
-                                if (o.getState() is OrderPreparingState)
-                                {
-                                    state = "Preparing";
-                                }
-
-                                if (o.getState() is OrderDispatchedState)
-                                {
-                                    state = "Dispatched";
-                                }
-
-                                if (o.getState() is OrderDeliveredState)
-                                {
-                                    state = "Delivered";
-                                }
-
-                                if (o.getState() is OrderCancelledState)
-                                {
-                                    state = "Cancelled";
-                                }
 
                                 Console.WriteLine("\n" + "Your current order(s):");
                                 Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {date}");
-                                Console.WriteLine($"Order Status: {state}");
+                                Console.WriteLine($"Order Status: {o.getOrderStatus()}");
 
                                 foreach (OrderItem item in o.getOrderItems())
 
@@ -439,7 +397,9 @@ namespace SE_Assignment
 
                                 Console.WriteLine($"Total amount paid: ${o.getPaymentDetails().paymentAmt()}");
                             }
-                            else
+
+                            else if (o.getOrderDate() != DateTime.Today && flagOrderExist == false)
+                            
                             {
                                 Console.WriteLine("\n" + "No Current Order Records Found!");
                             }
@@ -460,37 +420,12 @@ namespace SE_Assignment
                         {
                             if(o.getOrderDate() != DateTime.Today)
                             {
+                                flagOrderExist = true;
                                 String date = o.getOrderDate().ToString("dd/MM/yyy");
-                                String state = "";
-
-                                if (o.getState() is OrderPlacedState)
-                                {
-                                    state = "Placed";
-                                }
-
-                                if (o.getState() is OrderPreparingState)
-                                {
-                                    state = "Preparing";
-                                }
-
-                                if (o.getState() is OrderDispatchedState)
-                                {
-                                    state = "Dispatched";
-                                }
-
-                                if (o.getState() is OrderDeliveredState)
-                                {
-                                    state = "Delivered";
-                                }
-
-                                if (o.getState() is OrderCancelledState)
-                                {
-                                    state = "Cancelled";
-                                }
 
                                 Console.WriteLine("\n" + "Your past order(s):");
                                 Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {date}");
-                                Console.WriteLine($"Order Status: {state}");
+                                Console.WriteLine($"Order Status: {o.getOrderStatus()}");
 
                                 foreach (OrderItem item in o.getOrderItems())
                                 {
@@ -500,7 +435,7 @@ namespace SE_Assignment
                                 Console.WriteLine($"Total amount paid: ${o.getPaymentDetails().paymentAmt()}");
 
                             }
-                            else
+                            else if (o.getOrderDate() == DateTime.Today && flagOrderExist == false)
                             {
                                 Console.WriteLine("\n" + "No Past Order Records Found!");
                             }
@@ -1495,21 +1430,21 @@ namespace SE_Assignment
                 OrderDeliveredState delivered1 = new OrderDeliveredState(order2);
                 order2.setState(delivered1);
 
-                Order order3 = new Order("3", cust3, DateTime.Now, "New");
+                Order order3 = new Order("3", cust3, DateTime.Now, "Preparing");
                 OrderPreparingState preparing1 = new OrderPreparingState(order3);
                 order3.setState(preparing1);
 
-                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "New");
+                Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "Delivered");
                 OrderDeliveredState delivered2 = new OrderDeliveredState(order4);
                 order2.setState(delivered2);          
 
-                Order order5 = new Order("5", cust3, DateTime.Now.AddDays(-4), "New");
+                Order order5 = new Order("5", cust3, DateTime.Now.AddDays(-4), "Cancelled");
                 OrderCancelledState cancelled2 = new OrderCancelledState(order5);
                 order5.setState(cancelled2);
 
                 Order order6 = new Order("6", cust1, DateTime.Now.AddDays(-3), "Delivered");
                 OrderDeliveredState delivered3 = new OrderDeliveredState(order6);
-                order2.setState(delivered1);
+                order6.setState(delivered3);
 
 
                 order1.addItem(new OrderItem(itemMenu3, 2, order1));
