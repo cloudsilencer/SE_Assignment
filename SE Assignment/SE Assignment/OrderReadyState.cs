@@ -22,8 +22,14 @@ namespace SE_Assignment
 
         public void cancelOrder()
         {
-            order.setState(new OrderCancelledState(order));
-            Console.WriteLine("Order has been cancelled.");
+            if (DateTime.Now >= order.getDateTimeDelivery())
+            {
+                order.setState(new OrderCancelledState(order));
+                Console.WriteLine("Order has been cancelled.");
+                // Implementation to refund customer
+            }
+            else
+                Console.WriteLine("Order cannot be cancelled as the time now has not exceeded the estimated delivery time.");
         }
 
         public void cookFinish()
