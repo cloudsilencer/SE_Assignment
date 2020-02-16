@@ -341,14 +341,42 @@ namespace SE_Assignment
                         else
                         {
                             String date = o.getOrderDate().ToString("dd/MM/yyy");
+                            String state = "";
+
+                            if (o.getState() is OrderPlacedState)
+                            {
+                                state = "Placed";
+                            }
+
+                            if (o.getState() is OrderPreparingState)
+                            {
+                                state = "Preparing";
+                            }
+
+                            if (o.getState() is OrderDispatchedState)
+                            {
+                                state = "Dispatched";
+                            }
+
+                            if (o.getState() is OrderDeliveredState)
+                            {
+                                state = "Delivered";
+                            }
+
+                            if (o.getState() is OrderCancelledState)
+                            {
+                                state = "Cancelled";
+                            }
+
                             Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {date}");
+                            Console.WriteLine($"Order Status: {state}");
 
                             foreach (OrderItem item in o.getOrderItems())
                             {
                                 Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                             }
 
-                            // Console.WriteLine($"Total amount paid: {o.getTotalAmt()}");
+                            Console.WriteLine($"Total amount paid: ${o.getPaymentDetails().paymentAmt()}");
 
                             // run view current or past orders method
                             CurrentOrPastOrder(currentCust);
@@ -381,15 +409,44 @@ namespace SE_Assignment
                             if (o.getOrderDate() == DateTime.Today)
                             {
                                 String date = DateTime.Today.ToString("dd/MM/yyy");
+                                String state = "";
+
+                                if (o.getState() is OrderPlacedState)
+                                {
+                                    state = "Placed";
+                                }
+
+                                if (o.getState() is OrderPreparingState)
+                                {
+                                    state = "Preparing";
+                                }
+
+                                if (o.getState() is OrderDispatchedState)
+                                {
+                                    state = "Dispatched";
+                                }
+
+                                if (o.getState() is OrderDeliveredState)
+                                {
+                                    state = "Delivered";
+                                }
+
+                                if (o.getState() is OrderCancelledState)
+                                {
+                                    state = "Cancelled";
+                                }
 
                                 Console.WriteLine("\n" + "Your current order(s):");
-                                Console.WriteLine("\n" + $"Order Number: {o.getOrderNum()} at {date}");
+                                Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {date}");
+                                Console.WriteLine($"Order Status: {state}");
 
                                 foreach (OrderItem item in o.getOrderItems())
 
                                 {
                                     Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                                 }
+
+                                Console.WriteLine($"Total amount paid: ${o.getPaymentDetails().paymentAmt()}");
                             }
                             else
                             {
@@ -413,14 +470,43 @@ namespace SE_Assignment
                             if(o.getOrderDate() != DateTime.Today)
                             {
                                 String date = o.getOrderDate().ToString("dd/MM/yyy");
+                                String state = "";
+
+                                if (o.getState() is OrderPlacedState)
+                                {
+                                    state = "Placed";
+                                }
+
+                                if (o.getState() is OrderPreparingState)
+                                {
+                                    state = "Preparing";
+                                }
+
+                                if (o.getState() is OrderDispatchedState)
+                                {
+                                    state = "Dispatched";
+                                }
+
+                                if (o.getState() is OrderDeliveredState)
+                                {
+                                    state = "Delivered";
+                                }
+
+                                if (o.getState() is OrderCancelledState)
+                                {
+                                    state = "Cancelled";
+                                }
 
                                 Console.WriteLine("\n" + "Your past order(s):");
-                                Console.WriteLine($"Order Number: {o.getOrderNum()} at {date}");
+                                Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {date}");
+                                Console.WriteLine($"Order Status: {state}");
 
                                 foreach (OrderItem item in o.getOrderItems())
                                 {
                                     Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                                 }
+
+                                Console.WriteLine($"Total amount paid: ${o.getPaymentDetails().paymentAmt()}");
 
                             }
                             else
@@ -1413,36 +1499,72 @@ namespace SE_Assignment
                 Order order1 = new Order("1", cust1, DateTime.Now, "Cancelled");
                 OrderCancelledState cancelled1 = new OrderCancelledState(order1);
                 order1.setState(cancelled1);
+
                 Order order2 = new Order("2", cust2, DateTime.Now.AddDays(-2), "Delivered");
                 OrderDeliveredState delivered1 = new OrderDeliveredState(order2);
                 order2.setState(delivered1);
+
                 Order order3 = new Order("3", cust3, DateTime.Now, "New");
+                OrderPreparingState preparing1 = new OrderPreparingState(order3);
+                order3.setState(preparing1);
+
                 Order order4 = new Order("4", cust3, DateTime.Now.AddDays(-1), "New");
+                OrderDeliveredState delivered2 = new OrderDeliveredState(order4);
+                order2.setState(delivered2);          
+
                 Order order5 = new Order("5", cust3, DateTime.Now.AddDays(-4), "New");
+                OrderCancelledState cancelled2 = new OrderCancelledState(order5);
+                order5.setState(cancelled2);
+
+                Order order6 = new Order("6", cust1, DateTime.Now.AddDays(-3), "Delivered");
+                OrderDeliveredState delivered3 = new OrderDeliveredState(order6);
+                order2.setState(delivered1);
 
 
                 order1.addItem(new OrderItem(itemMenu3, 2, order1));
                 order1.addItem(new OrderItem(itemMenu7, 2, order1));
+
                 order2.addItem(new OrderItem(itemMenu1, 1, order2));
+
                 order3.addItem(new OrderItem(itemMenu10, 2, order3));
                 order3.addItem(new OrderItem(itemMenu8, 2, order3));
+
                 order4.addItem(new OrderItem(itemMenu2, 5, order4));
+
                 order5.addItem(new OrderItem(itemMenu6, 3, order5));
                 order5.addItem(new OrderItem(itemMenu4, 1, order5));
+
+                order6.addItem(new OrderItem(itemMenu12, 1, order6));
+                order6.addItem(new OrderItem(itemMenu4, 1, order6));
+                order6.addItem(new OrderItem(itemMenu5, 1, order6));
 
                 orders.Add(order1);
                 orders.Add(order2);
                 orders.Add(order3);
                 orders.Add(order4);
                 orders.Add(order5);
+                orders.Add(order6);
 
-                Payment payment1 = new Payment("1", order1, 100.00, DateTime.Now, "Online");
-                Payment payment2 = new Payment("2", order2, 200.00, DateTime.Now, "Online");
-                Payment payment3 = new Payment("3", order3, 10.00, DateTime.Now, "Online");
+                Payment payment1 = new Payment("1", order1, 0.00, DateTime.Now, "Online");
+                Payment payment2 = new Payment("2", order2, 100.00, DateTime.Now, "Online");
+                Payment payment3 = new Payment("3", order3, 200.00, DateTime.Now, "Online");
+                Payment payment4 = new Payment("4", order4, 10.00, DateTime.Now, "Online");
+                Payment payment5 = new Payment("5", order5, 0.00, DateTime.Now, "Online");
+                Payment payment6 = new Payment("6", order6, 120.00, DateTime.Now, "Online");
 
                 payments.Add(payment1);
                 payments.Add(payment2);
                 payments.Add(payment3);
+                payments.Add(payment4);
+                payments.Add(payment5);
+                payments.Add(payment6);
+
+                order1.setPaymentDetails(payment1);
+                order2.setPaymentDetails(payment2);
+                order3.setPaymentDetails(payment3);
+                order4.setPaymentDetails(payment4);
+                order5.setPaymentDetails(payment5);
+                order6.setPaymentDetails(payment6);
 
                 // Start The Clock
                 Clock clock = Clock.getInstance();
@@ -1451,8 +1573,6 @@ namespace SE_Assignment
                 //Dispatcher dispatcher2 = new Dispatcher(51, "S9605134B", "Female", "Employed", new DateTime(2018, 2, 25), branch1, clock);
 
                 Manager manager1 = new Manager(52, "S9839890F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "ky@gmail.com", "Manager");
-
-
 
                 StoreAssistant sa1 = new StoreAssistant(1001, "S9839890F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "virus@gmail.com", "StoreAssistant");
 

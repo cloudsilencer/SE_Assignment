@@ -62,6 +62,7 @@ namespace SE_Assignment
 
             this.state = placedState;
         }
+
         public string getOrderStatus()
         {
             return orderStatus;
@@ -96,6 +97,11 @@ namespace SE_Assignment
             return deliveryCharge;
         }
 
+        public Payment getPaymentDetails()
+        {
+            return payment;
+        }
+
         public OrderState getState()
         {
             return state;
@@ -104,6 +110,11 @@ namespace SE_Assignment
         public void setStatus(string status)
         {
             this.status = status;
+        }
+
+        public void setPaymentDetails(Payment payment)
+        {
+            this.payment = payment;
         }
 
         public void setDateTimeReady(DateTime ready)
