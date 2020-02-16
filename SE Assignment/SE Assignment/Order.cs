@@ -127,6 +127,11 @@ namespace SE_Assignment
             this.deliveryCharge = deliveryCharge;
         }
 
+        public DateTime getDateTimeDelivery()
+        {
+            return dateTimeDelivery;
+        }
+
         public void setBranch(Branch branch)
         {
             this.branch = branch;

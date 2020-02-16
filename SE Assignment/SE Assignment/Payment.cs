@@ -37,5 +37,10 @@ namespace SE_Assignment
         {
             return paymentAmount;
         }
+
+        public Order getOrder()
+        {
+            return order;
+        }
     }
 }
