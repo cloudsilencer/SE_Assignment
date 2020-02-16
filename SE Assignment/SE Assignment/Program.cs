@@ -1472,8 +1472,8 @@ namespace SE_Assignment
                 Account acc5 = new Account(5, "password", "Logged Out");
 
                 Customer cust1 = new Customer("Dominic", "Sengkang", "testacc@gmail.com", "97828840", "123", acc1);
-                Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123124", acc2);
-                Customer cust3 = new Customer("Li Yun", "Punggol", "liyun8281@gmail.com", "97828842", "123125", acc3);
+                Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123", acc2);
+                Customer cust3 = new Customer("Li Yun", "Punggol", "liyun8281@gmail.com", "97828842", "123", acc3);
               
                 customers.Add(cust1);
                 customers.Add(cust2);
