@@ -132,6 +132,11 @@ namespace SE_Assignment
             this.branch = branch;
         }
 
+        public Branch getBranch()
+        {
+            return branch;
+        }
+
         public void setDeliveryType(string type)
         {
             deliveryType = type;
