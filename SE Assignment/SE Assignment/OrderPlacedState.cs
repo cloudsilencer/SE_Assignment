@@ -78,6 +78,10 @@ namespace SE_Assignment
                     Console.WriteLine("Please select a valid option");
             }
             Payment newPayment = new Payment(payments.Count.ToString(), order, order.getTotalAmt(), DateTime.Now, paymentType);
+            Random random = new Random();
+            int receiptNo = random.Next(1, 1000);
+            Receipt newReceipt = new Receipt(receiptNo, DateTime.Now, order.getBranch(), newPayment);
+            // Send Receipt into Customer's Email
         }
 
         public void prepare()
