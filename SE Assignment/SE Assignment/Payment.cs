@@ -32,5 +32,10 @@ namespace SE_Assignment
         {
 
         }
+
+        public double paymentAmt()
+        {
+            return paymentAmount;
+        }
     }
 }

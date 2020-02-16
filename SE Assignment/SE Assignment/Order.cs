@@ -97,6 +97,11 @@ namespace SE_Assignment
             return deliveryCharge;
         }
 
+        public Payment getPaymentDetails()
+        {
+            return payment;
+        }
+
         public OrderState getState()
         {
             return state;
