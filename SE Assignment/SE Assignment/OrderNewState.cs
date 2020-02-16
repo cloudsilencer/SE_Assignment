@@ -17,37 +17,39 @@ namespace SE_Assignment
 
         public void archiveOrder()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be archived as it is not delivered");
         }
 
         public void cancelOrder()
         {
-            throw new NotImplementedException();
+            order.setState(new OrderCancelledState(order));
+            Console.WriteLine("Order has been cancelled.");
         }
 
         public void cookFinish()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be cooked finish as it is has not been prepared.");
         }
 
         public void delivered()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be delivered as it is has not been dispatched.");
         }
 
         public void dispatch()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be dispatched as it is not ready.");
         }
 
         public void payment(Customer customer, List<Payment> payments)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be paid as it has already been paid.");
         }
 
         public void prepare()
         {
-            throw new NotImplementedException();
+            order.setState(new OrderPreparingState(order));
+            Console.WriteLine("Order is now being prepared.");
         }
     }
 }

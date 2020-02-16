@@ -17,37 +17,43 @@ namespace SE_Assignment
 
         public void archiveOrder()
         {
-            throw new NotImplementedException();
+            if ((DateTime.Now.Year - order.getOrderDate().Year) >= 1)
+            {
+                order.setState(new OrderArchivedState(order));
+                Console.WriteLine("Order was archived");
+            }
+            else
+                Console.WriteLine("Order cannot be archived as it has not been kept for at least 1 year.");
         }
 
         public void cancelOrder()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be cancelled as it is delivered.");
         }
 
         public void cookFinish()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be cooked finish as it is delivered.");
         }
 
         public void delivered()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be delivered as it is delivered.");
         }
 
         public void dispatch()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be dispatched as it is delivered.");
         }
 
         public void payment(Customer customer, List<Payment> payments)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be paid as it is delivered.");
         }
 
         public void prepare()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be prepared as it is delivered.");
         }
     }
 }

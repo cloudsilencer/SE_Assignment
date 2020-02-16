@@ -17,36 +17,36 @@ namespace SE_Assignment
 
         public void archiveOrder()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be archived as it is already archived.");
         }
 
         public void cancelOrder()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be cancelled as it is archived.");
         }
 
         public void cookFinish()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be cooked finish as it is archived.");
         }
 
         public void delivered()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be delivered as it is archived.");
         }
 
         public void dispatch()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be dispatched as it is archived.");
         }
 
         public void payment(Customer customer, List<Payment> payments)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be paid as it is archived.");
         }
         public void prepare()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be prepared as it is archived.");
         }
     }
 }

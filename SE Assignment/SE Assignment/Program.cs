@@ -26,16 +26,6 @@ namespace SE_Assignment
             List<Payment> payments = new List<Payment>();
             InitializeData();
 
-            //OrderStatusIterator orderStatusIterator = new OrderStatusIterator(orders, "New");
-            //while (orderStatusIterator.hasNext())
-            //{
-                //Order order = (Order)orderStatusIterator.next();
-                //Console.WriteLine($"Order ID: {order.getOrderNum()}");
-                //Console.WriteLine();
-                //order.ToString();
-                //Console.WriteLine();
-            //}
-
             bool login = false;
             Customer currentCust = new Customer();
 

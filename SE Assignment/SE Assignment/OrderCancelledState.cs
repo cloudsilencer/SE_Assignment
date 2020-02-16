@@ -17,37 +17,37 @@ namespace SE_Assignment
 
         public void archiveOrder()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be archived as it is already cancelled.");
         }
 
         public void cancelOrder()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be cancelled as it is already cancelled.");
         }
 
         public void cookFinish()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be cooked finish as it is already cancelled.");
         }
 
         public void delivered()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be delivered as it is already cancelled.");
         }
 
         public void dispatch()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be dispatched as it is already cancelled.");
         }
 
         public void payment(Customer customer, List<Payment> payments)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be paid as it is already cancelled.");
         }
 
         public void prepare()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be prepared as it is already cancelled.");
         }
     }
 }

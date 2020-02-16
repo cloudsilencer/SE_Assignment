@@ -56,6 +56,9 @@ namespace SE_Assignment
             this.preparingState = new OrderPreparingState(this);
             this.readyState = new OrderReadyState(this);
             this.dispatchedState = new OrderDispatchedState(this);
+            this.deliveredState = new OrderDeliveredState(this);
+            this.archivedState = new OrderArchivedState(this);
+            this.cancelledState = new OrderCancelledState(this);
 
             this.state = placedState;
         }
@@ -76,11 +79,6 @@ namespace SE_Assignment
         public DateTime getOrderDate()
         {
             return dateTimeOfOrder.Date;
-        }
-
-        public void makePayment(List<Payment> payments)
-        {
-            state.payment(customer, payments);
         }
  
         public double getTotalAmt()
@@ -138,16 +136,6 @@ namespace SE_Assignment
             orderItems.Add(item);
         }
 
-        public void cancelOrder()
-        {
-            state.cancelOrder();
-        }
-
-        public void archiveOrder()
-        {
-            state.archiveOrder();
-        }
-
         public void setTotalAmt(double totalAmt)
         {
             this.totalAmt = totalAmt;
@@ -187,6 +175,41 @@ namespace SE_Assignment
             dateTimeReady = DateTime.Now.Add(new System.TimeSpan(0, 0, 30, 0));
             dateTimeDelivery = DateTime.Now.Add(new System.TimeSpan(0, 0, 45, 0));
             Console.WriteLine("Default Delivery");
+        }
+
+        public void makePayment(List<Payment> payments)
+        {
+            state.payment(customer, payments);
+        }
+
+        public void prepare()
+        {
+            state.prepare();
+        }
+
+        public void cookFinish()
+        {
+            state.cookFinish();
+        }
+
+        public void dispatch()
+        {
+            state.dispatch();
+        }
+
+        public void delivered()
+        {
+            state.delivered();
+        }
+
+        public void archiveOrder()
+        {
+            state.archiveOrder();
+        }
+
+        public void cancelOrder()
+        {
+            state.cancelOrder();
         }
 
         public void ToString()

@@ -17,27 +17,27 @@ namespace SE_Assignment
 
         public void archiveOrder()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be archived as it is not delivered.");
         }
 
         public void cancelOrder()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be cancelled as it has not been paid.");
         }
 
         public void cookFinish()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be cooked finish as it is not prepared.");
         }
 
         public void delivered()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be delivered as it is not dispatched.");
         }
 
         public void dispatch()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be dispatched as it is not cooked finish.");
         }
 
         public void payment(Customer customer, List<Payment> payments)
@@ -82,7 +82,7 @@ namespace SE_Assignment
 
         public void prepare()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Order cannot be prepared as it is not paid.");
         }
     }
 }
