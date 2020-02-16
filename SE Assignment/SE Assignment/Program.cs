@@ -1495,18 +1495,15 @@ namespace SE_Assignment
                 // Start The Clock
                 Clock clock = Clock.getInstance();
 
-                //Dispatcher dispatcher1 = new Dispatcher(50, "S9213724G", "Male", "Employed", new DateTime(2017, 10, 19), branch1, clock);
-                //Dispatcher dispatcher2 = new Dispatcher(51, "S9605134B", "Female", "Employed", new DateTime(2018, 2, 25), branch1, clock);
+                Manager manager1 = new Manager(52, "S9839890F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "manager@gmail.com", "Manager");
 
-                Manager manager1 = new Manager(52, "S9839890F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "ky@gmail.com", "Manager");
+                StoreAssistant sa1 = new StoreAssistant(1001, "S9839890F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "assistant@gmail.com", "StoreAssistant");
 
-                StoreAssistant sa1 = new StoreAssistant(1001, "S9839890F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "virus@gmail.com", "StoreAssistant");
+                Chef chf1 = new Chef(2001, "S9839889F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "chef@gmail.com", "Chef");
 
-                Chef chf1 = new Chef(2001, "S9839889F", "Male", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "corona@gmail.com", "Chef");
+                Dispatcher d1 = new Dispatcher(3001, "S9899890F", "Female", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "dispatcher@gmail.com", "Dispatcher", clock);
 
-                Dispatcher d1 = new Dispatcher(3001, "S9899890F", "Female", "Employed", new DateTime(2019, 3, 20), branch2, acc4, "wuhan@gmail.com", "Dispatcher", clock);
-                //employees.Add(dispatcher1);
-                //employees.Add(dispatcher2);
+
                 employees.Add(manager1);
                 employees.Add(sa1);
                 employees.Add(chf1);
