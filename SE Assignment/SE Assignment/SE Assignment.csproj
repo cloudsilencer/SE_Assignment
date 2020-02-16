@@ -77,7 +77,6 @@
     <Compile Include="ShoppingCart.cs" />
     <Compile Include="StoreAssistant.cs" />
     <Compile Include="Subject.cs" />
-    <Compile Include="ViewOrder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
