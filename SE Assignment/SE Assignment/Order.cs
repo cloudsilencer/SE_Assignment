@@ -127,9 +127,19 @@ namespace SE_Assignment
             this.deliveryCharge = deliveryCharge;
         }
 
+        public DateTime getDateTimeDelivery()
+        {
+            return dateTimeDelivery;
+        }
+
         public void setBranch(Branch branch)
         {
             this.branch = branch;
+        }
+
+        public Branch getBranch()
+        {
+            return branch;
         }
 
         public void setDeliveryType(string type)
@@ -236,7 +246,7 @@ namespace SE_Assignment
             //Console.WriteLine("Estimated Delivery Time: " + dateTimeDelivery);
         }
 
-        public void displayReceipt()
+        public void displayOrderSummary()
         {
             foreach (OrderItem item in orderItems)
             {
@@ -244,7 +254,7 @@ namespace SE_Assignment
             }
             Console.WriteLine("Subtotal: $" + subTotal);
             Console.WriteLine("GST: " + gst + "%");
-            Console.WriteLine("Total: $" + totalAmt);
+            Console.WriteLine("Total: $" + Math.Round(totalAmt, 2));
             Console.WriteLine("\nEstimated Ready Time: " + dateTimeReady);
             Console.WriteLine("Estimated Delivery Time: " + dateTimeDelivery);
         }

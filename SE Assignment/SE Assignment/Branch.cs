@@ -11,6 +11,7 @@ namespace SE_Assignment
         private int branchID;
         private string branchName;
         private int rating;
+        private List<Order> orders;
 
         public Branch(int branchID, string branchName)
         {

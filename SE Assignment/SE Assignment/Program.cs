@@ -63,15 +63,18 @@ namespace SE_Assignment
             if (login == true)
             {
                 Console.WriteLine("\nLogin Successful");
-                Console.WriteLine("What would you like to do today?");
-                Console.WriteLine("1. Create a new Order");
-                Console.WriteLine("2. View all Orders");
-                string choice = Console.ReadLine();
-                if (choice == "1")
-                    placeOrder(currentCust); //User selects Place Order, system executes Place Order Use case.
-                if (choice == "2")
-                    viewOrders(currentCust);
-                Console.ReadKey();
+                while (true)
+                {
+                    Console.WriteLine("What would you like to do today?");
+                    Console.WriteLine("1. Create a new Order");
+                    Console.WriteLine("2. View all Orders");
+                    string choice = Console.ReadLine();
+                    if (choice == "1")
+                        placeOrder(currentCust); //User selects Place Order, system executes Place Order Use case.
+                    if (choice == "2")
+                        viewOrders(currentCust);
+                    //Console.ReadKey();
+                }
             }
             else
             {
@@ -123,18 +126,11 @@ namespace SE_Assignment
                                     Console.WriteLine("Error! Please select a valid category."); // System display error message
                             }
 
-                            // New iterator way
+                            // System retrieve food item from selected category
                             FoodItemCategoryIterator foodItemCategoryIterator = 
                                 new FoodItemCategoryIterator(foodItems, categories[Convert.ToInt32(catChoice) - 1]);
                             while (foodItemCategoryIterator.hasNext())
                                 displayList.Add((FoodItem)foodItemCategoryIterator.next());
-                            /*
-                            foreach (FoodItem item in foodItems) // System retrieve food item from selected category
-                            {
-                                if (item.Category == categories[Convert.ToInt32(catChoice)])
-                                    displayList.Add(item);
-                            }
-                            */
                             break;
                         }
 
@@ -158,19 +154,11 @@ namespace SE_Assignment
                                     Console.WriteLine("Error! Please select a valid Set Menu."); // System display error message
                             }
 
-                            // New iterator way
+                            // // System retrieves food items from selected set menu
                             FoodItemSetMenuIterator foodItemSetMenuIterator =
                                 new FoodItemSetMenuIterator(foodItems, setMenus[Convert.ToInt32(setChoice) - 1]);
                             while (foodItemSetMenuIterator.hasNext())
                                 displayList.Add((FoodItem)foodItemSetMenuIterator.next());
-
-                            /*
-                            foreach (FoodItem item in foodItems) // System retrieves food items from selected set menu
-                            {
-                                if (item.SetMenu == setMenus[Convert.ToInt32(setChoice)])
-                                    displayList.Add(item);
-                            }
-                            */
                             break;
                         }
                         else
@@ -236,9 +224,10 @@ namespace SE_Assignment
                     }
 
                     Console.WriteLine("Would you like to add more items? (Y/N)"); //System prompt for checkout
+                    string option = "";
                     while (true) // Validation for invalid option chosen
                     {
-                        string option = Console.ReadLine();
+                        option = Console.ReadLine();
                         if (option == "N") //Checkout
                         {
                             checkOut(newOrder, cust);
@@ -249,6 +238,8 @@ namespace SE_Assignment
                         else
                             Console.WriteLine("Error! Please select either Y or N."); // System display error message
                     }
+                    if (option == "N")
+                        break;
                 }
             }
 
@@ -304,7 +295,7 @@ namespace SE_Assignment
                 }
 
                 Console.WriteLine("\n Order Summary");
-                coOrder.displayReceipt();
+                coOrder.displayOrderSummary();
                 coOrder.makePayment(payments); //System executes make payment use case 
                 //makePayment method codes is found in OrderPlacedState.cs under payment(Customer customer, List<Payment> payments) method
             }
@@ -1481,8 +1472,8 @@ namespace SE_Assignment
                 Account acc5 = new Account(5, "password", "Logged Out");
 
                 Customer cust1 = new Customer("Dominic", "Sengkang", "testacc@gmail.com", "97828840", "123", acc1);
-                Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123124", acc2);
-                Customer cust3 = new Customer("Li Yun", "Punggol", "liyun8281@gmail.com", "97828842", "123125", acc3);
+                Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123", acc2);
+                Customer cust3 = new Customer("Li Yun", "Punggol", "liyun8281@gmail.com", "97828842", "123", acc3);
               
                 customers.Add(cust1);
                 customers.Add(cust2);

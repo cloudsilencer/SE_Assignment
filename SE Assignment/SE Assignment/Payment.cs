@@ -13,6 +13,7 @@ namespace SE_Assignment
         private double paymentAmount;
         private DateTime paymentDate;
         private string paymentType;
+        private Receipt receipt;
 
         public Payment(string paymentID, Order order, double paymentAmount, DateTime paymentDate, string paymentType)
         {
@@ -22,6 +23,12 @@ namespace SE_Assignment
             this.paymentDate = paymentDate;
             this.paymentType = paymentType;
         }
+
+        public void setReceipt(Receipt receipt)
+        {
+            this.receipt = receipt;
+        }
+
 
         public void paymentApproved()
         {
@@ -36,6 +43,11 @@ namespace SE_Assignment
         public double paymentAmt()
         {
             return paymentAmount;
+        }
+
+        public Order getOrder()
+        {
+            return order;
         }
     }
 }

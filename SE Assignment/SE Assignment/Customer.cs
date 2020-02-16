@@ -73,6 +73,9 @@ namespace SE_Assignment
 
         }
 
-
+        public string getAddress()
+        {
+            return address;
+        }
     }
 }
