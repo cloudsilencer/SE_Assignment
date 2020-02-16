@@ -46,7 +46,7 @@ namespace SE_Assignment
             string user = Console.ReadLine();
             if (user == "1")
             {
-                Console.WriteLine("Login as Customer");
+                Console.WriteLine("Login as Customer (Please use Test Account)\nTest Account's Email: testacc@gmail.com\nTest Account's Password: password");
                 Console.Write("Email: ");
                 string email = Console.ReadLine();
                 Console.Write("Password: ");
@@ -1389,7 +1389,7 @@ namespace SE_Assignment
                 Account acc4 = new Account(4, "password", "Logged Out");
                 Account acc5 = new Account(5, "password", "Logged Out");
 
-                Customer cust1 = new Customer("Dominic", "Sengkang", "dominic8281@gmail.com", "97828840", "123123", acc1);
+                Customer cust1 = new Customer("Dominic", "Sengkang", "testacc@gmail.com", "97828840", "123", acc1);
                 Customer cust2 = new Customer("Kevin", "Hougang", "kevin8281@gmail.com", "97828841", "123124", acc2);
                 Customer cust3 = new Customer("Li Yun", "Punggol", "liyun8281@gmail.com", "97828842", "123125", acc3);
               
