@@ -81,6 +81,7 @@ namespace SE_Assignment
             Random random = new Random();
             int receiptNo = random.Next(1, 1000);
             Receipt newReceipt = new Receipt(receiptNo, DateTime.Now, order.getBranch(), newPayment);
+            newPayment.setReceipt(newReceipt);
             newReceipt.sendConfirmation();
         }
 
