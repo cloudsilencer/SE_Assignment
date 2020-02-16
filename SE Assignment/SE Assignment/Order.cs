@@ -254,7 +254,7 @@ namespace SE_Assignment
             }
             Console.WriteLine("Subtotal: $" + subTotal);
             Console.WriteLine("GST: " + gst + "%");
-            Console.WriteLine("Total: $" + totalAmt);
+            Console.WriteLine("Total: $" + Math.Round(totalAmt, 2));
             Console.WriteLine("\nEstimated Ready Time: " + dateTimeReady);
             Console.WriteLine("Estimated Delivery Time: " + dateTimeDelivery);
         }

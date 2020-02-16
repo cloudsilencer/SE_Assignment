@@ -63,15 +63,18 @@ namespace SE_Assignment
             if (login == true)
             {
                 Console.WriteLine("\nLogin Successful");
-                Console.WriteLine("What would you like to do today?");
-                Console.WriteLine("1. Create a new Order");
-                Console.WriteLine("2. View all Orders");
-                string choice = Console.ReadLine();
-                if (choice == "1")
-                    placeOrder(currentCust); //User selects Place Order, system executes Place Order Use case.
-                if (choice == "2")
-                    viewOrders(currentCust);
-                Console.ReadKey();
+                while (true)
+                {
+                    Console.WriteLine("What would you like to do today?");
+                    Console.WriteLine("1. Create a new Order");
+                    Console.WriteLine("2. View all Orders");
+                    string choice = Console.ReadLine();
+                    if (choice == "1")
+                        placeOrder(currentCust); //User selects Place Order, system executes Place Order Use case.
+                    if (choice == "2")
+                        viewOrders(currentCust);
+                    //Console.ReadKey();
+                }
             }
             else
             {
@@ -221,9 +224,10 @@ namespace SE_Assignment
                     }
 
                     Console.WriteLine("Would you like to add more items? (Y/N)"); //System prompt for checkout
+                    string option = "";
                     while (true) // Validation for invalid option chosen
                     {
-                        string option = Console.ReadLine();
+                        option = Console.ReadLine();
                         if (option == "N") //Checkout
                         {
                             checkOut(newOrder, cust);
@@ -234,6 +238,8 @@ namespace SE_Assignment
                         else
                             Console.WriteLine("Error! Please select either Y or N."); // System display error message
                     }
+                    if (option == "N")
+                        break;
                 }
             }
 

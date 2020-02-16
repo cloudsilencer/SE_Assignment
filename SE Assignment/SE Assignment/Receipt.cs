@@ -37,6 +37,7 @@ namespace SE_Assignment
             Console.WriteLine("Order Number: " + orderNo);
             Console.WriteLine("Order Delivered to: " + deliveryAddress);
             order.displayOrderSummary();
+            Console.WriteLine("\n");
         }
     }
 }
