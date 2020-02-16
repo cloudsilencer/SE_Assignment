@@ -1576,67 +1576,59 @@ namespace SE_Assignment
             void ViewAllCustOrder()
             {
                 Console.WriteLine("Please select order type: ");
-                Console.WriteLine("[1] New");
-                Console.WriteLine("[2] Cancelled");
-                Console.WriteLine("[3] Delivered");
-
-                //Console.WriteLine("Login as Customer");
-                //Console.Write("Email: ");
-                //string email = Console.ReadLine();
-                //Console.Write("Password: ");
-                //string pass = Console.ReadLine();
+                Console.WriteLine("[1] All");
+                Console.WriteLine("[2] New");
+                Console.WriteLine("[3] Cancelled");
+                Console.WriteLine("[4] Delivered");
+                Console.WriteLine("[5] Preparing");
+                Console.WriteLine("[6] Placed");
+                Console.WriteLine("[7] Ready");
+                Console.WriteLine("[8] Dispatched");
+                Console.WriteLine("[9] Archived");
 
 
                 string vieworderoption = Console.ReadLine();
 
                 if(vieworderoption == "1")
                 {
-                    vieworderoption = "New";
+                    vieworderoption = "All";
                 }
-                else if (vieworderoption == "2")
+                else if(vieworderoption == "2")
                 {
-                    vieworderoption = "Cancelled";
+                    vieworderoption = "New";
                 }
                 else if (vieworderoption == "3")
                 {
-                    vieworderoption = "Delivered";
+                    vieworderoption = "Cancelled";
                 }
                 else if (vieworderoption == "4")
                 {
-                    vieworderoption = "Preparing";
+                    vieworderoption = "Delivered";
                 }
                 else if (vieworderoption == "5")
                 {
-                    vieworderoption = "Ready";
+                    vieworderoption = "Preparing";
                 }
                 else if (vieworderoption == "6")
                 {
-                    vieworderoption = "Dispatched";
+                    vieworderoption = "Placed";
                 }
                 else if (vieworderoption == "7")
                 {
+                    vieworderoption = "Ready";
+                }
+                else if (vieworderoption == "8")
+                {
+                    vieworderoption = "Dispatched";
+                }
+                else if (vieworderoption == "9")
+                {
                     vieworderoption = "Archived";
                 }
-
-                OrderStatusIterator orderStatusIterator = new OrderStatusIterator(orders, vieworderoption);
-                while (orderStatusIterator.hasNext())
-                { 
-                    Order o = (Order)orderStatusIterator.next();
-                    Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()} status: {o.getOrderStatus()}");
-
-                    foreach (OrderItem item in o.getOrderItems())
-                    {
-
-                        Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
-                    }
-                    Console.WriteLine();
-                }
-
-                /*
-                foreach (Order o in orders)
+   
+                if(vieworderoption == "All")
                 {
-
-                    if (o.getOrderStatus() == vieworderoption)
+                    foreach (Order o in orders)
                     {
                         Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()} status: {o.getOrderStatus()}");
 
@@ -1646,8 +1638,24 @@ namespace SE_Assignment
                             Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
                         }
                     }
+                    Console.WriteLine();
                 }
-                */
+                else
+                {
+                    OrderStatusIterator orderStatusIterator = new OrderStatusIterator(orders, vieworderoption);
+                    while (orderStatusIterator.hasNext())
+                    {
+                        Order o = (Order)orderStatusIterator.next();
+                        Console.WriteLine("\n" + $"Order Number {o.getOrderNum()} placed on {o.getOrderDate()} status: {o.getOrderStatus()}");
+
+                        foreach (OrderItem item in o.getOrderItems())
+                        {
+
+                            Console.WriteLine($"{item.getQuantity()} qty of {item.getItem().Name}");
+                        }
+                        Console.WriteLine();
+                    }
+                }
             }
             // Manager Menu
             void DisplayManagerMenu()
