@@ -289,7 +289,7 @@ namespace SE_Assignment
                 }
 
                 Console.WriteLine("\n Order Summary");
-                coOrder.displayReceipt();
+                coOrder.displayOrderSummary();
                 coOrder.makePayment(payments); //System executes make payment use case 
                 //makePayment method codes is found in OrderPlacedState.cs under payment(Customer customer, List<Payment> payments) method
             }

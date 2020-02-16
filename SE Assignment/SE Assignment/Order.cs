@@ -241,7 +241,7 @@ namespace SE_Assignment
             //Console.WriteLine("Estimated Delivery Time: " + dateTimeDelivery);
         }
 
-        public void displayReceipt()
+        public void displayOrderSummary()
         {
             foreach (OrderItem item in orderItems)
             {

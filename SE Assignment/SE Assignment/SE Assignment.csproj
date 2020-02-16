@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Branch.cs" />
-    <Compile Include="CartProduct.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Chef.cs" />
     <Compile Include="Clock.cs" />
