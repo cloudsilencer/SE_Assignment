@@ -316,8 +316,8 @@ namespace SE_Assignment
 
 
             // View all Orders (Li Yun)
-             void viewOrders(Customer cust)
-             {
+            void viewOrders(Customer cust)
+            {
                 Boolean CurrentPastOrderOption = false;
 
                 Console.WriteLine("\n All Orders:");
@@ -359,7 +359,7 @@ namespace SE_Assignment
                     CurrentOrPastOrder(currentCust);
                 }
 
-             }
+            }
 
             void CurrentOrPastOrder(Customer cust)
             {
